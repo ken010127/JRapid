@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>
+        代码生成器配置文件，使用xml形式的properties文件可以支持中文
+    </comment>
+
+    <!--输出根目录-->
+    <entry key="outRoot">E:/testJrapid/</entry>
+
+    <!--生成基础包名-->
+    <entry key="basePackage">org.jrapid</entry>
+    <entry key="package">platform</entry>
+
+    <!--要生成的table，可以用%表示全部-->
+    <entry key="tables">ISP_USER</entry>
+
+    <!--模板根目录-->
+    <entry key="templateRoot">E:\ideawork\JRapid\JRapid-test\src\main\resources\template\</entry>
+
+    <!--是否生成实体-->
+    <entry key="entity.isGenerate">true</entry>
+    <!--实体模板-->
+    <entry key="entity.template">entityTemplate.ftl</entry>
+
+    <!--是否生成Dao-->
+    <entry key="dao.isGenerate">false</entry>
+    <!--Dao模板-->
+    <entry key="dao.template">daoTemplate.ftl</entry>
+
+    <!--是否生成Service-->
+    <entry key="service.isGenerate">false</entry>
+    <!--service模板-->
+    <entry key="service.template">serviceTemplate.ftl</entry>
+
+    <!--是否生成Controller-->
+    <entry key="controller.isGenerate">false</entry>
+    <!--Controller模板-->
+    <entry key="controller.template">controllerTemplate.ftl</entry>
+
+    <!--是否生成View-->
+    <entry key="view.isGenerate">false</entry>
+    <!--视图位置-->
+    <entry key="view.Root"></entry>
+
+    <entry key="view.jspTemplate"></entry>
+
+    <entry key="view.jsTemplate"></entry>
+
+
+
+    <!--数据库-->
+
+    <entry key="jdbc.username">isp2014</entry>
+    <entry key="jdbc.password">isp2014</entry>
+
+    <!-- Mysql
+    <entry key="jdbc.url">jdbc:mysql://192.168.1.111:3306/eam?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+    <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>-->
+
+    <!-- Oracle		jdbc:oracle:oci:@tnsname_devdb -->
+    <entry key="jdbc.url">jdbc:oracle:thin:@192.168.1.68:1521:orcl</entry>
+    <entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
+
+
+    <!-- SQLServer2000
+    <entry key="jdbc.url">jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=[database]</entry>
+    <entry key="jdbc.driver">com.microsoft.jdbc.sqlserver.SQLServerDriver</entry>
+    -->
+
+    <!-- SQLServer2005
+    <entry key="jdbc.url">jdbc:sqlserver://192.168.0.98:1433;DatabaseName=[database]</entry>
+    <entry key="jdbc.driver">com.microsoft.sqlserver.jdbc.SQLServerDriver</entry>
+    -->
+
+    <!-- JTDs for SQLServer
+    <entry key="jdbc.url">jdbc:jtds:sqlserver://192.168.0.102:1433/[database];tds=8.0;lastupdatecount=true</entry>
+    <entry key="jdbc.driver">net.sourceforge.jtds.jdbc.Driver</entry>
+    -->
+
+    <!-- PostgreSql
+    <entry key="jdbc.url">jdbc:postgresql://localhost/[database]</entry>
+    <entry key="jdbc.driver">org.postgresql.Driver</entry>
+     -->
+
+    <!-- Sybase
+    <entry key="jdbc.url">jdbc:sybase:Tds:localhost:5007/[database]</entry>
+    <entry key="jdbc.driver">com.sybase.jdbc.SybDriver</entry>
+     -->
+
+    <!-- DB2
+    <entry key="jdbc.url">jdbc:db2://localhost:5000/[database]</entry>
+    <entry key="jdbc.driver">com.ibm.db2.jdbc.app.DB2Driver</entry>
+    -->
+
+    <!-- HsqlDB
+    <entry key="jdbc.url">jdbc:hsqldb:mem:generatorDB</entry>
+    <entry key="jdbc.driver">org.hsqldb.jdbcDriver</entry>
+    -->
+
+    <!-- Derby
+    <entry key="jdbc.url">jdbc:derby://localhost/databaseName</entry>
+    <entry key="jdbc.driver">org.apache.derby.jdbc.ClientDriver</entry>
+    -->
+
+    <!-- H2
+    <entry key="jdbc.url">jdbc:h2:tcp://localhost/~/test</entry>
+    <entry key="jdbc.driver">org.h2.Driver</entry>
+    -->
+
+</properties>

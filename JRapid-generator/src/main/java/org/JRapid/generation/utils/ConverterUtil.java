@@ -1,0 +1,69 @@
+package org.JRapid.generation.utils;
+
+import org.JRapid.generation.bean.Entity;
+import org.JRapid.generation.bean.Field;
+import org.JRapid.generation.constants.ColumnConstants;
+import org.JRapid.generation.constants.TableConstants;
+import org.JRapid.generation.jdbc.JdbcGenericDao;
+import org.JRapid.generation.jdbc.JdbcTypesUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 转换器，将表结构转换成javabean
+ * Created by FengWeijian on 2015/5/8.
+ */
+public class ConverterUtil {
+
+    /**
+     * 将表结构转换成javabean
+     * @return Entity
+     */
+    public List<Entity> convert(){
+        JdbcGenericDao dao = new JdbcGenericDao();
+        List<Entity> entities = new ArrayList<Entity>();
+
+        List<Map<String,String>> tables = dao.queryTableInfo(PropertiesUtil.getValue("tables"));
+
+        for (Map<String,String> table:tables){
+            Entity entity = new Entity();
+            entity.setBasePackage(PropertiesUtil.getValue("basePackage"));
+            entity.setPackageName(PropertiesUtil.getValue("package"));
+            String tableName = table.get(TableConstants.TABLE_NAME);
+            entity.setClassName(StringUtil.underlineToCamel(tableName));
+            entity.setTableName(tableName);
+            entity.setComments(table.get(TableConstants.REMARKS));
+
+            List<Field> fields = new ArrayList<Field>();
+            List<Map<String,String>> columns = dao.queryColumnInfos(tableName);
+            List<String> pks = dao.queryPrimaryKeys(tableName);
+            for (Map<String,String> column:columns){
+                Field field = new Field();
+                //设置是否是主键
+                if(pks.contains(column.get(ColumnConstants.COLUMN_NAME))){
+                    field.setPk(true);
+                }else{
+                    field.setPk(false);
+                }
+                field.setColumnName(column.get(ColumnConstants.COLUMN_NAME));
+                field.setComments(column.get(ColumnConstants.REMARKS));
+                field.setFieldName(StringUtil.underlineToCamel1(column.get(ColumnConstants.COLUMN_NAME)));
+
+                Integer type = Integer.parseInt(column.get(ColumnConstants.DATA_TYPE));
+                field.setType(JdbcTypesUtils.jdbcTypeToJavaType(type).getName());
+
+                fields.add(field);
+            }
+
+            entity.setFields(fields);
+            entities.add(entity);
+        }
+        dao.closeConn();
+        return entities;
+    }
+
+
+
+}
