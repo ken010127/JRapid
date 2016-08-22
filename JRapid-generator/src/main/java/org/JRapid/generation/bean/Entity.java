@@ -16,7 +16,7 @@ public class Entity {
     /**
      * 包名
      */
-    private String packageName;
+    private String modulePackage;
 
     /**
      * 实体描述
@@ -34,6 +34,11 @@ public class Entity {
     private String className;
 
     /**
+     * 主键字段
+     */
+    private List<Field> pkColumns;
+
+    /**
      * 所包含的字段
      */
     private List<Field> fields;
@@ -46,12 +51,12 @@ public class Entity {
         this.basePackage = basePackage;
     }
 
-    public String getPackageName() {
-        return packageName;
+    public String getModulePackage() {
+        return modulePackage;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setModulePackage(String modulePackage) {
+        this.modulePackage = modulePackage;
     }
 
     public String getComments() {
@@ -80,6 +85,14 @@ public class Entity {
 
     public List<Field> getFields() {
         return fields;
+    }
+
+    public List<Field> getPkColumns() {
+        return pkColumns;
+    }
+
+    public void setPkColumns(List<Field> pkColumns) {
+        this.pkColumns = pkColumns;
     }
 
     public void setFields(List<Field> fields) {

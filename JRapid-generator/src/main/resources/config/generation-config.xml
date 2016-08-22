@@ -10,10 +10,10 @@
 
     <!--生成基础包名-->
     <entry key="basePackage">org.jrapid</entry>
-    <entry key="package">platform</entry>
+    <entry key="modulePackage">platform</entry>
 
     <!--要生成的table，可以用%表示全部-->
-    <entry key="tables">ISP_USER</entry>
+    <entry key="tables">SPO_IN_DISC_BILL</entry>
 
     <!--模板根目录-->
     <entry key="templateRoot">E:\ideawork\JRapid\JRapid-test\src\main\resources\template\</entry>
@@ -49,19 +49,20 @@
 
 
 
-    <!--数据库-->
-
-    <entry key="jdbc.username">isp2014</entry>
-    <entry key="jdbc.password">isp2014</entry>
+    <!--数据库类型：Oracle，Mysql等-->
+    <entry key="jdbc.dbType">Oracle</entry>
+    <!--用户名-->
+    <entry key="jdbc.username">spo</entry>
+    <!--密码-->
+    <entry key="jdbc.password">Spo164#dev</entry>
 
     <!-- Mysql
     <entry key="jdbc.url">jdbc:mysql://192.168.1.111:3306/eam?useUnicode=true&amp;characterEncoding=UTF-8</entry>
     <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>-->
 
     <!-- Oracle		jdbc:oracle:oci:@tnsname_devdb -->
-    <entry key="jdbc.url">jdbc:oracle:thin:@192.168.1.68:1521:orcl</entry>
+    <entry key="jdbc.url">jdbc:oracle:thin:@10.16.18.164:1664:cssdev</entry>
     <entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
-
 
     <!-- SQLServer2000
     <entry key="jdbc.url">jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=[database]</entry>

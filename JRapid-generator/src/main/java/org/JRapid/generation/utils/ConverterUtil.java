@@ -30,7 +30,7 @@ public class ConverterUtil {
         for (Map<String,String> table:tables){
             Entity entity = new Entity();
             entity.setBasePackage(PropertiesUtil.getValue("basePackage"));
-            entity.setPackageName(PropertiesUtil.getValue("package"));
+            entity.setModulePackage(PropertiesUtil.getValue("modulePackage"));
             String tableName = table.get(TableConstants.TABLE_NAME);
             entity.setClassName(StringUtil.underlineToCamel(tableName));
             entity.setTableName(tableName);
@@ -38,15 +38,12 @@ public class ConverterUtil {
 
             List<Field> fields = new ArrayList<Field>();
             List<Map<String,String>> columns = dao.queryColumnInfos(tableName);
-            List<String> pks = dao.queryPrimaryKeys(tableName);
+            List<Field> pks = new ArrayList<Field>();
+
+
             for (Map<String,String> column:columns){
                 Field field = new Field();
-                //设置是否是主键
-                if(pks.contains(column.get(ColumnConstants.COLUMN_NAME))){
-                    field.setPk(true);
-                }else{
-                    field.setPk(false);
-                }
+
                 field.setColumnName(column.get(ColumnConstants.COLUMN_NAME));
                 field.setComments(column.get(ColumnConstants.REMARKS));
                 field.setFieldName(StringUtil.underlineToCamel1(column.get(ColumnConstants.COLUMN_NAME)));
@@ -54,9 +51,16 @@ public class ConverterUtil {
                 Integer type = Integer.parseInt(column.get(ColumnConstants.DATA_TYPE));
                 field.setType(JdbcTypesUtils.jdbcTypeToJavaType(type).getName());
 
+                //设置是否是主键
+                if(pks.contains(column.get(ColumnConstants.COLUMN_NAME))){
+                    field.setPk(true);
+                    pks.add(field);
+                }else{
+                    field.setPk(false);
+                }
                 fields.add(field);
             }
-
+            entity.setPkColumns(pks);
             entity.setFields(fields);
             entities.add(entity);
         }

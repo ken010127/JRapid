@@ -5,7 +5,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.JRapid.generation.bean.Entity;
 import org.JRapid.generation.utils.PropertiesUtil;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,11 +14,12 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-
 /**
- * Created by FengWeijian on 2015/5/7.
+ * Spring mvc + Spring + Mybatis 生成
+ * Created by FWJ on 2016/8/19 10:10
  */
-public class JRapidGenerationImpl extends Generation {
+public class SSMGenerationImpl extends Generation {
+    protected static Logger logger = LoggerFactory.getLogger(SSMGenerationImpl.class);
     @Override
     public void generateEntity(Configuration cfg,List<Entity> entities) {
         try {
@@ -30,7 +32,7 @@ public class JRapidGenerationImpl extends Generation {
             org.apache.commons.io.FileUtils.forceMkdir(fileDir);
 
             for (Entity entity : entities) {
-                System.out.println("生成："+ entity.getClassName() +".java");
+                logger.info("生成 {}.java 开始",entity.getClassName());
                 // 指定生成输出的文件
                 StringBuilder filePath = new StringBuilder(fileDir.getPath()).append(File.separatorChar).append(entity.getClassName()).append(".java");
                 File output = new File(filePath.toString());
@@ -38,7 +40,7 @@ public class JRapidGenerationImpl extends Generation {
                 template.process(entity, writer);
                 //writer.flush();//输出到控制台
                 writer.close();
-                System.out.println("生成结束！");
+                logger.info("生成{}.java结束！",entity.getClassName());
             }
 
         } catch (IOException e) {
@@ -60,7 +62,7 @@ public class JRapidGenerationImpl extends Generation {
             org.apache.commons.io.FileUtils.forceMkdir(fileDir);
 
             for (Entity entity : entities) {
-                System.out.println("生成："+ entity.getClassName() +"Dao.java");
+                logger.info("生成 {}Dao.java 开始",entity.getClassName() );
                 // 指定生成输出的文件
                 StringBuilder filePath = new StringBuilder(fileDir.getPath()).append(File.separatorChar).append(entity.getClassName()).append("Dao.java");
                 File output = new File(filePath.toString());
@@ -68,7 +70,7 @@ public class JRapidGenerationImpl extends Generation {
                 template.process(entity, writer);
                 //writer.flush();//输出到控制台
                 writer.close();
-                System.out.println("生成结束！");
+                logger.info("生成 {}Dao.java 结束！",entity.getClassName());
             }
 
         } catch (IOException e) {
@@ -90,7 +92,7 @@ public class JRapidGenerationImpl extends Generation {
             org.apache.commons.io.FileUtils.forceMkdir(fileDir);
 
             for (Entity entity : entities) {
-                System.out.println("生成："+ entity.getClassName() +"Service.java");
+                logger.info("生成 {}Service.java 开始",entity.getClassName());
                 // 指定生成输出的文件
                 StringBuilder filePath = new StringBuilder(fileDir.getPath()).append(File.separatorChar).append(entity.getClassName()).append("Service.java");
                 File output = new File(filePath.toString());
@@ -98,7 +100,7 @@ public class JRapidGenerationImpl extends Generation {
                 template.process(entity, writer);
                 //writer.flush();//输出到控制台
                 writer.close();
-                System.out.println("生成结束！");
+                logger.info("生成 {}Service.java 结束！",entity.getClassName());
             }
 
         } catch (IOException e) {
@@ -114,7 +116,8 @@ public class JRapidGenerationImpl extends Generation {
     }
 
     @Override
-    public void generateView(Configuration cfg,List<Entity> entities) {
+    public void generateView(Configuration cfg, List<Entity> entities) {
 
     }
+
 }

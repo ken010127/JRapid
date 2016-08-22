@@ -5,10 +5,7 @@ import org.JRapid.generation.constants.TableConstants;
 import org.JRapid.generation.utils.PropertiesUtil;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * JDBC查询类
@@ -26,9 +23,22 @@ public class JdbcGenericDao {
      * @throws Exception
      */
     public Connection getConnection() throws Exception{
-        Class.forName(PropertiesUtil.getValue("jdbc.driver"));
-        return DriverManager.getConnection(PropertiesUtil.getValue("jdbc.url"), PropertiesUtil.getValue("jdbc.username"),
-                PropertiesUtil.getValue("jdbc.password"));
+        Connection conn = null;
+        Properties props =new Properties();
+        try {
+            Class.forName(PropertiesUtil.getValue("jdbc.driver"));
+            props.setProperty("user", PropertiesUtil.getValue("jdbc.username"));
+            props.setProperty("password", PropertiesUtil.getValue("jdbc.password"));
+            props.setProperty("remarks", "true"); //设置可以获取remarks信息
+            props.setProperty("useInformationSchema", "true");//设置可以获取tables remarks信息
+
+            conn = DriverManager.getConnection(PropertiesUtil.getValue("jdbc.url"),props);
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return conn;
     }
 
     /**
@@ -92,7 +102,7 @@ public class JdbcGenericDao {
     }
 
     /**
-     * 获取表的所有属性
+     * 获取表的所有字段属性
      * @param tableName 表名
      * @return
      */
@@ -115,6 +125,7 @@ public class JdbcGenericDao {
                 //是否为空，0非空，1为空
                 int nullable = rs.getInt("NULLABLE");
                 column.put(ColumnConstants.NULLABLE,Integer.toString(nullable));
+                column.put(ColumnConstants.REMARKS,rs.getString(ColumnConstants.REMARKS));
                 fieldInfos.add(column);
             }
         }catch (Exception e){

@@ -13,7 +13,7 @@ public class PropertiesUtil {
     private static Properties prop = new Properties();
 
     static  {
-        InputStream in = Object. class .getResourceAsStream( "/config/generation-config.xml" );
+        InputStream in = Object.class.getResourceAsStream( "/config/generation-config.xml" );
         try  {
             prop.loadFromXML(in);
         }  catch  (IOException e) {

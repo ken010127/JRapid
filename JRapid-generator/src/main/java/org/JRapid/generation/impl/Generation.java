@@ -23,7 +23,7 @@ public abstract class Generation {
         try {
             Configuration cfg = new Configuration();
             cfg.setEncoding(Locale.getDefault(), "UTF-8");
-            cfg.setDirectoryForTemplateLoading(new File(PropertiesUtil.getValue("templateRoot")));
+            cfg.setDirectoryForTemplateLoading(new File(this.getClass().getResource("/tmpl/").getFile()));
 
             cfg.setObjectWrapper(new DefaultObjectWrapper());
 

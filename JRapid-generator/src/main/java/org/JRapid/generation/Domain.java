@@ -2,7 +2,7 @@ package org.JRapid.generation;
 
 
 import org.JRapid.generation.impl.Generation;
-import org.JRapid.generation.impl.JRapidGenerationImpl;
+import org.JRapid.generation.impl.SSMGenerationImpl;
 
 /**
  * 执行生成操作类
@@ -11,7 +11,7 @@ import org.JRapid.generation.impl.JRapidGenerationImpl;
 public class Domain {
 
     public static void main(String[] args) {
-        Generation generation = new JRapidGenerationImpl();
+        Generation generation = new SSMGenerationImpl();
         generation.generate();
     }
 
