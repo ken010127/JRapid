@@ -54,7 +54,7 @@
 
     <!--保存,只针对于一个主键-->
     <#if (pkColumns?size==1)>
-	<insert id="save"<#list pkColumns as pk> <#if pk.type=="Long">useGeneratedKeys="true" keyProperty="${pk.fieldName}" <#elseif pk.type=="Integer">useGeneratedKeys="true" keyProperty="${pk.fieldName}" </#if></#list>parameterType="${basePackage}.${modulePackage}.entity.${className}">
+	<insert id="save"<#list pkColumns as pk> useGeneratedKeys="false" keyProperty="${pk.fieldName}" parameterType="${basePackage}.${modulePackage}.entity.${className}">
 		insert into ${tableName}
 		(<include refid="baseColumnList" />
 		)

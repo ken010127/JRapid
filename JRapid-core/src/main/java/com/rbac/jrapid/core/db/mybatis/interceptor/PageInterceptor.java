@@ -1,4 +1,4 @@
-package com.rbac.jrapid.core.db.mybatis;
+package com.rbac.jrapid.core.db.mybatis.interceptor;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+import com.rbac.jrapid.core.db.common.Page;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -24,8 +25,8 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 
 /**
  * 分页拦截器，用于拦截需要进行分页查询的操作，然后对其进行分页处理
- * @author: FWJ
- * @date 2016/8/20  15:27
+ * @author FWJ
+ * @Created on 2016/8/20 15:27
  */
 @Intercepts( {
         @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class}) })

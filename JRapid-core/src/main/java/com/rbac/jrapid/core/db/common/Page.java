@@ -1,4 +1,4 @@
-package com.rbac.jrapid.core.db.mybatis;
+package com.rbac.jrapid.core.db.common;
 
 import java.util.HashMap;
 import java.util.List;

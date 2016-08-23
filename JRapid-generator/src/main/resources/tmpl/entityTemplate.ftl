@@ -5,7 +5,7 @@ package ${basePackage}.${modulePackage}.entity;
 * ${comments}实体类
 * Created by JRapid on ${.now?datetime}.
 */
-public class ${className} {
+public class ${className} implements Serializable {
 
     <#list fields as field>
     public final static String ${field.columnName?upper_case} = "${field.columnName}";
@@ -15,6 +15,9 @@ public class ${className} {
     /**
     * ${field.comments}
     **/
+    <#if field.pk>
+    @pk
+    </#if>
     private ${field.type} ${field.fieldName};
 
     </#list>
