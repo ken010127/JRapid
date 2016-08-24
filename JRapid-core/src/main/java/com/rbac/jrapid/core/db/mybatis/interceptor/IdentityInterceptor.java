@@ -1,6 +1,6 @@
 package com.rbac.jrapid.core.db.mybatis.interceptor;
 
-import com.rbac.jrapid.core.db.common.IdWorker;
+import com.rbac.jrapid.core.common.dao.IdWorker;
 import com.rbac.jrapid.core.db.mybatis.annotation.AnnotationParser;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;

@@ -1,4 +1,4 @@
-package com.rbac.jrapid.core.utils;
+package com.rbac.jrapid.core.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

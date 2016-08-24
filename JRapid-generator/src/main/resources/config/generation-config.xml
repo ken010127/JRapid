@@ -6,10 +6,10 @@
     </comment>
 
     <!--输出根目录-->
-    <entry key="outRoot">E:/testJrapid/</entry>
+    <entry key="outRoot">E:\myWorkSpace\JRapid\JRapid-generator\output</entry>
 
     <!--生成基础包名-->
-    <entry key="basePackage">org.jrapid</entry>
+    <entry key="basePackage">com.rbac.jrapid</entry>
     <entry key="modulePackage">platform</entry>
 
     <!--要生成的table，可以用%表示全部-->
@@ -19,25 +19,13 @@
     <entry key="templateRoot">E:\ideawork\JRapid\JRapid-test\src\main\resources\template\</entry>
 
     <!--是否生成实体-->
-    <entry key="entity.isGenerate">true</entry>
-    <!--实体模板-->
-    <entry key="entity.template">entityTemplate.ftl</entry>
-
+    <entry key="entity.isGenerate">false</entry>
     <!--是否生成Dao-->
-    <entry key="dao.isGenerate">false</entry>
-    <!--Dao模板-->
-    <entry key="dao.template">daoTemplate.ftl</entry>
-
+    <entry key="dao.isGenerate">true</entry>
     <!--是否生成Service-->
     <entry key="service.isGenerate">false</entry>
-    <!--service模板-->
-    <entry key="service.template">serviceTemplate.ftl</entry>
-
     <!--是否生成Controller-->
     <entry key="controller.isGenerate">false</entry>
-    <!--Controller模板-->
-    <entry key="controller.template">controllerTemplate.ftl</entry>
-
     <!--是否生成View-->
     <entry key="view.isGenerate">false</entry>
     <!--视图位置-->

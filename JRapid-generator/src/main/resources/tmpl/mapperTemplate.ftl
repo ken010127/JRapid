@@ -7,9 +7,9 @@
 	<resultMap id="baseResultMap" type="${basePackage}.${modulePackage}.entity.${className}">
         <#list fields as field>
             <#if field.pk>
-                <id column="${field.columnName}" property="${field.fieldName}" />      <!-- ${field.comment} -->
+                <id column="${field.columnName}" property="${field.fieldName}" />      <!-- ${field.comments} -->
             <#else>
-		        <result column="${field.columnName}" property="${field.fieldName}"/>		<!-- ${field.comment} -->
+		        <result column="${field.columnName}" property="${field.fieldName}"/>		<!-- ${field.comments} -->
 			</#if>
 		</#list>
 	</resultMap>
@@ -27,12 +27,12 @@
         where <#list fields as field> ${field.columnName} = ${r"#"}{${field.fieldName}} <#if field_has_next>,</#if></#list>
     </select>
     <#else>
-    <#list fields as field>
-    <select id="findOne" resultMap="baseResultMap" parameterType="${field.type}">
+    <#list pkColumns as pk>
+    <select id="findOne" resultMap="baseResultMap" parameterType="${pk.type}">
         select
             <include refid="baseColumnList" />
         from ${tableName}
-        where ${field.columnName} = ${r"#"}{${field.fieldName}}
+        where ${pk.columnName} = ${r"#"}{${pk.fieldName}}
     </select>
     </#list>
     </#if>
@@ -44,22 +44,22 @@
         where <#list fields as field> ${field.columnName} = ${r"#"}{${field.fieldName}} <#if field_has_next>,</#if></#list>
     </delete>
     <#else>
-    <#list fields as field>
-    <delete id="findOne" resultMap="baseResultMap" parameterType="${field.type}">
+    <#list pkColumns as pk>
+    <delete id="delete" parameterType="${pk.type}">
         delete from ${tableName}
-        where ${field.columnName} = ${r"#"}{${field.fieldName}}
+        where ${pk.columnName} = ${r"#"}{${pk.fieldName}}
     </delete>
     </#list>
     </#if>
 
     <!--保存,只针对于一个主键-->
     <#if (pkColumns?size==1)>
-	<insert id="save"<#list pkColumns as pk> useGeneratedKeys="false" keyProperty="${pk.fieldName}" parameterType="${basePackage}.${modulePackage}.entity.${className}">
+	<insert id="save"<#list pkColumns as pk> useGeneratedKeys="false" keyProperty="${pk.fieldName}" parameterType="${basePackage}.${modulePackage}.entity.${className}"></#list>
 		insert into ${tableName}
 		(<include refid="baseColumnList" />
 		)
 		values
-		(	<#list field as field>${r"#"}{${field.fieldName}}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t\t"}</#if></#if></#list>
+		(	<#list fields as field>${r"#"}{${field.fieldName}}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t\t"}</#if></#if></#list>
 		)
 	</insert>
     </#if>

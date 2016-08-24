@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.platform.core.dao.SpoInDiscBillMapper">
+
+	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
+
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+                <id column="ROW_ID" property="rowId" />      <!-- ROW_ID -->
+		        <result column="ORG_CODE" property="orgCode"/>		<!-- 业务主体编码 -->
+		        <result column="IN_BILL_NO" property="inBillNo"/>		<!-- 入库单号，从入库单表中选择做入库差异的入库单号。 -->
+		        <result column="APPLY_BILL_NO" property="applyBillNo"/>		<!-- 申请单号，根据系统单据规则生成。 -->
+		        <result column="APPLY_STATUS" property="applyStatus"/>		<!-- 单据状态，单据状态有：草稿、已提交、已审核、已驳回，从CODELIST中的入库差异单据状态（SPO_DIFFERENCE_STATUS）中获取。 -->
+		        <result column="APPLY_DATE" property="applyDate"/>		<!-- 申请日期，单据新增保存时的系统时间。 -->
+		        <result column="SEND_UNIT_ID" property="sendUnitId"/>		<!-- 发货仓库组织ID，发货单位，从选择的入库单中带出。 -->
+		        <result column="SEND_UNIT_CODE" property="sendUnitCode"/>		<!-- 发货仓库组织代码，发货单位，从选择的入库单中带出。 -->
+		        <result column="SEND_UNIT_NAME" property="sendUnitName"/>		<!-- 发货仓库组织名称，发货单位，从选择的入库单中带出。 -->
+		        <result column="SEND_WAREHOUSE_ID" property="sendWarehouseId"/>		<!-- 发货仓库ID，发货仓库，从选择的入库单中带出。 -->
+		        <result column="SEND_WAREHOUSE_CODE" property="sendWarehouseCode"/>		<!-- 发货仓库编码，发货仓库，从选择的入库单中带出。 -->
+		        <result column="SEND_WAREHOUSE_NAME" property="sendWarehouseName"/>		<!-- 发货仓库名称，发货仓库，从选择的入库单中带出。 -->
+		        <result column="RC_UNIT_ID" property="rcUnitId"/>		<!-- 收货仓库组织ID，收货单位，从选择的入库单中带出。 -->
+		        <result column="RC_UNIT_CODE" property="rcUnitCode"/>		<!-- 收货仓库组织代码，收货单位，从选择的入库单中带出。 -->
+		        <result column="RC_UNIT_NAME" property="rcUnitName"/>		<!-- 收货仓库组织名称，收货单位，从选择的入库单中带出。 -->
+		        <result column="RC_WAREHOUSE_ID" property="rcWarehouseId"/>		<!-- 收货仓库ID，收货仓库，从选择的入库单中带出。 -->
+		        <result column="RC_WAREHOUSE_CODE" property="rcWarehouseCode"/>		<!-- 本仓库编码，收货仓库，从选择的入库单中带出。 -->
+		        <result column="RC_WAREHOUSE_NAME" property="rcWarehouseName"/>		<!-- 本仓库名称，收货仓库，从选择的入库单中带出。 -->
+		        <result column="CARRIER_ID" property="carrierId"/>		<!-- 承运商ID，从入库单对应的业务单据的对应出库单对应的运输合同中关联出运输合同。
+ -->
+		        <result column="CARRIER_CODE" property="carrierCode"/>		<!-- 承运商编码，从入库单对应的业务单据的对应出库单对应的运输合同中关联出运输合同。 -->
+		        <result column="CARRIER_NAME" property="carrierName"/>		<!-- 承运商名称，从入库单对应的业务单据的对应出库单对应的运输合同中关联出运输合同。 -->
+		        <result column="APPLY_PERSON" property="applyPerson"/>		<!-- 申请人编码，新增单据保存时的操作用户。 -->
+		        <result column="APPLY_NAME" property="applyName"/>		<!-- 申请人姓名，新增单据保存时的操作用户。 -->
+		        <result column="REFER_BILL_CODE" property="referBillCode"/>		<!-- 来源单据号，入库单对应的业务单据号，从入库单中带出。 -->
+		        <result column="STRAIGHT_ORIGINAL_CODE" property="straightOriginalCode"/>		<!-- 直发业务单号，小电模式下业务单据号，其他模式下此字段为空。 -->
+		        <result column="OUT_BILL_NO" property="outBillNo"/>		<!-- 出库单号，从选择的入库单关联的业务单据中获取对应的出库单号。 -->
+		        <result column="MIP_FLAG" property="mipFlag"/>		<!-- 是否走MIP流程，如果收货单位为网点，则为是，否则为否，从CODELIST中的是否走MIP流程标识（SPO_MIP_FLAG）中获取。 -->
+		        <result column="DOT_AUDIT_RESULT" property="dotAuditResult"/>		<!-- 审核结果，审核通过、审核不通过,从CODELIST中的审核结果（SPO_AUDIT_RESULTS）获取。 -->
+		        <result column="DOT_AUDIT_DESC" property="dotAuditDesc"/>		<!-- 审核说明，审核时填写审核说明。 -->
+		        <result column="PUB_REMARK" property="pubRemark"/>		<!-- 备注 -->
+		        <result column="PUB_VALIDLY" property="pubValidly"/>		<!-- 是否有效 1-有效、0-无效 -->
+		        <result column="BRAND_CODE" property="brandCode"/>		<!-- 品牌编码 -->
+		        <result column="BRAND_NAME" property="brandName"/>		<!-- 品牌名称 -->
+		        <result column="VERSION" property="version"/>		<!-- 版本号 -->
+		        <result column="PUB_CREATE_PERSON" property="pubCreatePerson"/>		<!-- 创建人编码 -->
+		        <result column="PUB_CREATE_DATE" property="pubCreateDate"/>		<!-- 创建日期 -->
+		        <result column="PUB_MODI_PERSON" property="pubModiPerson"/>		<!-- 最近修改人编码 -->
+		        <result column="PUB_MODI_DATE" property="pubModiDate"/>		<!-- 最近修改日期 -->
+		        <result column="PUB_CREATE_PERSON_NAME" property="pubCreatePersonName"/>		<!-- 创建人名称 -->
+		        <result column="PUB_MODI_PERSON_NAME" property="pubModiPersonName"/>		<!-- 最近修改人名称 -->
+		        <result column="REFER_TYPE_ID" property="referTypeId"/>		<!-- 来源单据类型id，入库单对应的业务单据类型id，从入库单中带出。 -->
+		        <result column="REFER_TYPE_NAME" property="referTypeName"/>		<!-- 来源单据类型名称，入库单对应的业务单据类型名称，从入库单中带出。 -->
+	</resultMap>
+
+	<sql id="baseColumnList">
+        ROW_ID,ORG_CODE,IN_BILL_NO,APPLY_BILL_NO,APPLY_STATUS,
+		APPLY_DATE,SEND_UNIT_ID,SEND_UNIT_CODE,SEND_UNIT_NAME,SEND_WAREHOUSE_ID,
+		SEND_WAREHOUSE_CODE,SEND_WAREHOUSE_NAME,RC_UNIT_ID,RC_UNIT_CODE,RC_UNIT_NAME,
+		RC_WAREHOUSE_ID,RC_WAREHOUSE_CODE,RC_WAREHOUSE_NAME,CARRIER_ID,CARRIER_CODE,
+		CARRIER_NAME,APPLY_PERSON,APPLY_NAME,REFER_BILL_CODE,STRAIGHT_ORIGINAL_CODE,
+		OUT_BILL_NO,MIP_FLAG,DOT_AUDIT_RESULT,DOT_AUDIT_DESC,PUB_REMARK,
+		PUB_VALIDLY,BRAND_CODE,BRAND_NAME,VERSION,PUB_CREATE_PERSON,
+		PUB_CREATE_DATE,PUB_MODI_PERSON,PUB_MODI_DATE,PUB_CREATE_PERSON_NAME,PUB_MODI_PERSON_NAME,
+		REFER_TYPE_ID,REFER_TYPE_NAME
+	</sql>
+
+    <!--根据主键获取记录-->
+    <select id="findOne" resultMap="baseResultMap" parameterType="java.lang.String">
+        select
+            <include refid="baseColumnList" />
+        from SPO_IN_DISC_BILL
+        where ROW_ID = #{rowId}
+    </select>
+
+    <!--根据主键删除记录-->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from SPO_IN_DISC_BILL
+        where ROW_ID = #{rowId}
+    </delete>
+
+    <!--保存,只针对于一个主键-->
+	<insert id="save" useGeneratedKeys="false" keyProperty="rowId" parameterType="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+		insert into SPO_IN_DISC_BILL
+		(<include refid="baseColumnList" />
+		)
+		values
+		(	#{rowId},#{orgCode},#{inBillNo},#{applyBillNo},#{applyStatus},
+			#{applyDate},#{sendUnitId},#{sendUnitCode},#{sendUnitName},#{sendWarehouseId},
+			#{sendWarehouseCode},#{sendWarehouseName},#{rcUnitId},#{rcUnitCode},#{rcUnitName},
+			#{rcWarehouseId},#{rcWarehouseCode},#{rcWarehouseName},#{carrierId},#{carrierCode},
+			#{carrierName},#{applyPerson},#{applyName},#{referBillCode},#{straightOriginalCode},
+			#{outBillNo},#{mipFlag},#{dotAuditResult},#{dotAuditDesc},#{pubRemark},
+			#{pubValidly},#{brandCode},#{brandName},#{version},#{pubCreatePerson},
+			#{pubCreateDate},#{pubModiPerson},#{pubModiDate},#{pubCreatePersonName},#{pubModiPersonName},
+			#{referTypeId},#{referTypeName}
+		)
+	</insert>
+
+    <!--更新规定字段-->
+	<update id="updateSelected">
+		update SPO_IN_DISC_BILL
+		<set>
+			<foreach collection="columns" item="column" separator=",">
+				<choose>
+					<when test="column=='orgCode' || column=='ORG_CODE'">
+						ORG_CODE=#{record.orgCode}
+					</when>
+					<when test="column=='inBillNo' || column=='IN_BILL_NO'">
+						IN_BILL_NO=#{record.inBillNo}
+					</when>
+					<when test="column=='applyBillNo' || column=='APPLY_BILL_NO'">
+						APPLY_BILL_NO=#{record.applyBillNo}
+					</when>
+					<when test="column=='applyStatus' || column=='APPLY_STATUS'">
+						APPLY_STATUS=#{record.applyStatus}
+					</when>
+					<when test="column=='applyDate' || column=='APPLY_DATE'">
+						APPLY_DATE=#{record.applyDate}
+					</when>
+					<when test="column=='sendUnitId' || column=='SEND_UNIT_ID'">
+						SEND_UNIT_ID=#{record.sendUnitId}
+					</when>
+					<when test="column=='sendUnitCode' || column=='SEND_UNIT_CODE'">
+						SEND_UNIT_CODE=#{record.sendUnitCode}
+					</when>
+					<when test="column=='sendUnitName' || column=='SEND_UNIT_NAME'">
+						SEND_UNIT_NAME=#{record.sendUnitName}
+					</when>
+					<when test="column=='sendWarehouseId' || column=='SEND_WAREHOUSE_ID'">
+						SEND_WAREHOUSE_ID=#{record.sendWarehouseId}
+					</when>
+					<when test="column=='sendWarehouseCode' || column=='SEND_WAREHOUSE_CODE'">
+						SEND_WAREHOUSE_CODE=#{record.sendWarehouseCode}
+					</when>
+					<when test="column=='sendWarehouseName' || column=='SEND_WAREHOUSE_NAME'">
+						SEND_WAREHOUSE_NAME=#{record.sendWarehouseName}
+					</when>
+					<when test="column=='rcUnitId' || column=='RC_UNIT_ID'">
+						RC_UNIT_ID=#{record.rcUnitId}
+					</when>
+					<when test="column=='rcUnitCode' || column=='RC_UNIT_CODE'">
+						RC_UNIT_CODE=#{record.rcUnitCode}
+					</when>
+					<when test="column=='rcUnitName' || column=='RC_UNIT_NAME'">
+						RC_UNIT_NAME=#{record.rcUnitName}
+					</when>
+					<when test="column=='rcWarehouseId' || column=='RC_WAREHOUSE_ID'">
+						RC_WAREHOUSE_ID=#{record.rcWarehouseId}
+					</when>
+					<when test="column=='rcWarehouseCode' || column=='RC_WAREHOUSE_CODE'">
+						RC_WAREHOUSE_CODE=#{record.rcWarehouseCode}
+					</when>
+					<when test="column=='rcWarehouseName' || column=='RC_WAREHOUSE_NAME'">
+						RC_WAREHOUSE_NAME=#{record.rcWarehouseName}
+					</when>
+					<when test="column=='carrierId' || column=='CARRIER_ID'">
+						CARRIER_ID=#{record.carrierId}
+					</when>
+					<when test="column=='carrierCode' || column=='CARRIER_CODE'">
+						CARRIER_CODE=#{record.carrierCode}
+					</when>
+					<when test="column=='carrierName' || column=='CARRIER_NAME'">
+						CARRIER_NAME=#{record.carrierName}
+					</when>
+					<when test="column=='applyPerson' || column=='APPLY_PERSON'">
+						APPLY_PERSON=#{record.applyPerson}
+					</when>
+					<when test="column=='applyName' || column=='APPLY_NAME'">
+						APPLY_NAME=#{record.applyName}
+					</when>
+					<when test="column=='referBillCode' || column=='REFER_BILL_CODE'">
+						REFER_BILL_CODE=#{record.referBillCode}
+					</when>
+					<when test="column=='straightOriginalCode' || column=='STRAIGHT_ORIGINAL_CODE'">
+						STRAIGHT_ORIGINAL_CODE=#{record.straightOriginalCode}
+					</when>
+					<when test="column=='outBillNo' || column=='OUT_BILL_NO'">
+						OUT_BILL_NO=#{record.outBillNo}
+					</when>
+					<when test="column=='mipFlag' || column=='MIP_FLAG'">
+						MIP_FLAG=#{record.mipFlag}
+					</when>
+					<when test="column=='dotAuditResult' || column=='DOT_AUDIT_RESULT'">
+						DOT_AUDIT_RESULT=#{record.dotAuditResult}
+					</when>
+					<when test="column=='dotAuditDesc' || column=='DOT_AUDIT_DESC'">
+						DOT_AUDIT_DESC=#{record.dotAuditDesc}
+					</when>
+					<when test="column=='pubRemark' || column=='PUB_REMARK'">
+						PUB_REMARK=#{record.pubRemark}
+					</when>
+					<when test="column=='pubValidly' || column=='PUB_VALIDLY'">
+						PUB_VALIDLY=#{record.pubValidly}
+					</when>
+					<when test="column=='brandCode' || column=='BRAND_CODE'">
+						BRAND_CODE=#{record.brandCode}
+					</when>
+					<when test="column=='brandName' || column=='BRAND_NAME'">
+						BRAND_NAME=#{record.brandName}
+					</when>
+					<when test="column=='version' || column=='VERSION'">
+						VERSION=#{record.version}
+					</when>
+					<when test="column=='pubCreatePerson' || column=='PUB_CREATE_PERSON'">
+						PUB_CREATE_PERSON=#{record.pubCreatePerson}
+					</when>
+					<when test="column=='pubCreateDate' || column=='PUB_CREATE_DATE'">
+						PUB_CREATE_DATE=#{record.pubCreateDate}
+					</when>
+					<when test="column=='pubModiPerson' || column=='PUB_MODI_PERSON'">
+						PUB_MODI_PERSON=#{record.pubModiPerson}
+					</when>
+					<when test="column=='pubModiDate' || column=='PUB_MODI_DATE'">
+						PUB_MODI_DATE=#{record.pubModiDate}
+					</when>
+					<when test="column=='pubCreatePersonName' || column=='PUB_CREATE_PERSON_NAME'">
+						PUB_CREATE_PERSON_NAME=#{record.pubCreatePersonName}
+					</when>
+					<when test="column=='pubModiPersonName' || column=='PUB_MODI_PERSON_NAME'">
+						PUB_MODI_PERSON_NAME=#{record.pubModiPersonName}
+					</when>
+					<when test="column=='referTypeId' || column=='REFER_TYPE_ID'">
+						REFER_TYPE_ID=#{record.referTypeId}
+					</when>
+					<when test="column=='referTypeName' || column=='REFER_TYPE_NAME'">
+						REFER_TYPE_NAME=#{record.referTypeName}
+					</when>
+				</choose>
+			</foreach>
+		</set>
+		where ROW_ID = #{record.rowId}
+	</update>
+
+    <!--更新所有字段-->
+	<update id="update" parameterType="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+		update SPO_IN_DISC_BILL
+		set ORG_CODE=#{record.orgCode},IN_BILL_NO=#{record.inBillNo},APPLY_BILL_NO=#{record.applyBillNo},APPLY_STATUS=#{record.applyStatus},
+			APPLY_DATE=#{record.applyDate},SEND_UNIT_ID=#{record.sendUnitId},SEND_UNIT_CODE=#{record.sendUnitCode},SEND_UNIT_NAME=#{record.sendUnitName},SEND_WAREHOUSE_ID=#{record.sendWarehouseId},
+			SEND_WAREHOUSE_CODE=#{record.sendWarehouseCode},SEND_WAREHOUSE_NAME=#{record.sendWarehouseName},RC_UNIT_ID=#{record.rcUnitId},RC_UNIT_CODE=#{record.rcUnitCode},RC_UNIT_NAME=#{record.rcUnitName},
+			RC_WAREHOUSE_ID=#{record.rcWarehouseId},RC_WAREHOUSE_CODE=#{record.rcWarehouseCode},RC_WAREHOUSE_NAME=#{record.rcWarehouseName},CARRIER_ID=#{record.carrierId},CARRIER_CODE=#{record.carrierCode},
+			CARRIER_NAME=#{record.carrierName},APPLY_PERSON=#{record.applyPerson},APPLY_NAME=#{record.applyName},REFER_BILL_CODE=#{record.referBillCode},STRAIGHT_ORIGINAL_CODE=#{record.straightOriginalCode},
+			OUT_BILL_NO=#{record.outBillNo},MIP_FLAG=#{record.mipFlag},DOT_AUDIT_RESULT=#{record.dotAuditResult},DOT_AUDIT_DESC=#{record.dotAuditDesc},PUB_REMARK=#{record.pubRemark},
+			PUB_VALIDLY=#{record.pubValidly},BRAND_CODE=#{record.brandCode},BRAND_NAME=#{record.brandName},VERSION=#{record.version},PUB_CREATE_PERSON=#{record.pubCreatePerson},
+			PUB_CREATE_DATE=#{record.pubCreateDate},PUB_MODI_PERSON=#{record.pubModiPerson},PUB_MODI_DATE=#{record.pubModiDate},PUB_CREATE_PERSON_NAME=#{record.pubCreatePersonName},PUB_MODI_PERSON_NAME=#{record.pubModiPersonName},
+			REFER_TYPE_ID=#{record.referTypeId},REFER_TYPE_NAME=#{record.referTypeName}
+		where ROW_ID = #{record.rowId}
+	</update>
+	
+	<sql id="exampleClause">
+		<trim prefixOverrides="and|or">
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and|or">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									${criterion.condition}
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 根据条件查询 -->
+	<select id="listByCondition" resultMap="baseResultMap">
+		select 
+		<include refid="baseColumnList" />
+		from SPO_IN_DISC_BILL
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+			<if test="example.orderByClause != null and example.orderByClause != ''">
+				order by ${example.orderByClause}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="countByCondition" resultType="java.lang.Integer">
+		select count(1)
+		from SPO_IN_DISC_BILL
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+		</if>
+	</select>
+
+	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
+
+</mapper>

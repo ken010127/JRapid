@@ -1,6 +1,6 @@
-package com.rbac.jrapid.core.db.common;
+package com.rbac.jrapid.core.common.dao;
 
-import com.rbac.jrapid.core.utils.DateUtil;
+import com.rbac.jrapid.core.common.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.rbac.jrapid.core.db.common;
+package com.rbac.jrapid.core.common.dao;
 
 import java.util.HashMap;
 import java.util.List;

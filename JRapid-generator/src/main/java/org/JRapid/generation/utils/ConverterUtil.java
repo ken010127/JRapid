@@ -38,8 +38,8 @@ public class ConverterUtil {
 
             List<Field> fields = new ArrayList<Field>();
             List<Map<String,String>> columns = dao.queryColumnInfos(tableName);
-            List<Field> pks = new ArrayList<Field>();
-
+            List<Field> pkColumns = new ArrayList<Field>();
+            List<String> pks = dao.queryPrimaryKeys(tableName);
 
             for (Map<String,String> column:columns){
                 Field field = new Field();
@@ -54,13 +54,13 @@ public class ConverterUtil {
                 //设置是否是主键
                 if(pks.contains(column.get(ColumnConstants.COLUMN_NAME))){
                     field.setPk(true);
-                    pks.add(field);
+                    pkColumns.add(field);
                 }else{
                     field.setPk(false);
                 }
                 fields.add(field);
             }
-            entity.setPkColumns(pks);
+            entity.setPkColumns(pkColumns);
             entity.setFields(fields);
             entities.add(entity);
         }

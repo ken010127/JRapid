@@ -1,9 +1,8 @@
-package com.rbac.jrapid.core.db.common;
+package com.rbac.jrapid.core.common.dao;
 
-import com.rbac.jrapid.core.utils.DateUtil;
+import com.rbac.jrapid.core.common.utils.DateUtil;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;

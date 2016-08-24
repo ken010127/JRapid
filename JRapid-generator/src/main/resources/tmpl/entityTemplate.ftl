@@ -1,5 +1,6 @@
 package ${basePackage}.${modulePackage}.entity;
 
+import java.io.Serializable;
 
 /**
 * ${comments}实体类

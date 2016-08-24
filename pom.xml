@@ -15,6 +15,7 @@
         <module>JRapid-core</module>
         <module>JRapid-web</module>
         <module>JRapid-generator</module>
+        <module>JRapid-platform</module>
     </modules>
 
     <properties>

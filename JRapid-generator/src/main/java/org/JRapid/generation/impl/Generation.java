@@ -61,15 +61,15 @@ public abstract class Generation {
         }
     }
 
-    public abstract void generateEntity(Configuration cfg,List<Entity> entities);
+    public abstract void generateEntity(Configuration cfg,List<Entity> entities)  throws IOException;
 
-    public abstract void generateDao(Configuration cfg,List<Entity> entities);
+    public abstract void generateDao(Configuration cfg,List<Entity> entities) throws IOException;
 
-    public abstract void generateService(Configuration cfg,List<Entity> entities);
+    public abstract void generateService(Configuration cfg,List<Entity> entities) throws IOException;
 
-    public abstract void generateController(Configuration cfg,List<Entity> entities);
+    public abstract void generateController(Configuration cfg,List<Entity> entities) throws IOException;
 
-    public abstract void generateView(Configuration cfg,List<Entity> entities);
+    public abstract void generateView(Configuration cfg,List<Entity> entities) throws IOException;
 
     public void hook(){}
 
