@@ -15,4 +15,26 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.rbac</groupId>
+            <artifactId>JRapid-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- 导入java ee jar 包 -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+
+
+    </dependencies>
+
 </project>

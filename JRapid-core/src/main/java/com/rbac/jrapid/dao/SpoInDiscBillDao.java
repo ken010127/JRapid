@@ -1,7 +1,8 @@
-package com.rbac.jrapid.platform.dao;
+package com.rbac.jrapid.dao;
+
 
 import com.rbac.jrapid.core.common.dao.BaseDao;
-import com.rbac.jrapid.platform.entity.SpoInDiscBill;
+import com.rbac.jrapid.entity.SpoInDiscBill;
 import org.springframework.stereotype.Component;
 
 /**

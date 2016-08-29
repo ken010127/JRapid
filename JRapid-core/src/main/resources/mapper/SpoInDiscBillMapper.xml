@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rbac.jrapid.platform.core.dao.SpoInDiscBillMapper">
+<mapper namespace="com.rbac.jrapid.dao.SpoInDiscBillDao">
 
 	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
 
-	<resultMap id="baseResultMap" type="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.SpoInDiscBill">
                 <id column="ROW_ID" property="rowId" />      <!-- ROW_ID -->
 		        <result column="ORG_CODE" property="orgCode"/>		<!-- 业务主体编码 -->
 		        <result column="IN_BILL_NO" property="inBillNo"/>		<!-- 入库单号，从入库单表中选择做入库差异的入库单号。 -->
@@ -77,7 +77,7 @@
     </delete>
 
     <!--保存,只针对于一个主键-->
-	<insert id="save" useGeneratedKeys="false" keyProperty="rowId" parameterType="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+	<insert id="save" useGeneratedKeys="false" keyProperty="rowId" parameterType="com.rbac.jrapid.entity.SpoInDiscBill">
 		insert into SPO_IN_DISC_BILL
 		(<include refid="baseColumnList" />
 		)
@@ -230,7 +230,7 @@
 	</update>
 
     <!--更新所有字段-->
-	<update id="update" parameterType="com.rbac.jrapid.platform.entity.SpoInDiscBill">
+	<update id="update" parameterType="com.rbac.jrapid.entity.SpoInDiscBill">
 		update SPO_IN_DISC_BILL
 		set ORG_CODE=#{record.orgCode},IN_BILL_NO=#{record.inBillNo},APPLY_BILL_NO=#{record.applyBillNo},APPLY_STATUS=#{record.applyStatus},
 			APPLY_DATE=#{record.applyDate},SEND_UNIT_ID=#{record.sendUnitId},SEND_UNIT_CODE=#{record.sendUnitCode},SEND_UNIT_NAME=#{record.sendUnitName},SEND_WAREHOUSE_ID=#{record.sendWarehouseId},

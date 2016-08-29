@@ -1,4 +1,4 @@
-package ${basePackage}.${modulePackage}.dao;
+package ${basePackage}.dao.${modulePackage};
 
 import org.springframework.stereotype.Component;
 

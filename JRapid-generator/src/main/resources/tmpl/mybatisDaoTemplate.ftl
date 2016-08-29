@@ -1,7 +1,7 @@
-package ${basePackage}.${modulePackage}.dao;
+package ${basePackage}.dao.${modulePackage};
 
 import ${basePackage}.core.common.dao.BaseDao;
-import ${basePackage}.${modulePackage}.entity.${className};
+import ${basePackage}.entity.${modulePackage}.${className};
 import org.springframework.stereotype.Component;
 
 /**
