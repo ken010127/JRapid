@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @author fwj
  * @date 13-10-30
  */
-public class StringUtils {
+public class StringUtil {
 
     /**
      * java特殊字符

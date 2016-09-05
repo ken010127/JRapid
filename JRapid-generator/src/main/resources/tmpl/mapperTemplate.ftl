@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${basePackage}.${modulePackage}.core.dao.${className}Mapper">
+<mapper namespace="${basePackage}.dao.${modulePackage}.${className}Mapper">
 
 	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
 
-	<resultMap id="baseResultMap" type="${basePackage}.${modulePackage}.entity.${className}">
+	<resultMap id="baseResultMap" type="${basePackage}.entity.${modulePackage}.${className}">
         <#list fields as field>
             <#if field.pk>
                 <id column="${field.columnName}" property="${field.fieldName}" />      <!-- ${field.comments} -->
@@ -54,7 +54,7 @@
 
     <!--保存,只针对于一个主键-->
     <#if (pkColumns?size==1)>
-	<insert id="save"<#list pkColumns as pk> useGeneratedKeys="false" keyProperty="${pk.fieldName}" parameterType="${basePackage}.${modulePackage}.entity.${className}"></#list>
+	<insert id="save"<#list pkColumns as pk> useGeneratedKeys="false" keyProperty="${pk.fieldName}" parameterType="${basePackage}.entity.${modulePackage}.${className}"></#list>
 		insert into ${tableName}
 		(<include refid="baseColumnList" />
 		)
@@ -84,7 +84,7 @@
 	</update>
 
     <!--更新所有字段-->
-	<update id="update" parameterType="${basePackage}.${modulePackage}.entity.${className}">
+	<update id="update" parameterType="${basePackage}.entity.${modulePackage}.${className}">
 		update ${tableName}
 		set <#list fields as field><#if !field.pk>${field.columnName}=${r"#"}{record.${field.fieldName}}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t\t"}</#if></#if></#if></#list>
 		where <#list pkColumns as pk>${pk.columnName} = ${r"#"}{record.${pk.fieldName}}</#list>

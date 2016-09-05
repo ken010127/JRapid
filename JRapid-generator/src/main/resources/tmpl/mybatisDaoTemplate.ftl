@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on ${.now?datetime}.
 */
 @Component("${className}Mapper")
-public interface ${className}Dao extends BaseDao<${className},<#if (pkColumns?size>1)>Map<#else>Long</#if>> {
+public interface ${className}Mapper extends BaseDao<${className},<#if (pkColumns?size>1)>Map<#else>Long</#if>> {
 
 }

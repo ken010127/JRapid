@@ -10,8 +10,6 @@ public interface BaseDao<T, P> {
 
     int save(T t) throws java.lang.Exception;
 
-    int insertWithSequence(T t) throws java.lang.Exception;
-
     int update(T t) throws java.lang.Exception;
 
     int delete(P p) throws java.lang.Exception;

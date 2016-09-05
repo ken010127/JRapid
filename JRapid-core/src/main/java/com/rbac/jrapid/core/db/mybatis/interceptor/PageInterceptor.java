@@ -28,8 +28,8 @@ import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
  * @author FWJ
  * @Created on 2016/8/20 15:27
  */
-@Intercepts( {
-        @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class}) })
+@Intercepts({
+        @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}) })
 public class PageInterceptor implements Interceptor {
 
     private String databaseType;//数据库类型，不同的数据库有不同的分页方法

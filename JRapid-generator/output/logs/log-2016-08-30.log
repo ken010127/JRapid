@@ -1,0 +1,16 @@
+30.8.2016 09:34:02 freemarker.log.Log4JLoggerFactory$Log4JLogger debug 
+DEBUG: Could not find template in cache, creating new one; id=["serviceMapper.ftl"["zh_CN",UTF-8,parsed] ]
+30.8.2016 09:34:02 freemarker.log.Log4JLoggerFactory$Log4JLogger debug 
+DEBUG: Compiling FreeMarker template "serviceMapper.ftl"["zh_CN",UTF-8,parsed]  from "E:\\myWorkSpace\\JRapid\\JRapid-generator\\target\\classes\\tmpl\\serviceMapper.ftl"
+30.8.2016 09:34:02 freemarker.log.Log4JLoggerFactory$Log4JLogger debug 
+DEBUG: Could not find template in cache, creating new one; id=["serviceImplMapper.ftl"["zh_CN",UTF-8,parsed] ]
+30.8.2016 09:34:02 freemarker.log.Log4JLoggerFactory$Log4JLogger debug 
+DEBUG: Compiling FreeMarker template "serviceImplMapper.ftl"["zh_CN",UTF-8,parsed]  from "E:\\myWorkSpace\\JRapid\\JRapid-generator\\target\\classes\\tmpl\\serviceImplMapper.ftl"
+30.8.2016 09:34:02 org.JRapid.generation.impl.SSMGenerationImpl generateService 
+INFO: 生成 SpoInDiscBillService.java 开始
+30.8.2016 09:34:02 org.JRapid.generation.impl.SSMGenerationImpl generateService 
+INFO: 生成 SpoInDiscBillService.java 结束！
+30.8.2016 09:34:02 org.JRapid.generation.impl.SSMGenerationImpl generateService 
+INFO: 生成 SpoInDiscBillServiceImpl.java 开始
+30.8.2016 09:34:02 org.JRapid.generation.impl.SSMGenerationImpl generateService 
+INFO: 生成 SpoInDiscBillServiceImpl.java 结束！

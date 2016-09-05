@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on ${.now?datetime}.
 */
 @Component("${className}ExtMapper")
-public interface ${className}ExtDao{
+public interface ${className}ExtMapper{
 
 }

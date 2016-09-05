@@ -28,7 +28,8 @@ public class SSMGenerationImpl extends Generation {
             /* 获取模板文件 */
             Template template = cfg.getTemplate("entityTemplate.ftl");
 
-            String directoryPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"entity";
+            String directoryPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"entity" + File.separatorChar
+                    + PropertiesUtil.getValue("modulePackage");
             // 创建文件夹，不存在则创建
             FileUtils.createFolder(directoryPath);
 
@@ -47,6 +48,7 @@ public class SSMGenerationImpl extends Generation {
         } catch (TemplateException e) {
             e.printStackTrace();
         } finally {
+            assert writer != null;
             writer.close();
         }
     }
@@ -62,7 +64,8 @@ public class SSMGenerationImpl extends Generation {
             Template extMapperTemplate = cfg.getTemplate("extMapperTemplate.ftl");
 
 
-            String daoPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar + "dao";
+            String daoPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar + "dao" + File.separatorChar
+                    + PropertiesUtil.getValue("modulePackage");
             FileUtils.createFolder(daoPath);
 
             String mapperPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar + "mapper";
@@ -71,14 +74,13 @@ public class SSMGenerationImpl extends Generation {
             for (Entity entity : entities) {
 
                 // 指定生成输出的文件
-                File dao = new File(daoPath + File.separatorChar + entity.getClassName() + "Dao.java");
+                File dao = new File(daoPath + File.separatorChar + entity.getClassName() + "Mapper.java");
                 writer = new FileWriter(dao);
-
                 logger.info("生成 {}Dao.java 开始",entity.getClassName() );
                 daoTemplate.process(entity, writer);
                 logger.info("生成 {}Dao.java 结束！",entity.getClassName());
 
-                File extDao = new File(daoPath + File.separatorChar + entity.getClassName() + "ExtDao.java");
+                File extDao = new File(daoPath + File.separatorChar + entity.getClassName() + "ExtMapper.java");
                 writer = new FileWriter(extDao);
                 logger.info("生成 {}ExtDao.java 开始",entity.getClassName() );
                 extDaoTemplate.process(entity, writer);
@@ -104,6 +106,7 @@ public class SSMGenerationImpl extends Generation {
         } catch (TemplateException e) {
             e.printStackTrace();
         } finally {
+            assert writer != null;
             writer.close();
         }
     }
@@ -113,23 +116,30 @@ public class SSMGenerationImpl extends Generation {
         Writer writer = null;
         try {
             /* 获取模板文件 */
-            Template template = cfg.getTemplate(PropertiesUtil.getValue("service.template"));
+            Template serviceTemplate = cfg.getTemplate("serviceMapper.ftl");
+            Template serviceImplTemplate = cfg.getTemplate("serviceImplMapper.ftl");
 
-            /* 生成输出到文件 */
-            File fileDir = new File(PropertiesUtil.getValue("outRoot")+"service");
-            // 创建文件夹，不存在则创建
-            org.apache.commons.io.FileUtils.forceMkdir(fileDir);
+            String servicePath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +  "service" + File.separatorChar
+                    + PropertiesUtil.getValue("modulePackage");
+            FileUtils.createFolder(servicePath);
+
+
+            String serviceImplPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +  "service" + File.separatorChar
+                   + "impl" + File.separatorChar + PropertiesUtil.getValue("modulePackage");
+            FileUtils.createFolder(serviceImplPath);
 
             for (Entity entity : entities) {
                 logger.info("生成 {}Service.java 开始",entity.getClassName());
-                // 指定生成输出的文件
-                StringBuilder filePath = new StringBuilder(fileDir.getPath()).append(File.separatorChar).append(entity.getClassName()).append("Service.java");
-                File output = new File(filePath.toString());
-
-                writer = new FileWriter(output);
-                template.process(entity, writer);
-                //writer.flush();//输出到控制台
+                File service = new File(servicePath + File.separatorChar + entity.getClassName() +"Service.java");
+                writer = new FileWriter(service);
+                serviceTemplate.process(entity, writer);
                 logger.info("生成 {}Service.java 结束！",entity.getClassName());
+
+                logger.info("生成 {}ServiceImpl.java 开始",entity.getClassName());
+                File serviceImpl = new File(serviceImplPath + File.separatorChar + entity.getClassName() +"ServiceImpl.java");
+                writer = new FileWriter(serviceImpl);
+                serviceImplTemplate.process(entity, writer);
+                logger.info("生成 {}ServiceImpl.java 结束！",entity.getClassName());
             }
 
         } catch (IOException e) {
@@ -137,6 +147,7 @@ public class SSMGenerationImpl extends Generation {
         } catch (TemplateException e) {
             e.printStackTrace();
         } finally {
+            assert writer != null;
             writer.close();
         }
     }

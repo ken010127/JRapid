@@ -1,5 +1,7 @@
 package ${basePackage}.entity.${modulePackage};
 
+import com.rbac.jrapid.core.db.mybatis.annotation.PK;
+
 import java.io.Serializable;
 
 /**
@@ -17,7 +19,7 @@ public class ${className} implements Serializable {
     * ${field.comments}
     **/
     <#if field.pk>
-    @pk
+    @PK
     </#if>
     private ${field.type} ${field.fieldName};
 

@@ -107,6 +107,13 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+        <!-- 配置mybatis拦截器 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.rbac.jrapid.core.db.mybatis.interceptor.IdentityInterceptor"/>
+                <bean class="com.rbac.jrapid.core.db.mybatis.interceptor.PageInterceptor"/>
+            </array>
+        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

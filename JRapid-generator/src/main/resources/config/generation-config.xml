@@ -13,7 +13,7 @@
     <entry key="modulePackage">platform</entry>
 
     <!--要生成的table，可以用%表示全部-->
-    <entry key="tables">SPO_IN_DISC_BILL</entry>
+    <entry key="tables">sys_menu</entry>
 
     <!--模板根目录-->
     <entry key="templateRoot">E:\ideawork\JRapid\JRapid-test\src\main\resources\template\</entry>
@@ -21,9 +21,9 @@
     <!--是否生成实体-->
     <entry key="entity.isGenerate">false</entry>
     <!--是否生成Dao-->
-    <entry key="dao.isGenerate">true</entry>
+    <entry key="dao.isGenerate">false</entry>
     <!--是否生成Service-->
-    <entry key="service.isGenerate">false</entry>
+    <entry key="service.isGenerate">true</entry>
     <!--是否生成Controller-->
     <entry key="controller.isGenerate">false</entry>
     <!--是否生成View-->
@@ -38,19 +38,19 @@
 
 
     <!--数据库类型：Oracle，Mysql等-->
-    <entry key="jdbc.dbType">Oracle</entry>
+    <entry key="jdbc.dbType">Mysql等</entry>
     <!--用户名-->
-    <entry key="jdbc.username">spo</entry>
+    <entry key="jdbc.username">root</entry>
     <!--密码-->
-    <entry key="jdbc.password">Spo164#dev</entry>
+    <entry key="jdbc.password">root</entry>
 
-    <!-- Mysql
-    <entry key="jdbc.url">jdbc:mysql://192.168.1.111:3306/eam?useUnicode=true&amp;characterEncoding=UTF-8</entry>
-    <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>-->
+    <!-- Mysql-->
+    <entry key="jdbc.url">jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</entry>
+    <entry key="jdbc.driver">com.mysql.jdbc.Driver</entry>
 
-    <!-- Oracle		jdbc:oracle:oci:@tnsname_devdb -->
+    <!-- Oracle		jdbc:oracle:oci:@tnsname_devdb
     <entry key="jdbc.url">jdbc:oracle:thin:@10.16.18.164:1664:cssdev</entry>
-    <entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
+    <entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>-->
 
     <!-- SQLServer2000
     <entry key="jdbc.url">jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=[database]</entry>

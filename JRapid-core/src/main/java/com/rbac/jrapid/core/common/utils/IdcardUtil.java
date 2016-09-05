@@ -11,7 +11,7 @@ import java.util.Map;
  * 身份证工具类
  * Created by FengWeijian on 2015/11/18.
  */
-public class IdcardUtils extends StringUtils{
+public class IdcardUtil extends StringUtil {
 
     /** 中国公民身份证号码最小长度。 */
     public static final int CHINA_ID_MIN_LENGTH = 15;
