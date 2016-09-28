@@ -1,4 +1,4 @@
-package com.rbac.jrapid.core.common.utils;
+package com.rbac.jrapid.core.common.converter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,7 +10,7 @@ import java.util.Date;
  * @author fwj
  *
  */
-public class ObjectParseUtil {
+public class ObjectConverter {
 
 	public static String parseToString(Object obj){
 		if(null==obj){
