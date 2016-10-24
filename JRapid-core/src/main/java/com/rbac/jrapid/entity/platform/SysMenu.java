@@ -1,8 +1,12 @@
 package com.rbac.jrapid.entity.platform;
 
+import com.rbac.jrapid.core.common.annotation.CHILDREN;
+import com.rbac.jrapid.core.common.annotation.ORDERID;
+import com.rbac.jrapid.core.common.annotation.PARENTID;
 import com.rbac.jrapid.core.db.mybatis.annotation.PK;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * 实体类
@@ -27,6 +31,7 @@ public class SysMenu implements Serializable {
     /**
     * 父节点ID
     **/
+    @PARENTID
     private Long parentId;
 
     /**
@@ -47,6 +52,7 @@ public class SysMenu implements Serializable {
     /**
     * 菜单序号
     **/
+    @ORDERID
     private Integer orderNo;
 
     /**
@@ -54,6 +60,11 @@ public class SysMenu implements Serializable {
     **/
     private String openType;
 
+    /**
+     * 子节点
+     */
+    @CHILDREN
+    private List<SysMenu> children;
 
     public Long getId(){
         return id;
@@ -111,4 +122,11 @@ public class SysMenu implements Serializable {
         this.openType = openType;
     }
 
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
+    }
 }
