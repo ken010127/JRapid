@@ -15,6 +15,7 @@
         <module>JRapid-core</module>
         <module>JRapid-web</module>
         <module>JRapid-generator</module>
+        <module>JRapid-test</module>
     </modules>
 
     <properties>
@@ -180,6 +181,13 @@
             <groupId>oracle</groupId>
             <artifactId>ojdbc</artifactId>
             <version>6</version>
+        </dependency>
+
+        <!-- servletListener -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.3</version>
         </dependency>
 
     </dependencies>
