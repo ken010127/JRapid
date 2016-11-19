@@ -1,12 +1,14 @@
 package com.rbac.jrapid.core.common.utils;
 
-import com.rbac.jrapid.core.db.mybatis.annotation.PK;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.lang.annotation.Annotation;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +30,7 @@ public class ReflectionUtils {
      * @return field
      */
     public static List<Field> findFieldByAnnotation(Class clazz, Class aClazz){
-        List<Field> resultFields = new ArrayList<Field>();
+        List<Field> resultFields = new ArrayList<>();
 
         Class searchType = clazz;
         while (!Object.class.equals(searchType) && searchType != null) {
@@ -79,7 +81,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 根据属性字段和对象，设置对象的值
+     * 根据属性字段和对象，设置对象的值(只能是public)
      * @param field 字段
      * @param target 对象
      * @param value 值
@@ -95,7 +97,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 根据属性字段和对象，获取的对象中字段的值
+     * 根据属性字段和对象，获取的对象中字段的值(只能是public)
      * @param field 字段
      * @param target 对象
      * @return
@@ -111,9 +113,9 @@ public class ReflectionUtils {
     }
 
     /**
-     * 根据类，方法名称和参数类型查找方法
-     * @param clazz
-     * @param name
+     * 根据类，方法名称和参数类型查找方法(方法没有参数)
+     * @param clazz 对象class
+     * @param name 方法名
      * @return
      */
     public static Method findMethod(Class clazz, String name) {
@@ -122,9 +124,9 @@ public class ReflectionUtils {
 
     /**
      * 根据类，方法名称和参数类型查找方法
-     * @param clazz
-     * @param name
-     * @param paramTypes
+     * @param clazz 对象class
+     * @param name 方法名
+     * @param paramTypes 参数类型
      * @return
      */
     public static Method findMethod(Class clazz, String name, Class[] paramTypes) {
@@ -146,9 +148,9 @@ public class ReflectionUtils {
     }
 
     /**
-     * 调用方法的应用
-     * @param method
-     * @param target
+     * 调用方法的应用(无参数)
+     * @param method 方法
+     * @param target 调用对象
      * @return
      */
     public static Object invokeMethod(Method method, Object target) {
@@ -156,10 +158,10 @@ public class ReflectionUtils {
     }
 
     /**
-     * 调用方法的应用
-     * @param method
-     * @param target
-     * @param args
+     * 调用方法的应用(有参数)
+     * @param method 方法
+     * @param target 调用对象
+     * @param args 参数
      * @return
      */
     public static Object invokeMethod(Method method, Object target, Object[] args) {
@@ -169,6 +171,132 @@ public class ReflectionUtils {
         catch (Exception ex) {
             throw new IllegalStateException("Should never get here");
         }
+    }
 
+    /**
+     * 通过反射创建实例
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(String className) {
+        T instance;
+        try {
+            Class<?> commandClass = ClassUtil.loadClass(className);
+            instance = (T) commandClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return instance;
+    }
+
+    /**
+     * 通过构造函数实例化对象
+     * @param className       类的全路径名称
+     * @param parameterTypes  参数类型
+     * @param initargs        参数值
+     * @return
+     */
+    @SuppressWarnings("rawtypes")
+    public static Object constructorNewInstance(String className,Class [] parameterTypes,Object[] initargs) {
+        try {
+            Constructor<?> constructor = (Constructor<?>) Class
+                    .forName(className).getDeclaredConstructor(parameterTypes);                     //暴力反射
+            constructor.setAccessible(true);
+            return constructor.newInstance(initargs);
+        } catch (Exception ex) {
+            throw new RuntimeException();
+        }
+
+    }
+
+    /**
+     * 获取实体字段
+     * @param entityClass 实体类
+     * @return 所有字段
+     */
+    public static Field[] getAllFields(Class<?> entityClass){
+        return entityClass.getDeclaredFields();
+    }
+
+    /**
+     * 根据字段名获取值
+     * @param entity
+     * @return
+     */
+    public static Object invokeGetterMethod(Object entity,String fieldName){
+        Class<?> entityClass = entity.getClass();
+        try {
+            PropertyDescriptor property = new PropertyDescriptor(fieldName, entityClass);
+            Method getter = property.getReadMethod();
+            return getter.invoke(entity);
+        }catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 设置字段值
+     * @param entity
+     * @param fieldName
+     * @param value
+     * @return
+     */
+    public static void invokeSetterMethod(Object entity,String fieldName,Object value){
+        Class<?> entityClass = entity.getClass();
+        try {
+            PropertyDescriptor property = new PropertyDescriptor(fieldName, entityClass);
+            Method setter = property.getWriteMethod();
+
+            setter.invoke(entity, new Object[] { value });
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 得到某个对象的公共属性
+     *
+     * @param owner, fieldName
+     * @return 该属性对象
+     * @throws Exception
+     *
+     */
+    public static Object getProperty(Object owner, String fieldName) throws Exception {
+        Class ownerClass = owner.getClass();
+
+        Field field = ownerClass.getField(fieldName);
+
+        Object property = field.get(owner);
+
+        return property;
+    }
+
+    /**
+     * 得到某类的静态公共属性
+     *
+     * @param className   类名
+     * @param fieldName   属性名
+     * @return 该属性对象
+     * @throws Exception
+     */
+    public static Object getStaticProperty(String className, String fieldName)
+            throws Exception {
+        Class ownerClass = Class.forName(className);
+
+        Field field = ownerClass.getField(fieldName);
+
+        Object property = field.get(ownerClass);
+
+        return property;
     }
 }

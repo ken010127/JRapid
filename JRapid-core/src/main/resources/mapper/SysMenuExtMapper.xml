@@ -5,4 +5,15 @@
     <resultMap id="baseResultExtMap" type="com.rbac.jrapid.entity.platform.SysMenu"
                extends="com.rbac.jrapid.dao.platform.SysMenuMapper.baseResultMap"></resultMap>
 
+    <sql id="baseExtColumnList">
+        id,parent_id,menu_name,url,icon,
+        order_no,open_type
+    </sql>
+
+    <!-- 获取根节点 -->
+    <select id="getRoots" resultMap="baseResultExtMap">
+        select
+        <include refid="baseExtColumnList"/> from SYS_MENU where PARENT_ID = 0
+    </select>
+
 </mapper>

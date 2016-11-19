@@ -1,6 +1,6 @@
 package com.rbac.jrapid.dao.platform;
 
-import com.rbac.jrapid.core.common.dao.BaseDao;
+import com.rbac.jrapid.core.common.dao.BaseMapper;
 import com.rbac.jrapid.entity.platform.SysMenu;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on 2016-9-4 18:17:01.
 */
 @Component("SysMenuMapper")
-public interface SysMenuMapper extends BaseDao<SysMenu,Long> {
+public interface SysMenuMapper extends BaseMapper<SysMenu,Long> {
 
 }

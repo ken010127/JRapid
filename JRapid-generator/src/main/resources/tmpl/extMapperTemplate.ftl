@@ -5,4 +5,8 @@
     <resultMap id="baseResultExtMap" type="${basePackage}.entity.${modulePackage}.${className}"
                extends="${basePackage}.${modulePackage}.dao.${className}Dao.baseResultMap"></resultMap>
 
+    <sql id="baseExtColumnList">
+    <#list fields as field>${field.columnName}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t"}</#if></#if></#list>
+    </sql>
+
 </mapper>

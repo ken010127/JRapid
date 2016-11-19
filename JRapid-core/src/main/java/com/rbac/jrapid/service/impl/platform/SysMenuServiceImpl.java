@@ -1,5 +1,6 @@
 package com.rbac.jrapid.service.impl.platform;
 
+import com.rbac.jrapid.core.common.converter.TreeConverter;
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.dao.platform.SysMenuMapper;
 import com.rbac.jrapid.dao.platform.SysMenuExtMapper;
@@ -52,6 +53,18 @@ public class SysMenuServiceImpl implements SysMenuService{
 
     public Integer countByCondition(CommonExample commonExample) throws Exception {
         return sysMenuMapper.countByCondition(commonExample);
+    }
+
+    public List<SysMenu> getMenuTree() {
+        TreeConverter<SysMenu> treeConverter = new TreeConverter<SysMenu>();
+        try {
+            List<SysMenu> root = sysMenuExtMapper.getRoots();
+            List<SysMenu> menus = sysMenuMapper.findAll();
+            return treeConverter.converToTreeModel(sysMenuExtMapper.getRoots(),sysMenuMapper.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

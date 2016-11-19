@@ -5,7 +5,6 @@
   Time: 上午9:08
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String ctx = request.getContextPath(); %>
 <link rel="stylesheet" type="text/css" href="<%=ctx %>/resource/js/jquery-easyui-1.5/themes/metro/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=ctx %>/resource/js/jquery-easyui-1.5/themes/icon.css">

@@ -27,7 +27,7 @@ public class TreeConverter<E> {
 	 */
 	private Object getId(E entity){
         List<Field> fields = ReflectionUtils.findFieldByAnnotation(entity.getClass(),PK.class);
-        return ReflectionUtils.getField(fields.get(0),entity);
+        return ReflectionUtils.invokeGetterMethod(entity,fields.get(0).getName());
     };
 	
 	/**
@@ -37,7 +37,7 @@ public class TreeConverter<E> {
 	 */
 	private Object getParentId(E entity){
         List<Field> fields = ReflectionUtils.findFieldByAnnotation(entity.getClass(),PARENTID.class);
-        return ReflectionUtils.getField(fields.get(0),entity);
+        return ReflectionUtils.invokeGetterMethod(entity,fields.get(0).getName());
     }
 
     /**
@@ -47,7 +47,7 @@ public class TreeConverter<E> {
      */
     public Object getOrderId(E entity){
         List<Field> fields = ReflectionUtils.findFieldByAnnotation(entity.getClass(),ORDERID.class);
-        return ReflectionUtils.getField(fields.get(0),entity);
+        return ReflectionUtils.invokeGetterMethod(entity,fields.get(0).getName());
     }
 	
 	/**
@@ -56,7 +56,7 @@ public class TreeConverter<E> {
 	 */
 	public void setChildren(E entity,List<E> entitys){
         Field field = ReflectionUtils.findFieldByAnnotation(entity.getClass(),CHILDREN.class).get(0);
-        ReflectionUtils.setField(field,entity,entitys);
+        ReflectionUtils.invokeSetterMethod(entity,field.getName(),entitys);
     }
 
 	/**
@@ -155,7 +155,13 @@ public class TreeConverter<E> {
     private void orderListByOrderId(List<E> list){
         Collections.sort(list,new Comparator<E>(){
             public int compare(E arg0, E arg1) {
-                return getOrderId(arg0).toString().compareTo(getOrderId(arg1).toString());
+                Object arg0Obj = getOrderId(arg0);
+                Object arg1Obj = getOrderId(arg1);
+                if (arg0Obj!=null && arg1Obj!=null){
+                    return arg0Obj.toString().compareTo(arg1Obj.toString());
+                }else {
+                    return -1;
+                }
             }
         });
     }

@@ -14,13 +14,31 @@
     <artifactId>JRapid-core</artifactId>
     <version>1.0</version>
 
-    <dependencies>
-        <!-- 校验使用 -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
-        </dependency>
-    </dependencies>
+    <properties>
+        <profiles.dir>src/profiles</profiles.dir>
+    </properties>
 
+    <profiles>
+        <profile>
+            <id>local</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/local</directory>
+                    </resource>
+                </resources>
+            </build>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>

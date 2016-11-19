@@ -37,6 +37,13 @@
     </#list>
     </#if>
 
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM ${tableName}
+    </select>
+
     <!--根据主键删除记录-->
     <#if (pkColumns?size>1)>
     <delete id="delete" parameterType="HashMap">
