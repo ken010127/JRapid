@@ -22,6 +22,7 @@
         <profile>
             <id>local</id>
             <build>
+                <!-- 构建时把local下的文件复制到target/class文件下 -->
                 <resources>
                     <resource>
                         <directory>${profiles.dir}/local</directory>
@@ -41,4 +42,5 @@
             </resource>
         </resources>
     </build>
+
 </project>

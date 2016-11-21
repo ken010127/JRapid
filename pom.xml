@@ -29,6 +29,8 @@
         <log4j.version>1.2.17</log4j.version>
         <!-- jackson版本号 -->
         <jackson.version>1.9.2</jackson.version>
+        <!-- 配置文件目录 -->
+        <profiles.dir>src/profiles</profiles.dir>
     </properties>
 
     <dependencies>
@@ -255,6 +257,19 @@
                         <locales>en</locales>
                         <inputEncoding>UTF-8</inputEncoding>
                         <outputEncoding>UTF-8</outputEncoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <includeEmptyDirectories>true</includeEmptyDirectories>
                     </configuration>
                 </plugin>
             </plugins>
