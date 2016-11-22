@@ -12,6 +12,8 @@
 <script type="text/javascript" src="<%=ctx %>/resource/js/jquery-easyui-1.5/jquery.min.js"></script>
 <script type="text/javascript" src="<%=ctx %>/resource/js/jquery-easyui-1.5/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="<%=ctx %>/resource/js/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="<%=ctx %>/resource/js/jquery-easyui-1.5/extend/form.extend.js"></script>
+<script type="text/javascript" src="<%=ctx %>/resource/js/common/jrapid_ajax_util.js"></script>
 <script type="text/javascript" src="<%=ctx %>/resource/js/common/mask.js"></script>
 <script type="text/javascript">
     var ctx = '<%=request.getContextPath() %>';

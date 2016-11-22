@@ -11,9 +11,25 @@ public class BaseResponse implements Serializable {
 
     private static final long serialVersionUID = -4249165317136641764L;
 
+    /**
+     * 操作状态，成功true；失败false
+     */
     private Boolean status = true;
+
+    /**
+     * 错误编码
+     */
     private String errorCode;
+
+    /**
+     * 错误信息
+     */
     private String errorMsg;
+
+    /**
+     * 返回内容
+     */
+    private Object content;
 
     public String getErrorCode() {
         return errorCode;
@@ -32,5 +48,13 @@ public class BaseResponse implements Serializable {
     }
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Object getContent() {
+        return content;
+    }
+
+    public void setContent(Object content) {
+        this.content = content;
     }
 }

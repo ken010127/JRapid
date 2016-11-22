@@ -1,8 +1,11 @@
 package com.rbac.jrapid.web.controller.platfrom;
 
+import com.rbac.jrapid.dto.request.platform.SysMenuRequest;
 import com.rbac.jrapid.entity.platform.SysMenu;
 import com.rbac.jrapid.service.platform.SysMenuService;
+import com.rbac.jrapid.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/platform/sysMenu")
-public class SysMenuController {
+public class SysMenuController extends BaseController{
 
     @Autowired
     private SysMenuService sysMenuService;
@@ -33,4 +36,13 @@ public class SysMenuController {
         return sysMenuService.getMenuTree();
     }
 
+    @RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
+    public Object saveSysMenu(@RequestBody SysMenuRequest request) throws Exception {
+        return sysMenuService.save(request.getSysMenu());
+    }
+
+    @RequestMapping(value = "/deleteMenu", method = RequestMethod.DELETE)
+    public Object deleteSysMenu(@RequestBody SysMenuRequest request) throws Exception {
+        return sysMenuService.delete(request.getSysMenu().getId());
+    }
 }

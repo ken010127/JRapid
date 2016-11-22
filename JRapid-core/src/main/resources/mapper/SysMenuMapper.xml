@@ -84,9 +84,9 @@
     <!--更新所有字段-->
 	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysMenu">
 		update sys_menu
-		set parent_id=#{record.parentId},menu_name=#{record.menuName},url=#{record.url},icon=#{record.icon},
-			order_no=#{record.orderNo},open_type=#{record.openType}
-		where id = #{record.id}
+		set parent_id=#{parentId},menu_name=#{menuName},url=#{url},icon=#{icon},
+			order_no=#{orderNo},open_type=#{openType}
+		where id = #{id}
 	</update>
 	
 	<sql id="exampleClause">

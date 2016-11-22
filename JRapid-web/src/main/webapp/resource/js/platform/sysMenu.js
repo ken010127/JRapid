@@ -1,3 +1,6 @@
+
+
+
 /**
  * 系统菜单
  * Created by fwj on 2016/11/18.
@@ -65,29 +68,21 @@ function addMenu() {
 //删除
 function deleteMenu() {
     var select = $("#menuTreeGrid").treegrid('getSelected');
+    var requestData = {};
+    requestData.sysMenu = select;
     if (select) {
-        $.messager.confirm('confirm', '确认删除么?', function(id) {
-            if (id) {
-                $.ajax({
-                    type : 'POST',
-                    url : ctx + '/menuInfo/menuInfoDelete.action',
-                    data : {
-                        "menu.id" : select.id
-                    },
-                    dataType : 'json',
-                    success : function(data) {
-                        if (data.success) {
-                            $.messager.alert('提示', '删除成功！', 'info');
-                            //刷新数据
-                            $("#menuTreeGrid").treegrid('reload');
-                            //$('#menuTree').tree('reload');
-                        } else {
-                            $.messager.alert('温馨提示', data.message,
-                                'info');
-                        }
+        $.messager.confirm('提示', '确认删除么?', function(data) {
+            if(data){
+                jrapid_ajax_util.delete('/platform/sysMenu/deleteMenu',requestData,function(data){
+                    if (data.status) {
+                        $.messager.alert('提示', '删除成功！', 'info');
+                        //刷新数据
+                        $("#menuTreeGrid").treegrid('reload');
+                        //$('#menuTree').tree('reload');
+                    } else {
+                        parent.$.messager.alert('温馨提示', '保存失败！'+data.errorMsg, 'info');
                     }
                 });
-                $('#menuTreeGrid').treegrid('reload');
             }
         });
     } else {
@@ -100,12 +95,7 @@ function editMenu() {
     var select = $("#menuTreeGrid").treegrid('getSelected');
     if (select) {
         $('#add').window('open');
-        $('#id').val(select.id);
-        $('#parentId').val(select.parentId);
-        $('#name').val(select.name);
-        $('#location').val(select.location);
-        $('#levelOrder').val(select.levelOrder);
-        $('#openType').combobox('setValue',select.openType);
+        $('#addForm').form('load',select);
     } else {
         $.messager.alert('warning', '请选择一行数据', 'warning');
     }
@@ -113,33 +103,18 @@ function editMenu() {
 
 //保存
 function saveCondoPrice(el) {
-    var openNewWindow;
-
-    $.ajax({
-        type : 'POST',
-        url : ctx + '/menuInfo/menuInfoSave.action',
-        dataType : 'json',
-        data : {
-            "menu.id" : $('#id').val(),
-            "menu.name" : $('#name').val(),
-            "menu.location" : $('#location').val(),
-            "menu.levelOrder" : $('#levelOrder').val(),
-            "menu.parentId" : $('#parentId').val(),
-            "menu.openType" :  $('#openType').combobox('getValue')
-        },
-        success : function(data) {
-            if (data.success) {
-                $('#add').window('close');
-                //刷新数据
-                $("#menuTreeGrid").treegrid('reload');
-                //$('#menuTree').tree('reload');
-            } else {
-                parent.$.messager.alert('温馨提示', '保存成功！', 'info');
-            }
+    var sysMenu = $('#addForm').form('getData',true);
+    var requestData = {};
+    requestData.sysMenu = sysMenu;
+    jrapid_ajax_util.post('/platform/sysMenu/saveMenu',requestData,function(data){
+        if (data.status) {
+            $('#add').window('close');
+            $('#addForm').form('clear');
+            parent.$.messager.alert('温馨提示', '保存成功！', 'info');
+            //刷新数据
+            $("#menuTreeGrid").treegrid('reload');
+        } else {
+            parent.$.messager.alert('温馨提示', '保存失败！'+data.errorMsg, 'info');
         }
     });
-}
-
-function closeWin(el) {
-    $(el).window('close');
 }

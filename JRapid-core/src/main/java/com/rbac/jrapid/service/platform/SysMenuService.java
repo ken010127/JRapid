@@ -1,6 +1,7 @@
 package com.rbac.jrapid.service.platform;
 
 import com.rbac.jrapid.core.common.dao.CommonExample;
+import com.rbac.jrapid.dto.response.platform.SysMenuResponse;
 import com.rbac.jrapid.entity.platform.SysMenu;
 
 import java.util.List;
@@ -13,13 +14,13 @@ public interface SysMenuService {
 
     SysMenu findOne(Long id) throws Exception;
 
-    int save(SysMenu sysMenu) throws Exception;
+    SysMenuResponse save(SysMenu sysMenu) throws Exception;
 
-    int update(SysMenu sysMenu) throws Exception;
+    SysMenuResponse update(SysMenu sysMenu) throws Exception;
 
-    int updateSelected(SysMenu sysMenu, java.util.List<String> list) throws Exception;
+    SysMenuResponse updateSelected(SysMenu sysMenu, java.util.List<String> list) throws Exception;
 
-    int delete(Long id) throws Exception;
+    SysMenuResponse delete(Long id) throws Exception;
 
     java.util.List<SysMenu> listByCondition(CommonExample commonExample) throws Exception;
 

@@ -53,34 +53,30 @@
     <div id="add" class="easyui-window" title="新增" closed="true"
          modal="true" style="padding: 10px;" iconcls="icon-add" closed="true"
          maximizable="false" minimizable="false" collapsible="false">
-        <div id="addConPrice">
-            <form id="condoPriceForm" method="post" class="form">
-                <input type="hidden" id="id" name="menu.id" value=""> <input
-                    type="hidden" id="parentId" name="menu.parentid" value="">
+        <div id="addSysMenu">
+            <form id="addForm">
+                <input type="hidden" id="id" name="id" value="">
+                <input type="hidden" id="parentId" name="parentId" value="">
                 <table class="input">
                     <tr>
                         <th style="width: 50px;">名称：</th>
-                        <td><input id="name" name="menu.name" type="text" value=""
-                                   class="easyui-validatebox" />
+                        <td><input id="menuName" name="menuName" type="text" value="" class="easyui-validatebox" />
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 50px;">路径：</th>
-                        <td><input id=location name="menu.location" type="text" value=""
-                                   class="easyui-validatebox" />
+                        <td><input id="url" name="url" type="text" value="" class="easyui-validatebox" />
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 50px;">序号：</th>
-                        <td><input id="levelOrder" type="text" value=""
-                                   class="easyui-numberbox" />
+                        <td><input id="orderNo" name="orderNo" type="text" value="" class="easyui-numberbox" />
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 50px;">打开方式：</th>
                         <td>
-                            <input id="openType" size=15/>
-
+                            <input id="openType" name="openTypes" size=15/>
                         </td>
                     </tr>
                 </table>

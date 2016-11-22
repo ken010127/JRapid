@@ -93,8 +93,8 @@
     <!--更新所有字段-->
 	<update id="update" parameterType="${basePackage}.entity.${modulePackage}.${className}">
 		update ${tableName}
-		set <#list fields as field><#if !field.pk>${field.columnName}=${r"#"}{record.${field.fieldName}}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t\t"}</#if></#if></#if></#list>
-		where <#list pkColumns as pk>${pk.columnName} = ${r"#"}{record.${pk.fieldName}}</#list>
+		set <#list fields as field><#if !field.pk>${field.columnName}=${r"#"}{${field.fieldName}}<#if field_has_next>,<#if ((field_index+1)%5==0)>${"\n\t\t\t"}</#if></#if></#if></#list>
+		where <#list pkColumns as pk>${pk.columnName} = ${r"#"}{${pk.fieldName}}</#list>
 	</update>
 	
 	<sql id="exampleClause">

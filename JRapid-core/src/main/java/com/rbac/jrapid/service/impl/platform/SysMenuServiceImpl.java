@@ -4,6 +4,7 @@ import com.rbac.jrapid.core.common.converter.TreeConverter;
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.dao.platform.SysMenuMapper;
 import com.rbac.jrapid.dao.platform.SysMenuExtMapper;
+import com.rbac.jrapid.dto.response.platform.SysMenuResponse;
 import com.rbac.jrapid.entity.platform.SysMenu;
 import com.rbac.jrapid.service.platform.SysMenuService;
 import org.slf4j.Logger;
@@ -31,20 +32,46 @@ public class SysMenuServiceImpl implements SysMenuService{
         return sysMenuMapper.findOne(id);
     }
 
-    public int save(SysMenu sysMenu) throws Exception {
-        return sysMenuMapper.save(sysMenu);
+    public SysMenuResponse save(SysMenu sysMenu) throws Exception {
+        SysMenuResponse response = new SysMenuResponse();
+        int result;
+        if (sysMenu.getId()==null){
+            result = sysMenuMapper.save(sysMenu);
+        }else {
+            result = sysMenuMapper.update(sysMenu);
+        }
+
+        if (result<0){
+            response.setStatus(false);
+        }
+        return response;
     }
 
-    public int update(SysMenu sysMenu) throws Exception {
-        return sysMenuMapper.update(sysMenu);
+    public SysMenuResponse update(SysMenu sysMenu) throws Exception {
+        SysMenuResponse response = new SysMenuResponse();
+        int result = sysMenuMapper.update(sysMenu);
+        if (result<0){
+            response.setStatus(false);
+        }
+        return response;
     }
 
-    public int updateSelected(SysMenu sysMenu, List<String> list) throws Exception {
-        return sysMenuMapper.updateSelected(sysMenu,list);
+    public SysMenuResponse updateSelected(SysMenu sysMenu, List<String> list) throws Exception {
+        SysMenuResponse response = new SysMenuResponse();
+        int result = sysMenuMapper.updateSelected(sysMenu,list);
+        if (result<0){
+            response.setStatus(false);
+        }
+        return response;
     }
 
-    public int delete(Long id) throws Exception {
-        return sysMenuMapper.delete(id);
+    public SysMenuResponse delete(Long id) throws Exception {
+        SysMenuResponse response = new SysMenuResponse();
+        int result = sysMenuMapper.delete(id);
+        if (result<0){
+            response.setStatus(false);
+        }
+        return response;
     }
 
     public List<SysMenu> listByCondition(CommonExample commonExample) throws Exception {
@@ -56,10 +83,8 @@ public class SysMenuServiceImpl implements SysMenuService{
     }
 
     public List<SysMenu> getMenuTree() {
-        TreeConverter<SysMenu> treeConverter = new TreeConverter<SysMenu>();
+        TreeConverter<SysMenu> treeConverter = new TreeConverter<>();
         try {
-            List<SysMenu> root = sysMenuExtMapper.getRoots();
-            List<SysMenu> menus = sysMenuMapper.findAll();
             return treeConverter.converToTreeModel(sysMenuExtMapper.getRoots(),sysMenuMapper.findAll());
         } catch (Exception e) {
             e.printStackTrace();
