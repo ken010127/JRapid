@@ -9,6 +9,11 @@ import java.util.List;
 public class Entity {
 
     /**
+     * 数据库类型
+     */
+    private String dbType;
+
+    /**
      * 基础包名
      */
     private String basePackage;
@@ -42,6 +47,14 @@ public class Entity {
      * 所包含的字段
      */
     private List<Field> fields;
+
+    public String getDbType() {
+        return dbType;
+    }
+
+    public void setDbType(String dbType) {
+        this.dbType = dbType;
+    }
 
     public String getBasePackage() {
         return basePackage;

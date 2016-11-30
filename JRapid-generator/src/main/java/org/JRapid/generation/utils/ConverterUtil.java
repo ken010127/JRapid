@@ -29,6 +29,7 @@ public class ConverterUtil {
 
         for (Map<String,String> table:tables){
             Entity entity = new Entity();
+            entity.setDbType(PropertiesUtil.getValue("jdbc.dbType"));
             entity.setBasePackage(PropertiesUtil.getValue("basePackage"));
             entity.setModulePackage(PropertiesUtil.getValue("modulePackage"));
             String tableName = table.get(TableConstants.TABLE_NAME);

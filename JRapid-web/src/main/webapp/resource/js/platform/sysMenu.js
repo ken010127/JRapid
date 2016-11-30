@@ -75,7 +75,10 @@ function deleteMenu() {
             if(data){
                 jrapid_ajax_util.delete('/platform/sysMenu/deleteMenu',requestData,function(data){
                     if (data.status) {
-                        $.messager.alert('提示', '删除成功！', 'info');
+                        parent.$.messager.show({
+                            title:'提示',
+                            msg:'删除成功'
+                        });
                         //刷新数据
                         $("#menuTreeGrid").treegrid('reload');
                         //$('#menuTree').tree('reload');
@@ -110,7 +113,10 @@ function saveCondoPrice(el) {
         if (data.status) {
             $('#add').window('close');
             $('#addForm').form('clear');
-            parent.$.messager.alert('温馨提示', '保存成功！', 'info');
+            parent.$.messager.show({
+                title:'提示',
+                msg:'保存成功'
+            });
             //刷新数据
             $("#menuTreeGrid").treegrid('reload');
         } else {

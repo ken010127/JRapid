@@ -8,12 +8,21 @@
     <artifactId>JRapid-generator</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <freemarker.version>2.3.19</freemarker.version>
+        <!-- log4j日志文件管理包版本 -->
+        <slf4j.version>1.7.7</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <!-- mysql驱动版本 -->
+        <mysql.version>5.1.30</mysql.version>
+    </properties>
+
     <dependencies>
         <!--模板工具-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.19</version>
+            <version>${freemarker.version}</version>
         </dependency>
 
         <!--oracle 连接驱动-->
@@ -21,6 +30,40 @@
             <groupId>oracle</groupId>
             <artifactId>ojdbc</artifactId>
             <version>6</version>
+        </dependency>
+
+        <!-- 导入Mysql数据库链接jar包 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+
+        <!-- 日志文件管理包 -->
+        <!--日志记录-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- log start -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- log end -->
+
+        <!-- 导入Mysql数据库链接jar包 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
     </dependencies>

@@ -26,21 +26,41 @@ public class SSMGenerationImpl extends Generation {
         Writer writer = null;
         try {
             /* 获取模板文件 */
-            Template template = cfg.getTemplate("entityTemplate.ftl");
+            Template entityTemplate = cfg.getTemplate("entityTemplate.ftl");
+            Template requestTemplate = cfg.getTemplate("requestTemplate.flt");
+            Template responseTemplate = cfg.getTemplate("responseTemplate.flt");
 
-            String directoryPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"entity" + File.separatorChar
+            String entityPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"entity" + File.separatorChar
                     + PropertiesUtil.getValue("modulePackage");
+            String requestPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"dto" + File.separatorChar
+                    + "request" + File.separatorChar + PropertiesUtil.getValue("modulePackage");
+            String responsePath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"dto" + File.separatorChar
+                    + "response" + File.separatorChar + PropertiesUtil.getValue("modulePackage");
             // 创建文件夹，不存在则创建
-            FileUtils.createFolder(directoryPath);
+            FileUtils.createFolder(entityPath);
+            FileUtils.createFolder(requestPath);
+            FileUtils.createFolder(responsePath);
 
             for (Entity entity : entities) {
                 logger.info("生成 {}.java 开始",entity.getClassName());
-                // 指定生成输出的文件
-                File output = FileUtils.createFile(directoryPath + File.separatorChar + entity.getClassName() + ".java");
-                writer = new FileWriter(output);
-                template.process(entity, writer);
-                //writer.flush();//输出到控制台
+                File entityOutput = FileUtils.createFile(entityPath + File.separatorChar + entity.getClassName() + ".java");
+                writer = new FileWriter(entityOutput);
+                entityTemplate.process(entity, writer);
                 logger.info("生成{}.java结束！",entity.getClassName());
+
+                logger.info("生成 {}Request.java 开始",entity.getClassName());
+                File requestOutput = FileUtils.createFile(requestPath + File.separatorChar + entity.getClassName() + "Request.java");
+                writer = new FileWriter(requestOutput);
+                requestTemplate.process(entity, writer);
+                logger.info("生成{}Request.java结束！",entity.getClassName());
+
+                logger.info("生成 {}Request.java 开始",entity.getClassName());
+                File responseOutput = FileUtils.createFile(responsePath + File.separatorChar + entity.getClassName() + "Response.java");
+                writer = new FileWriter(responseOutput);
+                responseTemplate.process(entity, writer);
+                logger.info("生成{}Response.java结束！",entity.getClassName());
+
+                //writer.flush();//输出到控制台
             }
 
         } catch (IOException e) {

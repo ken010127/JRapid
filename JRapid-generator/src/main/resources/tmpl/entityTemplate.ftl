@@ -1,6 +1,6 @@
 package ${basePackage}.entity.${modulePackage};
 
-import com.rbac.jrapid.core.db.mybatis.annotation.PK;
+import ${basePackage}.core.db.mybatis.annotation.PK;
 
 import java.io.Serializable;
 

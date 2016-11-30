@@ -6,7 +6,7 @@
     </comment>
 
     <!--输出根目录-->
-    <entry key="outRoot">E:\myWorkSpace\JRapid\JRapid-generator\output</entry>
+    <entry key="outRoot">/Users/ken/code/JRapid/JRapid-generator/output</entry>
 
     <!--生成基础包名-->
     <entry key="basePackage">com.rbac.jrapid</entry>
@@ -16,12 +16,12 @@
     <entry key="tables">sys_menu</entry>
 
     <!--模板根目录-->
-    <entry key="templateRoot">E:\ideawork\JRapid\JRapid-test\src\main\resources\template\</entry>
+    <entry key="templateRoot">/Users/ken/code/JRapid/JRapid-generator/src/main/resources/tmpl</entry>
 
     <!--是否生成实体-->
-    <entry key="entity.isGenerate">false</entry>
+    <entry key="entity.isGenerate">true</entry>
     <!--是否生成Dao-->
-    <entry key="dao.isGenerate">false</entry>
+    <entry key="dao.isGenerate">true</entry>
     <!--是否生成Service-->
     <entry key="service.isGenerate">true</entry>
     <!--是否生成Controller-->
@@ -38,11 +38,11 @@
 
 
     <!--数据库类型：Oracle，Mysql等-->
-    <entry key="jdbc.dbType">Mysql等</entry>
+    <entry key="jdbc.dbType">Mysql</entry>
     <!--用户名-->
     <entry key="jdbc.username">root</entry>
     <!--密码-->
-    <entry key="jdbc.password">root</entry>
+    <entry key="jdbc.password">123456</entry>
 
     <!-- Mysql-->
     <entry key="jdbc.url">jdbc:mysql://127.0.0.1:3306/jrapid?useUnicode=true&amp;characterEncoding=UTF-8</entry>

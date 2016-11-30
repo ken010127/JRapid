@@ -6,8 +6,7 @@
                extends="com.rbac.jrapid.dao.platform.SysMenuMapper.baseResultMap"></resultMap>
 
     <sql id="baseExtColumnList">
-        id,parent_id,menu_name,url,icon,
-        order_no,open_type
+        <include refid="com.rbac.jrapid.dao.platform.SysMenuMapper.baseColumnList" />
     </sql>
 
     <!-- 获取根节点 -->
