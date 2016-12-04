@@ -1,6 +1,6 @@
-package ${basePackage}.dto.request.${modulePackage};
+package ${basePackage}.dto.response.${modulePackage};
 
-import ${basePackage}.core.dto.request.BaseResponse;
+import ${basePackage}.core.dto.response.BaseResponse;
 import ${basePackage}.entity.${modulePackage}.${className};
 
 /**

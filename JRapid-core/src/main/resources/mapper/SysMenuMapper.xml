@@ -5,26 +5,27 @@
 	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
 
 	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.platform.SysMenu">
-                <id column="id" property="id"/>      <!-- 主键 -->
+                <id column="id" property="id" />      <!-- 主键ID -->
 		        <result column="parent_id" property="parentId"/>		<!-- 父节点ID -->
 		        <result column="menu_name" property="menuName"/>		<!-- 菜单名称 -->
-		        <result column="url" property="url"/>		<!-- 菜单访问地址 -->
-		        <result column="icon" property="icon"/>		<!-- 菜单图标 -->
-		        <result column="order_no" property="orderNo"/>		<!-- 菜单序号 -->
+		        <result column="url" property="url"/>		<!-- 访问路径 -->
+		        <result column="icon" property="icon"/>		<!-- 图标 -->
+		        <result column="order_no" property="orderNo"/>		<!-- 序号 -->
 		        <result column="open_type" property="openType"/>		<!-- 打开方式 -->
+		        <result column="model_type" property="modelType"/>		<!-- 模板类型，DataGrid,Tree+Datagrid，主从表 -->
+		        <result column="tree_id" property="treeId"/>		<!-- 左树资源ID -->
+		        <result column="refer_field" property="referField"/>		<!-- 树关联字段 -->
+		        <result column="master_table" property="masterTable"/>		<!-- 主表表名 -->
+		        <result column="master_pk" property="masterPk"/>		<!-- 主表主键字段 -->
+		        <result column="slave_table" property="slaveTable"/>		<!-- 从表表名 -->
+		        <result column="slave_fk" property="slaveFk"/>		<!-- 从表外检字段 -->
 	</resultMap>
 
 	<sql id="baseColumnList">
         id,parent_id,menu_name,url,icon,
-		order_no,open_type
+		order_no,open_type,model_type,tree_id,refer_field,
+		master_table,master_pk,slave_table,slave_fk
 	</sql>
-
-    <!-- 查找全部 -->
-    <select id="findAll" resultMap="baseResultMap">
-        SELECT
-          <include refid="baseColumnList"/>
-        FROM sys_menu
-    </select>
 
     <!--根据主键获取记录-->
     <select id="findOne" resultMap="baseResultMap" parameterType="java.lang.Long">
@@ -32,6 +33,13 @@
             <include refid="baseColumnList" />
         from sys_menu
         where id = #{id}
+    </select>
+
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM sys_menu
     </select>
 
     <!--根据主键删除记录-->
@@ -47,7 +55,8 @@
 		)
 		values
 		(	#{id},#{parentId},#{menuName},#{url},#{icon},
-			#{orderNo},#{openType}
+			#{orderNo},#{openType},#{modelType},#{treeId},#{referField},
+			#{masterTable},#{masterPk},#{slaveTable},#{slaveFk}
 		)
 	</insert>
 
@@ -75,6 +84,27 @@
 					<when test="column=='openType' || column=='open_type'">
 						open_type=#{record.openType}
 					</when>
+					<when test="column=='modelType' || column=='model_type'">
+						model_type=#{record.modelType}
+					</when>
+					<when test="column=='treeId' || column=='tree_id'">
+						tree_id=#{record.treeId}
+					</when>
+					<when test="column=='referField' || column=='refer_field'">
+						refer_field=#{record.referField}
+					</when>
+					<when test="column=='masterTable' || column=='master_table'">
+						master_table=#{record.masterTable}
+					</when>
+					<when test="column=='masterPk' || column=='master_pk'">
+						master_pk=#{record.masterPk}
+					</when>
+					<when test="column=='slaveTable' || column=='slave_table'">
+						slave_table=#{record.slaveTable}
+					</when>
+					<when test="column=='slaveFk' || column=='slave_fk'">
+						slave_fk=#{record.slaveFk}
+					</when>
 				</choose>
 			</foreach>
 		</set>
@@ -85,7 +115,8 @@
 	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysMenu">
 		update sys_menu
 		set parent_id=#{parentId},menu_name=#{menuName},url=#{url},icon=#{icon},
-			order_no=#{orderNo},open_type=#{openType}
+			order_no=#{orderNo},open_type=#{openType},model_type=#{modelType},tree_id=#{treeId},refer_field=#{referField},
+			master_table=#{masterTable},master_pk=#{masterPk},slave_table=#{slaveTable},slave_fk=#{slaveFk}
 		where id = #{id}
 	</update>
 	

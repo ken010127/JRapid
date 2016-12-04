@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
-* 实体类
-* Created by JRapid on 2016-9-4 18:17:01.
+* 系统菜单管理实体类
+* Created by JRapid on 2016-11-30 16:09:59.
 */
 public class SysMenu implements Serializable {
 
@@ -21,9 +21,16 @@ public class SysMenu implements Serializable {
     public final static String ICON = "icon";
     public final static String ORDER_NO = "order_no";
     public final static String OPEN_TYPE = "open_type";
+    public final static String MODEL_TYPE = "model_type";
+    public final static String TREE_ID = "tree_id";
+    public final static String REFER_FIELD = "refer_field";
+    public final static String MASTER_TABLE = "master_table";
+    public final static String MASTER_PK = "master_pk";
+    public final static String SLAVE_TABLE = "slave_table";
+    public final static String SLAVE_FK = "slave_fk";
 
     /**
-    * 主键
+    * 主键ID
     **/
     @PK
     private Long id;
@@ -40,17 +47,17 @@ public class SysMenu implements Serializable {
     private String menuName;
 
     /**
-    * 菜单访问地址
+    * 访问路径
     **/
     private String url;
 
     /**
-    * 菜单图标
+    * 图标
     **/
     private String icon;
 
     /**
-    * 菜单序号
+    * 序号
     **/
     @ORDERID
     private Integer orderNo;
@@ -61,7 +68,42 @@ public class SysMenu implements Serializable {
     private String openType;
 
     /**
-     * 子节点
+    * 模板类型，DataGrid,Tree+Datagrid，主从表
+    **/
+    private String modelType;
+
+    /**
+    * 左树资源ID
+    **/
+    private Long treeId;
+
+    /**
+    * 树关联字段
+    **/
+    private Long referField;
+
+    /**
+    * 主表表名
+    **/
+    private String masterTable;
+
+    /**
+    * 主表主键字段
+    **/
+    private String masterPk;
+
+    /**
+    * 从表表名
+    **/
+    private String slaveTable;
+
+    /**
+    * 从表外检字段
+    **/
+    private String slaveFk;
+
+    /**
+     *子节点
      */
     @CHILDREN
     private List<SysMenu> children;
@@ -120,6 +162,62 @@ public class SysMenu implements Serializable {
 
     public void setOpenType(String openType){
         this.openType = openType;
+    }
+
+    public String getModelType(){
+        return modelType;
+    }
+
+    public void setModelType(String modelType){
+        this.modelType = modelType;
+    }
+
+    public Long getTreeId(){
+        return treeId;
+    }
+
+    public void setTreeId(Long treeId){
+        this.treeId = treeId;
+    }
+
+    public Long getReferField(){
+        return referField;
+    }
+
+    public void setReferField(Long referField){
+        this.referField = referField;
+    }
+
+    public String getMasterTable(){
+        return masterTable;
+    }
+
+    public void setMasterTable(String masterTable){
+        this.masterTable = masterTable;
+    }
+
+    public String getMasterPk(){
+        return masterPk;
+    }
+
+    public void setMasterPk(String masterPk){
+        this.masterPk = masterPk;
+    }
+
+    public String getSlaveTable(){
+        return slaveTable;
+    }
+
+    public void setSlaveTable(String slaveTable){
+        this.slaveTable = slaveTable;
+    }
+
+    public String getSlaveFk(){
+        return slaveFk;
+    }
+
+    public void setSlaveFk(String slaveFk){
+        this.slaveFk = slaveFk;
     }
 
     public List<SysMenu> getChildren() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.dao.platform.SysUserOrgExtMapper">
+
+    <resultMap id="baseResultExtMap" type="com.rbac.jrapid.entity.platform.SysUserOrg"
+               extends="com.rbac.jrapid.dao.platform.SysUserOrgMapper.baseResultMap"></resultMap>
+
+    <sql id="baseExtColumnList">
+        <include refid="com.rbac.jrapid.dao.platform.SysUserOrgMapper.baseColumnList" />
+    </sql>
+
+</mapper>

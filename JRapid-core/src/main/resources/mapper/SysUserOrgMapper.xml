@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.dao.platform.SysUserOrgMapper">
+
+	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
+
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.platform.SysUserOrg">
+		        <result column="org_id" property="orgId"/>		<!-- 组织ID -->
+		        <result column="user_id" property="userId"/>		<!-- 用户ID -->
+	</resultMap>
+
+	<sql id="baseColumnList">
+        org_id,user_id
+	</sql>
+
+    <!--根据主键获取记录-->
+
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM sys_user_org
+    </select>
+
+    <!--根据主键删除记录-->
+
+    <!--保存,只针对于一个主键-->
+
+    <!--更新规定字段-->
+	<update id="updateSelected">
+		update sys_user_org
+		<set>
+			<foreach collection="columns" item="column" separator=",">
+				<choose>
+					<when test="column=='orgId' || column=='org_id'">
+						org_id=#{record.orgId}
+					</when>
+					<when test="column=='userId' || column=='user_id'">
+						user_id=#{record.userId}
+					</when>
+				</choose>
+			</foreach>
+		</set>
+		where 
+	</update>
+
+    <!--更新所有字段-->
+	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysUserOrg">
+		update sys_user_org
+		set org_id=#{orgId},user_id=#{userId}
+		where 
+	</update>
+	
+	<sql id="exampleClause">
+		<trim prefixOverrides="and|or">
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and|or">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									${criterion.condition}
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 根据条件查询 -->
+	<select id="listByCondition" resultMap="baseResultMap">
+		select 
+		<include refid="baseColumnList" />
+		from sys_user_org
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+			<if test="example.orderByClause != null and example.orderByClause != ''">
+				order by ${example.orderByClause}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="countByCondition" resultType="java.lang.Integer">
+		select count(1)
+		from sys_user_org
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+		</if>
+	</select>
+
+	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
+
+</mapper>

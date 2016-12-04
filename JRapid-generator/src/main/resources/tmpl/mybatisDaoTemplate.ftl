@@ -1,6 +1,6 @@
 package ${basePackage}.dao.${modulePackage};
 
-import ${basePackage}.core.common.dao.BaseDao;
+import ${basePackage}.core.common.dao.BaseMapper;
 import ${basePackage}.entity.${modulePackage}.${className};
 import org.springframework.stereotype.Component;
 
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on ${.now?datetime}.
 */
 @Component("${className}Mapper")
-public interface ${className}Mapper extends BaseDao<${className},<#if (pkColumns?size>1)>Map<#else>Long</#if>> {
+public interface ${className}Mapper extends BaseMapper<${className},<#if (pkColumns?size>1)>Map<#else>Long</#if>> {
 
 }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.dao.platform.SysOrgMapper">
+
+	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
+
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.platform.SysOrg">
+                <id column="id" property="id" />      <!-- 主键ID -->
+		        <result column="parent_id" property="parentId"/>		<!-- 上级ID -->
+		        <result column="org_code" property="orgCode"/>		<!-- 组织编码 -->
+		        <result column="org_name" property="orgName"/>		<!-- 组织名称 -->
+		        <result column="org_type" property="orgType"/>		<!-- 组织类型，从字典表中取 -->
+		        <result column="contact_name" property="contactName"/>		<!-- 联系人 -->
+		        <result column="contact_phone" property="contactPhone"/>		<!-- 联系电话 -->
+		        <result column="create_user" property="createUser"/>		<!-- 创建人 -->
+		        <result column="create_time" property="createTime"/>		<!-- 创建时间 -->
+		        <result column="modify_user" property="modifyUser"/>		<!-- 修改人 -->
+		        <result column="modify_time" property="modifyTime"/>		<!-- 修改时间 -->
+	</resultMap>
+
+	<sql id="baseColumnList">
+        id,parent_id,org_code,org_name,org_type,
+		contact_name,contact_phone,create_user,create_time,modify_user,
+		modify_time
+	</sql>
+
+    <!--根据主键获取记录-->
+    <select id="findOne" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+            <include refid="baseColumnList" />
+        from sys_org
+        where id = #{id}
+    </select>
+
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM sys_org
+    </select>
+
+    <!--根据主键删除记录-->
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from sys_org
+        where id = #{id}
+    </delete>
+
+    <!--保存,只针对于一个主键-->
+	<insert id="save" useGeneratedKeys="false" keyProperty="id" parameterType="com.rbac.jrapid.entity.platform.SysOrg">
+		insert into sys_org
+		(<include refid="baseColumnList" />
+		)
+		values
+		(	#{id},#{parentId},#{orgCode},#{orgName},#{orgType},
+			#{contactName},#{contactPhone},#{createUser},#{createTime},#{modifyUser},
+			#{modifyTime}
+		)
+	</insert>
+
+    <!--更新规定字段-->
+	<update id="updateSelected">
+		update sys_org
+		<set>
+			<foreach collection="columns" item="column" separator=",">
+				<choose>
+					<when test="column=='parentId' || column=='parent_id'">
+						parent_id=#{record.parentId}
+					</when>
+					<when test="column=='orgCode' || column=='org_code'">
+						org_code=#{record.orgCode}
+					</when>
+					<when test="column=='orgName' || column=='org_name'">
+						org_name=#{record.orgName}
+					</when>
+					<when test="column=='orgType' || column=='org_type'">
+						org_type=#{record.orgType}
+					</when>
+					<when test="column=='contactName' || column=='contact_name'">
+						contact_name=#{record.contactName}
+					</when>
+					<when test="column=='contactPhone' || column=='contact_phone'">
+						contact_phone=#{record.contactPhone}
+					</when>
+					<when test="column=='createUser' || column=='create_user'">
+						create_user=#{record.createUser}
+					</when>
+					<when test="column=='createTime' || column=='create_time'">
+						create_time=#{record.createTime}
+					</when>
+					<when test="column=='modifyUser' || column=='modify_user'">
+						modify_user=#{record.modifyUser}
+					</when>
+					<when test="column=='modifyTime' || column=='modify_time'">
+						modify_time=#{record.modifyTime}
+					</when>
+				</choose>
+			</foreach>
+		</set>
+		where id = #{record.id}
+	</update>
+
+    <!--更新所有字段-->
+	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysOrg">
+		update sys_org
+		set parent_id=#{parentId},org_code=#{orgCode},org_name=#{orgName},org_type=#{orgType},
+			contact_name=#{contactName},contact_phone=#{contactPhone},create_user=#{createUser},create_time=#{createTime},modify_user=#{modifyUser},
+			modify_time=#{modifyTime}
+		where id = #{id}
+	</update>
+	
+	<sql id="exampleClause">
+		<trim prefixOverrides="and|or">
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and|or">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									${criterion.condition}
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 根据条件查询 -->
+	<select id="listByCondition" resultMap="baseResultMap">
+		select 
+		<include refid="baseColumnList" />
+		from sys_org
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+			<if test="example.orderByClause != null and example.orderByClause != ''">
+				order by ${example.orderByClause}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="countByCondition" resultType="java.lang.Integer">
+		select count(1)
+		from sys_org
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+		</if>
+	</select>
+
+	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
+
+</mapper>

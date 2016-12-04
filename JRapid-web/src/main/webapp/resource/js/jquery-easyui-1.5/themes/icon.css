@@ -61,13 +61,26 @@
 .icon-man{
 	background:url('icons/man.png') no-repeat center center;
 }
-.icon-lock{
-	background:url('icons/lock.png') no-repeat center center;
+.icon-refresh{
+	background:url('icons/refresh.png') no-repeat center center;
+}
+.tree_user{
+	background:url('icons/person.png') no-repeat center center;
+}
+.icon-sort{background:url('icons/sort.png') no-repeat center center;}
+.icon-up{background:url('icons/up.png') no-repeat center center;}
+.icon-down{background:url('icons/down.png') no-repeat center center;}
+.icon-load{background:url('icons/load_24.png') no-repeat center center;}
+
+.icon-red{
+	background:url('icons/red_24.png') no-repeat center center;
 }
 .icon-more{
 	background:url('icons/more.png') no-repeat center center;
 }
-
+.icon-green{
+	background:url('icons/green_24.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
@@ -94,3 +107,4 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon-download{background:url('icons/download.png') no-repeat center center;}

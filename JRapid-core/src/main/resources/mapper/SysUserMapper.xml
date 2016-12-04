@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.dao.platform.SysUserMapper">
+
+	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
+
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.platform.SysUser">
+                <id column="id" property="id" />      <!-- 主键ID -->
+		        <result column="account" property="account"/>		<!-- 用户账号 -->
+		        <result column="login_pwd" property="loginPwd"/>		<!-- 密码 -->
+		        <result column="user_name" property="userName"/>		<!-- 用户名 -->
+		        <result column="enabled" property="enabled"/>		<!-- 是否可用 -->
+		        <result column="create_user" property="createUser"/>		<!-- 创建人 -->
+		        <result column="create_time" property="createTime"/>		<!-- 创建时间 -->
+		        <result column="modify_user" property="modifyUser"/>		<!-- 修改人 -->
+		        <result column="modify_time" property="modifyTime"/>		<!-- 修改时间 -->
+	</resultMap>
+
+	<sql id="baseColumnList">
+        id,account,login_pwd,user_name,enabled,
+		create_user,create_time,modify_user,modify_time
+	</sql>
+
+    <!--根据主键获取记录-->
+    <select id="findOne" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+            <include refid="baseColumnList" />
+        from sys_user
+        where id = #{id}
+    </select>
+
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM sys_user
+    </select>
+
+    <!--根据主键删除记录-->
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from sys_user
+        where id = #{id}
+    </delete>
+
+    <!--保存,只针对于一个主键-->
+	<insert id="save" useGeneratedKeys="false" keyProperty="id" parameterType="com.rbac.jrapid.entity.platform.SysUser">
+		insert into sys_user
+		(<include refid="baseColumnList" />
+		)
+		values
+		(	#{id},#{account},#{loginPwd},#{userName},#{enabled},
+			#{createUser},#{createTime},#{modifyUser},#{modifyTime}
+		)
+	</insert>
+
+    <!--更新规定字段-->
+	<update id="updateSelected">
+		update sys_user
+		<set>
+			<foreach collection="columns" item="column" separator=",">
+				<choose>
+					<when test="column=='account' || column=='account'">
+						account=#{record.account}
+					</when>
+					<when test="column=='loginPwd' || column=='login_pwd'">
+						login_pwd=#{record.loginPwd}
+					</when>
+					<when test="column=='userName' || column=='user_name'">
+						user_name=#{record.userName}
+					</when>
+					<when test="column=='enabled' || column=='enabled'">
+						enabled=#{record.enabled}
+					</when>
+					<when test="column=='createUser' || column=='create_user'">
+						create_user=#{record.createUser}
+					</when>
+					<when test="column=='createTime' || column=='create_time'">
+						create_time=#{record.createTime}
+					</when>
+					<when test="column=='modifyUser' || column=='modify_user'">
+						modify_user=#{record.modifyUser}
+					</when>
+					<when test="column=='modifyTime' || column=='modify_time'">
+						modify_time=#{record.modifyTime}
+					</when>
+				</choose>
+			</foreach>
+		</set>
+		where id = #{record.id}
+	</update>
+
+    <!--更新所有字段-->
+	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysUser">
+		update sys_user
+		set account=#{account},login_pwd=#{loginPwd},user_name=#{userName},enabled=#{enabled},
+			create_user=#{createUser},create_time=#{createTime},modify_user=#{modifyUser},modify_time=#{modifyTime}
+		where id = #{id}
+	</update>
+	
+	<sql id="exampleClause">
+		<trim prefixOverrides="and|or">
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and|or">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									${criterion.condition}
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 根据条件查询 -->
+	<select id="listByCondition" resultMap="baseResultMap">
+		select 
+		<include refid="baseColumnList" />
+		from sys_user
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+			<if test="example.orderByClause != null and example.orderByClause != ''">
+				order by ${example.orderByClause}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="countByCondition" resultType="java.lang.Integer">
+		select count(1)
+		from sys_user
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+		</if>
+	</select>
+
+	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
+
+</mapper>

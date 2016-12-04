@@ -27,8 +27,8 @@ public class SSMGenerationImpl extends Generation {
         try {
             /* 获取模板文件 */
             Template entityTemplate = cfg.getTemplate("entityTemplate.ftl");
-            Template requestTemplate = cfg.getTemplate("requestTemplate.flt");
-            Template responseTemplate = cfg.getTemplate("responseTemplate.flt");
+            Template requestTemplate = cfg.getTemplate("requestTemplate.ftl");
+            Template responseTemplate = cfg.getTemplate("responseTemplate.ftl");
 
             String entityPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +"entity" + File.separatorChar
                     + PropertiesUtil.getValue("modulePackage");
@@ -46,19 +46,19 @@ public class SSMGenerationImpl extends Generation {
                 File entityOutput = FileUtils.createFile(entityPath + File.separatorChar + entity.getClassName() + ".java");
                 writer = new FileWriter(entityOutput);
                 entityTemplate.process(entity, writer);
-                logger.info("生成{}.java结束！",entity.getClassName());
+                logger.info("生成 {}.java结束！",entity.getClassName());
 
                 logger.info("生成 {}Request.java 开始",entity.getClassName());
                 File requestOutput = FileUtils.createFile(requestPath + File.separatorChar + entity.getClassName() + "Request.java");
                 writer = new FileWriter(requestOutput);
                 requestTemplate.process(entity, writer);
-                logger.info("生成{}Request.java结束！",entity.getClassName());
+                logger.info("生成 {}Request.java结束！",entity.getClassName());
 
                 logger.info("生成 {}Request.java 开始",entity.getClassName());
                 File responseOutput = FileUtils.createFile(responsePath + File.separatorChar + entity.getClassName() + "Response.java");
                 writer = new FileWriter(responseOutput);
                 responseTemplate.process(entity, writer);
-                logger.info("生成{}Response.java结束！",entity.getClassName());
+                logger.info("生成 {}Response.java结束！",entity.getClassName());
 
                 //writer.flush();//输出到控制台
             }
@@ -174,7 +174,30 @@ public class SSMGenerationImpl extends Generation {
 
     @Override
     public void generateController(Configuration cfg,List<Entity> entities) throws IOException {
+        Writer writer = null;
+        try {
+            /* 获取模板文件 */
+            Template controllerTemplate = cfg.getTemplate("controllerTemplate.ftl");
 
+            String controllerPath = PropertiesUtil.getValue("outRoot")+ File.separatorChar +  "controller" + File.separatorChar
+                    + PropertiesUtil.getValue("modulePackage");
+            FileUtils.createFolder(controllerPath);
+
+            for (Entity entity : entities) {
+                logger.info("生成 {}Controller.java 开始",entity.getClassName());
+                File controller = new File(controllerPath + File.separatorChar + entity.getClassName() +"Controller.java");
+                writer = new FileWriter(controller);
+                controllerTemplate.process(entity, writer);
+                logger.info("生成 {}Controller.java 结束！",entity.getClassName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        } finally {
+            assert writer != null;
+            writer.close();
+        }
     }
 
     @Override

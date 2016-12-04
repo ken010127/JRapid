@@ -3,10 +3,10 @@
 <mapper namespace="${basePackage}.dao.${modulePackage}.${className}ExtMapper">
 
     <resultMap id="baseResultExtMap" type="${basePackage}.entity.${modulePackage}.${className}"
-               extends="${basePackage}.${modulePackage}.dao.${className}Mapper.baseResultMap"></resultMap>
+               extends="${basePackage}.dao.${modulePackage}.${className}Mapper.baseResultMap"></resultMap>
 
     <sql id="baseExtColumnList">
-        <include refid="${basePackage}.${modulePackage}.dao.${className}Mapper.baseColumnList" />
+        <include refid="${basePackage}.dao.${modulePackage}.${className}Mapper.baseColumnList" />
     </sql>
 
 </mapper>

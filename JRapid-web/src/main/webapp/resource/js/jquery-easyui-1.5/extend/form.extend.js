@@ -1,6 +1,7 @@
 /**
  * form 扩展
  * Created by FWJ on 2016/11/22.
+ * 使用方法：$('#formId').form('getData',true);
  */
 $.extend($.fn.form.methods, {
     /**

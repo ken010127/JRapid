@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rbac.jrapid.dao.platform.SysTreeResourceMapper">
+
+	<!-- ********************** 以下部分为代码自动生成，不能修改！！！ ********************************** -->
+
+	<resultMap id="baseResultMap" type="com.rbac.jrapid.entity.platform.SysTreeResource">
+                <id column="id" property="id" />      <!-- 主键ID -->
+		        <result column="table_name" property="tableName"/>		<!-- 树表名 -->
+		        <result column="node_id_field" property="nodeIdField"/>		<!-- 节点ID字段 -->
+		        <result column="node_parent_field" property="nodeParentField"/>		<!-- 父节点ID字段 -->
+		        <result column="node_name_field" property="nodeNameField"/>		<!-- 节点名称字段 -->
+		        <result column="resource_name" property="resourceName"/>		<!-- 资源名称 -->
+	</resultMap>
+
+	<sql id="baseColumnList">
+        id,table_name,node_id_field,node_parent_field,node_name_field,
+		resource_name
+	</sql>
+
+    <!--根据主键获取记录-->
+    <select id="findOne" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+            <include refid="baseColumnList" />
+        from sys_tree_resource
+        where id = #{id}
+    </select>
+
+    <!-- 查找全部 -->
+    <select id="findAll" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseColumnList"/>
+        FROM sys_tree_resource
+    </select>
+
+    <!--根据主键删除记录-->
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from sys_tree_resource
+        where id = #{id}
+    </delete>
+
+    <!--保存,只针对于一个主键-->
+	<insert id="save" useGeneratedKeys="false" keyProperty="id" parameterType="com.rbac.jrapid.entity.platform.SysTreeResource">
+		insert into sys_tree_resource
+		(<include refid="baseColumnList" />
+		)
+		values
+		(	#{id},#{tableName},#{nodeIdField},#{nodeParentField},#{nodeNameField},
+			#{resourceName}
+		)
+	</insert>
+
+    <!--更新规定字段-->
+	<update id="updateSelected">
+		update sys_tree_resource
+		<set>
+			<foreach collection="columns" item="column" separator=",">
+				<choose>
+					<when test="column=='tableName' || column=='table_name'">
+						table_name=#{record.tableName}
+					</when>
+					<when test="column=='nodeIdField' || column=='node_id_field'">
+						node_id_field=#{record.nodeIdField}
+					</when>
+					<when test="column=='nodeParentField' || column=='node_parent_field'">
+						node_parent_field=#{record.nodeParentField}
+					</when>
+					<when test="column=='nodeNameField' || column=='node_name_field'">
+						node_name_field=#{record.nodeNameField}
+					</when>
+					<when test="column=='resourceName' || column=='resource_name'">
+						resource_name=#{record.resourceName}
+					</when>
+				</choose>
+			</foreach>
+		</set>
+		where id = #{record.id}
+	</update>
+
+    <!--更新所有字段-->
+	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysTreeResource">
+		update sys_tree_resource
+		set table_name=#{tableName},node_id_field=#{nodeIdField},node_parent_field=#{nodeParentField},node_name_field=#{nodeNameField},
+			resource_name=#{resourceName}
+		where id = #{id}
+	</update>
+	
+	<sql id="exampleClause">
+		<trim prefixOverrides="and|or">
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and|or">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									${criterion.condition}
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- 根据条件查询 -->
+	<select id="listByCondition" resultMap="baseResultMap">
+		select 
+		<include refid="baseColumnList" />
+		from sys_tree_resource
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+			<if test="example.orderByClause != null and example.orderByClause != ''">
+				order by ${example.orderByClause}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="countByCondition" resultType="java.lang.Integer">
+		select count(1)
+		from sys_tree_resource
+		<if test="_parameter != null" >
+			<where>
+				<include refid="exampleClause" />
+			</where>
+		</if>
+	</select>
+
+	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
+
+</mapper>

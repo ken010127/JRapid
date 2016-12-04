@@ -7,9 +7,9 @@
 	<resultMap id="baseResultMap" type="${basePackage}.entity.${modulePackage}.${className}">
         <#list fields as field>
             <#if field.pk>
-                <id column="${field.columnName}" property="${field.fieldName}" />      <!-- ${field.comments} -->
+        <id column="${field.columnName}" property="${field.fieldName}" />      <!-- ${field.comments} -->
             <#else>
-		        <result column="${field.columnName}" property="${field.fieldName}"/>		<!-- ${field.comments} -->
+		<result column="${field.columnName}" property="${field.fieldName}"/>		<!-- ${field.comments} -->
 			</#if>
 		</#list>
 	</resultMap>
