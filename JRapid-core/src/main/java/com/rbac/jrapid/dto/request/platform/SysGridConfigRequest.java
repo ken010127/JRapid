@@ -10,6 +10,11 @@ import com.rbac.jrapid.entity.platform.SysGridConfig;
 */
 public class SysGridConfigRequest extends BaseRequest {
 
+    /**
+     * 数据库表名称
+     */
+    private String tableName;
+
     private SysGridConfig sysGridConfig;
 
     public SysGridConfig getSysGridConfig() {
@@ -18,5 +23,13 @@ public class SysGridConfigRequest extends BaseRequest {
 
     public void setSysGridConfig(SysGridConfig sysGridConfig) {
         this.sysGridConfig = sysGridConfig;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

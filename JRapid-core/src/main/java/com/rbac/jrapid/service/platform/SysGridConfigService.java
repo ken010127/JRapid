@@ -1,6 +1,7 @@
 package com.rbac.jrapid.service.platform;
 
 import com.rbac.jrapid.core.common.dao.CommonExample;
+import com.rbac.jrapid.dto.response.platform.SysGridConfigResponse;
 import com.rbac.jrapid.entity.platform.SysGridConfig;
 
 import java.util.List;
@@ -30,5 +31,5 @@ public interface SysGridConfigService {
      * @param tableName 表名
      * @return 字段信息
      */
-    List<SysGridConfig> queryColumnInfo(String tableName);
+    SysGridConfigResponse queryColumnInfo(String tableName);
 }

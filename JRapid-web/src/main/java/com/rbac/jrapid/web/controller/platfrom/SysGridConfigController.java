@@ -30,4 +30,12 @@ public class SysGridConfigController extends BaseController{
         return modelAndView;
     }
 
+    /**
+     * 查询表字段信息
+     * @return SysGridConfigResponse
+     */
+    @RequestMapping(value = "/queryColumnInfo")
+    public Object queryColumnInfo(@RequestBody SysGridConfigRequest request){
+        return sysGridConfigService.queryColumnInfo(request.getTableName());
+    }
 }

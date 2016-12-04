@@ -3,6 +3,7 @@ package com.rbac.jrapid.service.impl.platform;
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.dao.platform.SysGridConfigExtMapper;
 import com.rbac.jrapid.dao.platform.SysGridConfigMapper;
+import com.rbac.jrapid.dto.response.platform.SysGridConfigResponse;
 import com.rbac.jrapid.entity.platform.SysGridConfig;
 import com.rbac.jrapid.service.platform.SysGridConfigService;
 import org.slf4j.Logger;
@@ -55,8 +56,11 @@ public class SysGridConfigServiceImpl implements SysGridConfigService{
     }
 
     @Override
-    public List<SysGridConfig> queryColumnInfo(String tableName) {
-        return sysGridConfigExtMapper.queryColumnInfo(tableName);
+    public SysGridConfigResponse queryColumnInfo(String tableName) {
+        SysGridConfigResponse response = new SysGridConfigResponse();
+        List<SysGridConfig> sysGridConfigs = sysGridConfigExtMapper.queryColumnInfo(tableName);
+        response.setRows(sysGridConfigs);
+        return response;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.rbac.jrapid.dao.platform;
 
 import com.rbac.jrapid.entity.platform.SysGridConfig;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public interface SysGridConfigExtMapper{
      * @param tableName 表名称
      * @return 字段信息列表
      */
-    List<SysGridConfig> queryColumnInfo(String tableName);
+    List<SysGridConfig> queryColumnInfo(@Param("tableName") String tableName);
 
 }

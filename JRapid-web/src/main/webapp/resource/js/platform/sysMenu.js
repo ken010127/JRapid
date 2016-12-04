@@ -208,9 +208,6 @@ function initGridConfigGrid(){
     $('#sysGridConfigGrid').datagrid({
         fit:true,
         fitColumns:true,
-        pagination:true,//分页控件
-        pageSize:20,
-        pageList: [20, 50, 100],//可以设置每页记录条数的列表
         rownumbers:true,//行号
         collapsible: true,
         singleSelect:true,
@@ -296,4 +293,26 @@ function initGridConfigGrid(){
             }
         ]]
     });
+}
+
+function loadClomun() {
+    var tableName = $('#masterTable').val();
+
+    if (tableName==null || tableName==""){
+        $.messager.alert('错误信息', '请填写主表表名！', 'info');
+        return false;
+    }
+
+    $('#sysGridConfigGrid').datagrid('loading');
+    var requestData = {};
+    requestData.tableName = tableName;
+    jrapid_ajax_util.post('/platform/sysGridConfig/queryColumnInfo',requestData,function(data){debugger;
+        if (data.status) {
+            $('#sysGridConfigGrid').datagrid('loadData',{'rows':data.rows});
+
+        } else {
+            $.messager.alert('温馨提示', '加载失败！'+data.errorMsg, 'info');
+        }
+    });
+    $('#sysGridConfigGrid').datagrid('loaded');
 }

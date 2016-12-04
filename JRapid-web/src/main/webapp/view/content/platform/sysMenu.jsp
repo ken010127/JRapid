@@ -129,7 +129,7 @@
                     <table id="sysGridConfigGrid"></table>
                     <div id="gridConfigTb" style="height:auto">
                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">确定</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="load()">加载</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="loadClomun()">加载</a>
                     </div>
                 </div>
             </div>
