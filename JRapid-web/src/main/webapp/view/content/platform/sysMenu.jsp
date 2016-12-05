@@ -120,15 +120,15 @@
                 <div title="按钮设置">
                     <table id="sysButtonGrid"></table>
                     <div id="buttonTb" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">新增</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">确定</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="appendButton()">新增</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="reomveButton()">删除</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysButtonGrid',buttonIndex)">确定</a>
                     </div>
                 </div>
                 <div title="表格配置信息" style="display:none;">
                     <table id="sysGridConfigGrid"></table>
                     <div id="gridConfigTb" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">确定</a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysGridConfigGrid',gridConfigIndex)">确定</a>
                         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="loadClomun()">加载</a>
                     </div>
                 </div>

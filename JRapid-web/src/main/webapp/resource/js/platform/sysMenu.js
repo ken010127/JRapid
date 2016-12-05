@@ -181,14 +181,7 @@ function initButtonGrid() {
                     }
                 }
             },
-            {field:'orderNo',title:'序号',width:100,
-                editor: {
-                    type:'numberbox',
-                    options:{
-                        required: true
-                    }
-                }
-            },
+            {field:'orderNo',title:'序号',width:100,editor:'numberbox'},
             {field:'description',title:'描述',width:200,
                 editor: {
                     type:'textbox',
@@ -197,7 +190,24 @@ function initButtonGrid() {
                     }
                 }
             }
-        ]]
+        ]],
+        onDblClickRow:function (index, rowData) {
+            if (buttonIndex != index){
+                if (endEditing('#sysButtonGrid',buttonIndex)){
+                    $('#sysButtonGrid').datagrid('selectRow', index).datagrid('beginEdit', index);
+
+                    $('#sysButtonGrid').datagrid('beginEdit', index);
+                    buttonIndex = index;
+                } else {
+                    setTimeout(function(){
+                        $('#sysButtonGrid').datagrid('selectRow', buttonIndex);
+                    },0);
+                }
+            }
+        },
+        onSelect:function (index,row) {
+            endEditing('#sysButtonGrid',buttonIndex);
+        }
     });
 }
 
@@ -238,22 +248,8 @@ function initGridConfigGrid(){
                     }
                 }
             },
-            {field:'dictionary',title:'字典编码',width:120,
-                editor: {
-                    type:'textbox',
-                    options:{
-                        required: true
-                    }
-                }
-            },
-            {field:'orderNo',title:'序号',width:120,
-                editor: {
-                    type:'textbox',
-                    options:{
-                        required: true
-                    }
-                }
-            },
+            {field:'dictionary',title:'字典编码',width:120,editor:'textbox'},
+            {field:'orderNo',title:'序号',width:120,editor:'textbox'},
             {field:'isDisplay',title:'是否显示列',width:120,
                 editor:{type:'checkbox',options:{on:'Y',off:'N'}}
             },
@@ -263,14 +259,12 @@ function initGridConfigGrid(){
             {field:'searchType',title:'查询控件类型',width:120,
                 editor:{
                     type:'combobox',
-                    readonly:true,
                     options:{
                         //data:spo_form_util.getDictByCode("SPO_DIFFERENCE_MODE"),
                         valueField:'value',
                         textField:'name',
                         panelHeight:'auto',
-                        editable:false,
-                        required: true
+                        editable:false
                     }
                 }
             },
@@ -280,21 +274,93 @@ function initGridConfigGrid(){
             {field:'modifyType',title:'编辑控件类型',width:120,
                 editor:{
                     type:'combobox',
-                    readonly:true,
                     options:{
                         //data:spo_form_util.getDictByCode("SPO_DIFFERENCE_MODE"),
                         valueField:'value',
                         textField:'name',
                         panelHeight:'auto',
-                        editable:false,
-                        required: true
+                        editable:false
                     }
                 }
             }
-        ]]
+        ]],
+        onDblClickRow:function (index, rowData) {
+            if (gridConfigIndex != index){
+                if (endEditing('#sysGridConfigGrid',gridConfigIndex)){
+                    $('#sysGridConfigGrid').datagrid('selectRow', index).datagrid('beginEdit', index);
+
+                    $('#sysGridConfigGrid').datagrid('beginEdit', index);
+                    gridConfigIndex = index;
+                } else {
+                    setTimeout(function(){
+                        $('#sysGridConfigGrid').datagrid('selectRow', gridConfigIndex);
+                    },0);
+                }
+            }
+        },
+        onSelect:function (index,row) {
+            endEditing('#sysGridConfigGrid',gridConfigIndex);
+        }
+
     });
 }
 
+//gridconfig 编辑列序号
+var gridConfigIndex = undefined;
+//buttongrid 编辑列序号
+var buttonIndex = undefined;
+//删除行ID
+var deleteButtonIds = new Array();
+
+/**
+ * 结束编辑行
+ * @param gridId DataGrid ID
+ * @param index 行序号
+ * @returns {boolean}
+ */
+function endEditing(gridId,index){
+    if (index == undefined){return true}
+    if ($(gridId).datagrid('validateRow', index)){
+        $(gridId).datagrid('endEdit', index);
+        index = undefined;
+        return true;
+    } else {
+        $.messager.alert("系统提示","您还有未编辑完的行!","warning");
+        return false;
+    }
+}
+
+/**
+ * 添加按钮编辑行
+ */
+function appendButton(){
+    if (endEditing('#sysButtonGrid',buttonIndex)){
+        $('#sysButtonGrid').datagrid('appendRow',{});
+        buttonIndex = $('#sysButtonGrid').datagrid('getRows').length-1;
+        $('#sysButtonGrid').datagrid('selectRow', buttonIndex).datagrid('beginEdit', buttonIndex);
+    }
+}
+
+/**
+ * 删除按钮行
+ */
+function reomveButton() {
+    var selectRow = $('#sysButtonGrid').datagrid('getSelected');
+    if (selectRow){
+        var selectIndex = $('#sysButtonGrid').datagrid('getRowIndex',selectRow);
+        $('#sysButtonGrid').datagrid('deleteRow', selectIndex);
+        if(selectRow.id){
+            deleteButtonIds.push(selectRow.id);//添加删除按钮ID
+        }
+    }else {
+        $.messager.alert("系统提示","请选择删除行!","warning");
+    }
+}
+
+/**
+ * 加载数据库表字段信息
+ * @returns {boolean}
+ */
 function loadClomun() {
     var tableName = $('#masterTable').val();
 
@@ -306,7 +372,7 @@ function loadClomun() {
     $('#sysGridConfigGrid').datagrid('loading');
     var requestData = {};
     requestData.tableName = tableName;
-    jrapid_ajax_util.post('/platform/sysGridConfig/queryColumnInfo',requestData,function(data){debugger;
+    jrapid_ajax_util.post('/platform/sysGridConfig/queryColumnInfo',requestData,function(data){
         if (data.status) {
             $('#sysGridConfigGrid').datagrid('loadData',{'rows':data.rows});
 
