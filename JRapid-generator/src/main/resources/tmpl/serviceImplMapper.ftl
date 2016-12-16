@@ -30,20 +30,50 @@ public class ${className}ServiceImpl implements ${className}Service{
         return ${className?uncap_first}Mapper.findOne(id);
     }
 
-    public Integer save(${className} ${className?uncap_first}) throws Exception {
-        return ${className?uncap_first}Mapper.save(${className?uncap_first});
+    public ${className}Response save(${className} ${className?uncap_first}) throws Exception {
+        ${className}Response response = new ${className}Response();
+        int result;
+        if (${className?uncap_first}.getId()==null){
+            result = ${className?uncap_first}Mapper.save(${className?uncap_first});
+        }else {
+            result = ${className?uncap_first}Mapper.update(${className?uncap_first});
+        }
+
+        if (result<0){
+            response.setStatus(false);
+        }
+        response.set${className}(${className?uncap_first});
+        return response;
     }
 
-    public Integer update(${className} ${className?uncap_first}) throws Exception {
-        return ${className?uncap_first}Mapper.update(${className?uncap_first});
+    public ${className}Response update(${className} ${className?uncap_first}) throws Exception {
+        ${className}Response response = new ${className}Response();
+        int result = ${className?uncap_first}Mapper.update(${className?uncap_first});;
+
+        if (result<0){
+            response.setStatus(false);
+        }
+        response.set${className}(${className?uncap_first});
+        return response;
     }
 
-    public Integer updateSelected(${className} ${className?uncap_first}, List<String> list) throws Exception {
-        return ${className?uncap_first}Mapper.updateSelected(${className?uncap_first},list);
+    public ${className}Response updateSelected(${className} ${className?uncap_first}, List<String> list) throws Exception {
+        ${className}Response response = new ${className}Response();
+        int result = ${className?uncap_first}Mapper.updateSelected(${className?uncap_first},list);
+        if (result<0){
+            response.setStatus(false);
+        }
+        response.set${className}(${className?uncap_first});
+        return response;
     }
 
-    public Integer delete(Long id) throws Exception {
-        return ${className?uncap_first}Mapper.delete(id);
+    public ${className}Response delete(Long id) throws Exception {
+        ${className}Response response = new ${className}Response();
+        int result = ${className?uncap_first}Mapper.delete(id);
+        if (result<0){
+            response.setStatus(false);
+        }
+        return response;
     }
 
     public List<${className}> listByCondition(CommonExample commonExample) throws Exception {

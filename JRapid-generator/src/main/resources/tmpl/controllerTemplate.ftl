@@ -26,8 +26,17 @@ public class ${className}Controller extends BaseController{
 
     @RequestMapping(value = "/listPage", method = RequestMethod.GET)
     public ModelAndView openPage(){
-        ModelAndView modelAndView = new ModelAndView("/platform/${className?uncap_first}");
+        ModelAndView modelAndView = new ModelAndView("/content/platform/${className?uncap_first}");
         return modelAndView;
     }
 
+    @RequestMapping(value = "/save${className}", method = RequestMethod.POST)
+    public Object save${className}(@RequestBody ${className}Request request) throws Exception {
+        return ${className?uncap_first}Service.save(request.get${className}());
+    }
+
+    @RequestMapping(value = "/delete${className}", method = RequestMethod.DELETE)
+    public Object delete${className}(@RequestBody ${className}Request request) throws Exception {
+        return ${className?uncap_first}Service.delete(request.get${className}().getId());
+    }
 }
