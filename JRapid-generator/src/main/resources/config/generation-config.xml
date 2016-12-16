@@ -13,7 +13,7 @@
     <entry key="modulePackage">platform</entry>
 
     <!--要生成的table，可以用%表示全部-->
-    <entry key="tables">sys_grid_config</entry>
+    <entry key="tables">sys_dictionary</entry>
 
     <!--模板根目录-->
     <entry key="templateRoot">/Users/ken/code/JRapid/JRapid-generator/src/main/resources/tmpl</entry>

@@ -33,7 +33,7 @@
 
     <!-- 对模型视图添加前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/view/content" p:suffix=".jsp"/>
+          p:prefix="/view/content/" p:suffix=".jsp"/>
 
     <mvc:resources mapping="/resources/**" location="/resource/" />
 </beans>

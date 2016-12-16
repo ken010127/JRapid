@@ -18,6 +18,8 @@ public class SysDictionary implements Serializable {
     public final static String DICT_CODE = "dict_code";
     public final static String DIRECTION = "direction";
 
+    public final static String DICT_CHILDREN = "dict_children";
+
     /**
     * 
     **/

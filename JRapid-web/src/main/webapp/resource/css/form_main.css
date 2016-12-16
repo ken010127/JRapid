@@ -1,0 +1,22 @@
+.jrapid_form{
+
+}
+
+.jrapid_form .title{
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.jrapid_form input{
+    background-color: #FFF;
+    border: 1px solid #d5cfc2;
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.jrapid_form onShow{
+    color: #999;
+    padding-left: 0px;
+}

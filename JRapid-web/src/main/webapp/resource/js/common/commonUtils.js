@@ -149,3 +149,24 @@ function loadjs(file){
     var head = $('head').remove('#loadscript');
    $("<scri"+"pt>"+"</scr"+"ipt>").attr({src:ctx+file,type:'text/javascript',id:'load'}).appendto(head);
 }
+
+/**
+ * 字典JS工具类
+ * @returns {{queryChildrenByCode: queryChildrenByCode}}
+ */
+var dictUtils = function () {
+  return{
+      /**
+       * 根据父节点编码查询子节点
+       * @param parentCode  父节点编码
+       */
+      queryChildrenByCode:function (parentCode) {
+          var url = "/platform/sysDictionary/queryChildrenByCode/"+parentCode;
+          var dictData = {"parentCode":parentCode};
+          jrapid_ajax_util.get(url,{},function (data) {
+              dictData = data;
+          });
+          return dictData;
+      }
+  }
+}(jQuery);

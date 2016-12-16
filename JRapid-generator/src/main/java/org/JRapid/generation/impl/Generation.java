@@ -71,6 +71,13 @@ public abstract class Generation {
 
     public abstract void generateView(Configuration cfg,List<Entity> entities) throws IOException;
 
+    /**
+     * 添加配置信息（spring的配置文件）
+     * @param entities 实体信息
+     * @throws IOException
+     */
+    public abstract void generateConfig(List<Entity> entities) throws IOException;
+
     public void hook(){}
 
 }

@@ -205,4 +205,8 @@ public class SSMGenerationImpl extends Generation {
 
     }
 
+    public void generateConfig(List<Entity> entities) throws IOException {
+
+    }
+
 }

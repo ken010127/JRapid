@@ -9,30 +9,15 @@
 
 
     <title>系统模块管理</title>
-    <script type="text/javascript" src="<%=ctx %>/resource/js/platform/sysMenu.js"></script>
+    <script type="text/javascript" src="<%=ctx %>/resource/js/content/platform/sysMenu.js"></script>
 
-    <style type="text/css">
-        .SelectIcon_ed {
-            width: 50px;
-            height: 50px;
-            padding: 2px 2px 2px 2px;
-            border: 2px solid red;
-        }
 
-        .SelectIcon {
-            width: 50px;
-            height: 50px;
-            padding: 2px 2px 2px 2px;
-            border: 1px solid #000000;
-        }
-    </style>
 
 </head>
 <body>
 <div class="easyui-layout" data-options="fit:true">
 
-    <table id="menuTreeGrid" style="width: 900px; height: 600px"
-           toolbar="#tb"></table>
+    <table id="menuTreeGrid" style="width: 900px; height: 600px" toolbar="#tb"></table>
     <div id="tb" style="padding: 3px">
         <table class="input">
             <tr>
@@ -51,94 +36,100 @@
     <div id="add" class="easyui-window" title="编辑页面" closed="true"
          modal="true" style="padding: 10px;"  closed="true"
          maximizable="true" minimizable="true" collapsible="false" fit="true">
-        <div id="addSysMenu">
-            <form id="addForm">
-                <input type="hidden" id="id" name="id" value="">
-                <input type="hidden" id="parentId" name="parentId" value="">
-                <table class="input">
-                    <tr>
-                        <td style="width: 50px;">名称：</td>
-                        <td><input id="menuName" name="menuName" type="text" value="" class="easyui-validatebox" />
-                        </td>
-                        <td style="width: 50px;">模板类型：</td>
-                        <td><input id="modelType" name="modelType" type="text" value="" class="easyui-validatebox" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="width: 50px;">路径：</td>
-                        <td><input id="url" name="url" type="text" value="" class="easyui-validatebox" />
-                        </td>
-                        <td style="width: 50px;">打开方式：</td>
-                        <td>
-                            <input id="openType" name="openTypes" size=15/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50px;">图标：</td>
-                        <td>
-                            <input id="icon" name="icon" size=15/>
-                        </td>
-                        <td style="width: 50px;">序号：</td>
-                        <td><input id="orderNo" name="orderNo" type="text" value="" class="easyui-numberbox" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50px;">资源树ID：</td>
-                        <td>
-                            <input id="treeId" name="treeId" size=15/>
-                        </td>
-                        <td style="width: 50px;">树关联字段</td>
-                        <td>
-                            <input id="referField" name="referField" size=15/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50px;">主表表名</td>
-                        <td>
-                            <input id="masterTable" name="masterTable" size=15/>
-                        </td>
-                        <td style="width: 50px;">主表主键字段</td>
-                        <td>
-                            <input id="masterPk" name="masterPk" size=15/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50px;">主表表名</td>
-                        <td>
-                            <input id="slaveTable" name="slaveTable" size=15/>
-                        </td>
-                        <td style="width: 50px;">主表主键字段</td>
-                        <td>
-                            <input id="slaveFk" name="slaveFk" size=15/>
-                        </td>
-                    </tr>
-
-                </table>
-            </form>
-            <div id="tt" class="easyui-tabs" style="width:99%;height:99%;">
-                <div title="按钮设置">
-                    <table id="sysButtonGrid"></table>
-                    <div id="buttonTb" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="appendButton()">新增</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="reomveButton()">删除</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysButtonGrid',buttonIndex)">确定</a>
-                    </div>
+        <div class="easyui-layout" data-options="fit:true">
+            <div class="edit_head" data-options="region:'north',border:false">
+                <div style="text-align: right;">
+                    <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" onclick="saveCondoPrice('#add');">保存</a>
+                    <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'" onclick="closeWin('#add')">取消</a>
                 </div>
-                <div title="表格配置信息" style="display:none;">
-                    <table id="sysGridConfigGrid"></table>
-                    <div id="gridConfigTb" style="height:auto">
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysGridConfigGrid',gridConfigIndex)">确定</a>
-                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="loadClomun()">加载</a>
+                <form id="addForm" class="jrapid_form">
+                    <input type="hidden" id="id" name="id" value="">
+                    <input type="hidden" id="parentId" name="parentId" value="">
+                    <table class="input">
+                        <tr>
+                            <td>
+                                <label class="title">名称：</label>
+                                <input id="menuName" name="menuName" type="text" value="" class="easyui-validatebox" />
+                            </td>
+                            <td>
+                                <label class="title">模板类型：</label>
+                                <input id="modelType" name="modelType" type="text" value="" class="easyui-validatebox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="title">路径：</label>
+                                <input id="url" name="url" type="text" value="" class="easyui-validatebox" />
+                            </td>
+                            <td>
+                                <label class="title">打开方式：</label>
+                                <input id="openType" name="openTypes" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="title">图标：</label>
+                                <input id="icon" name="icon" />
+                            </td>
+                            <td>
+                                <label class="title">序号：</label>
+                                <input id="orderNo" name="orderNo" type="text" value="" class="easyui-numberbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="title">资源树ID：</label>
+                                <input id="treeId" name="treeId" />
+                            </td>
+                            <td>
+                                <label class="title">树关联字段：</label>
+                                <input id="referField" name="referField" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="title">主表表名：</label>
+                                <input id="masterTable" name="masterTable" />
+                            </td>
+                            <td>
+                                <label class="title">主表主键字段：</label>
+                                <input id="masterPk" name="masterPk" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="title">主表表名：</label>
+                                <input id="slaveTable" name="slaveTable" />
+                            </td>
+                            <td>
+                                <label class="title">主表主键字段：</label>
+                                <input id="slaveFk" name="slaveFk" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+            <div class="edit_head" data-options="region:'center',border:false">
+                <div id="tt" class="easyui-tabs" data-options="fit:true" style="padding:10px 0 5px 0;">
+                    <div title="按钮设置" fit="true">
+                        <table id="sysButtonGrid" style="width:100%;"></table>
+                        <div id="buttonTb" style="height:auto">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="appendButton()">新增</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="reomveButton()">删除</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysButtonGrid',buttonIndex)">确定</a>
+                        </div>
+                    </div>
+                    <div title="表格配置信息" style="display:none;" fit="true" >
+                        <table id="sysGridConfigGrid" style="width:100%;"></table>
+                        <div id="gridConfigTb" style="height:auto">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="endEditing('#sysGridConfigGrid',gridConfigIndex)">确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="loadClomun()">加载</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="text-align: center;">
-            <a href="#" class="easyui-linkbutton"
-               data-options="iconcls:'icon-save'"
-               onclick="saveCondoPrice('#add');">保存</a>
-            <a href="#" class="easyui-linkbutton" data-options="iconcls:'icon-cancel'" onclick="closeWin('#add')">取消</a>
+
         </div>
     </div>
 

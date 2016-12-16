@@ -30,12 +30,12 @@ public class ${className}Controller extends BaseController{
         return modelAndView;
     }
 
-    @RequestMapping(value = "/save${className}", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Object save${className}(@RequestBody ${className}Request request) throws Exception {
         return ${className?uncap_first}Service.save(request.get${className}());
     }
 
-    @RequestMapping(value = "/delete${className}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Object delete${className}(@RequestBody ${className}Request request) throws Exception {
         return ${className?uncap_first}Service.delete(request.get${className}().getId());
     }

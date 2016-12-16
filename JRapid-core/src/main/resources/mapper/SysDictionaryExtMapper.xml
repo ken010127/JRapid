@@ -9,4 +9,26 @@
         <include refid="com.rbac.jrapid.dao.platform.SysDictionaryMapper.baseColumnList" />
     </sql>
 
+    <!--根据父节点编码查询子节点-->
+    <select id="queryChildrenByCode" resultMap="baseResultExtMap">
+        SELECT
+        <include refid="baseExtColumnList"/> FROM sys_dictionary WHERE parent_code=#{parentCode}
+    </select>
+
+    <!-- 按树格式获取子节点 -->
+    <select id="getEasyUITreeChildren" parameterType="java.lang.Long" resultType="java.util.HashMap">
+        select
+        t.id,t.dict_name,t.dict_code,t.direction,t.parent_id,
+        (select count(*) from sys_dictionary t2 where t2.parent_id=t.ID) as dict_children
+        from sys_dictionary t where
+        <choose>
+            <when test="nodeId == null">
+                t.parent_id = 0
+            </when>
+            <otherwise>
+                t.parent_id = #{nodeId}
+            </otherwise>
+        </choose>
+    </select>
+
 </mapper>

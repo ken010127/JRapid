@@ -114,7 +114,7 @@ function saveCondoPrice() {
         if (data.status) {
             $('#add').window('close');
             $('#addForm').form('clear');
-            parent.$.messager.show({
+            $.messager.show({
                 title:'提示',
                 msg:'保存成功'
             });
@@ -215,6 +215,11 @@ function initButtonGrid() {
  * 初始化表格配置表格
  */
 function initGridConfigGrid(){
+
+    var widgitType = dictUtils.queryChildrenByCode("FROM_WIDGIT");
+    //头插入一条空数据
+    widgitType.unshift({dictName:"--------",dictCode:""});
+
     $('#sysGridConfigGrid').datagrid({
         fit:true,
         fitColumns:true,
@@ -260,9 +265,9 @@ function initGridConfigGrid(){
                 editor:{
                     type:'combobox',
                     options:{
-                        //data:spo_form_util.getDictByCode("SPO_DIFFERENCE_MODE"),
-                        valueField:'value',
-                        textField:'name',
+                        data:widgitType,
+                        valueField:'dictCode',
+                        textField:'dictName',
                         panelHeight:'auto',
                         editable:false
                     }
@@ -275,9 +280,9 @@ function initGridConfigGrid(){
                 editor:{
                     type:'combobox',
                     options:{
-                        //data:spo_form_util.getDictByCode("SPO_DIFFERENCE_MODE"),
-                        valueField:'value',
-                        textField:'name',
+                        data:widgitType,
+                        valueField:'dictCode',
+                        textField:'dictName',
                         panelHeight:'auto',
                         editable:false
                     }

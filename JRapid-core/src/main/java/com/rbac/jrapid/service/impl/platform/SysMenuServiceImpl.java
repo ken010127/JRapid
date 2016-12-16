@@ -44,6 +44,7 @@ public class SysMenuServiceImpl implements SysMenuService{
         if (result<0){
             response.setStatus(false);
         }
+        response.setSysMenu(sysMenu);
         return response;
     }
 
@@ -53,6 +54,7 @@ public class SysMenuServiceImpl implements SysMenuService{
         if (result<0){
             response.setStatus(false);
         }
+        response.setSysMenu(sysMenu);
         return response;
     }
 
@@ -62,6 +64,7 @@ public class SysMenuServiceImpl implements SysMenuService{
         if (result<0){
             response.setStatus(false);
         }
+        response.setSysMenu(sysMenu);
         return response;
     }
 

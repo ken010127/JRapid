@@ -27,7 +27,7 @@ public class SysMenuController extends BaseController{
 
     @RequestMapping(value = "/openPage", method = RequestMethod.GET)
     public ModelAndView openPage(){
-        ModelAndView modelAndView = new ModelAndView("/platform/sysMenu");
+        ModelAndView modelAndView = new ModelAndView("platform/sysMenu");
         return modelAndView;
     }
 
@@ -45,4 +45,6 @@ public class SysMenuController extends BaseController{
     public Object deleteSysMenu(@RequestBody SysMenuRequest request) throws Exception {
         return sysMenuService.delete(request.getSysMenu().getId());
     }
+
+
 }

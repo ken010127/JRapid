@@ -10,7 +10,17 @@ import com.rbac.jrapid.entity.platform.SysDictionary;
 */
 public class SysDictionaryRequest extends BaseRequest {
 
+    private Long id;
+
     private SysDictionary sysDictionary;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public SysDictionary getSysDictionary() {
         return sysDictionary;
