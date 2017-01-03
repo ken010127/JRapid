@@ -15,6 +15,8 @@ public interface ${className}Service {
 
     ${className}Response update(${className} ${className?uncap_first}) throws java.lang.Exception;
 
+    ${className}Response saveOrUpdate(${className} ${className?uncap_first}) throws java.lang.Exception;
+
     ${className}Response updateSelected(${className} ${className?uncap_first}, java.util.List<java.lang.String> list) throws java.lang.Exception;
 
     ${className}Response delete(Long id) throws java.lang.Exception;

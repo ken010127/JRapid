@@ -57,6 +57,14 @@ public class ${className}ServiceImpl implements ${className}Service{
         return response;
     }
 
+    public ${className}Response saveOrUpdate(${className} ${className?uncap_first}) throws Exception {
+        if (${className?uncap_first}.<#list fields as field><#if field.pk>get${field.fieldName?cap_first}</#if></#list> == null){
+            return this.update(${className?uncap_first});
+        }else {
+            return this.save(${className?uncap_first});
+        }
+    }
+
     public ${className}Response updateSelected(${className} ${className?uncap_first}, List<String> list) throws Exception {
         ${className}Response response = new ${className}Response();
         int result = ${className?uncap_first}Mapper.updateSelected(${className?uncap_first},list);
