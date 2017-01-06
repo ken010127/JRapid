@@ -35,8 +35,8 @@ public class ${className}Controller extends BaseController{
         return ${className?uncap_first}Service.save(request.get${className}());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public Object delete${className}(@RequestBody ${className}Request request) throws Exception {
-        return ${className?uncap_first}Service.delete(request.get${className}().getId());
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public Object delete${className}(@PathVariable("id") Long id) throws Exception {
+        return ${className?uncap_first}Service.delete(id);
     }
 }

@@ -1,12 +1,14 @@
 package com.rbac.jrapid.entity.platform;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.rbac.jrapid.core.db.mybatis.annotation.PK;
 
 import java.io.Serializable;
 
 /**
 * 页面表格配置信息实体类
-* Created by JRapid on 2016-11-30 16:29:53.
+* Created by JRapid on 2017-1-4 9:57:43.
 */
 public class SysGridConfig implements Serializable {
 
@@ -23,11 +25,13 @@ public class SysGridConfig implements Serializable {
     public final static String IS_MODIFY = "is_modify";
     public final static String MODIFY_TYPE = "modify_type";
     public final static String REFER_ID = "refer_id";
+    public final static String MENU_ID = "menu_id";
 
     /**
     * 主键ID
     **/
     @PK
+    @JsonSerialize(using=ToStringSerializer.class)
     private Long id;
 
     /**
@@ -61,12 +65,12 @@ public class SysGridConfig implements Serializable {
     private Integer orderNo;
 
     /**
-    * 是否显示列
+    * 是否显示列,Y/N
     **/
     private String isDisplay;
 
     /**
-    * 是否查询条件
+    * 是否查询条件,Y/N
     **/
     private String isSearch;
 
@@ -76,7 +80,7 @@ public class SysGridConfig implements Serializable {
     private String searchType;
 
     /**
-    * 是否编辑项
+    * 是否编辑项,Y/N
     **/
     private String isModify;
 
@@ -89,6 +93,11 @@ public class SysGridConfig implements Serializable {
     * 关联ID，关联sys_menu或sys_tree_resource
     **/
     private Long referId;
+
+    /**
+    * 关联菜单ID
+    **/
+    private Long menuId;
 
 
     public Long getId(){
@@ -193,6 +202,14 @@ public class SysGridConfig implements Serializable {
 
     public void setReferId(Long referId){
         this.referId = referId;
+    }
+
+    public Long getMenuId(){
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId){
+        this.menuId = menuId;
     }
 
 }

@@ -2,6 +2,13 @@ package ${basePackage}.entity.${modulePackage};
 
 import ${basePackage}.core.db.mybatis.annotation.PK;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.rbac.jrapid.core.common.annotation.CHILDREN;
+import com.rbac.jrapid.core.common.annotation.ORDERID;
+import com.rbac.jrapid.core.common.annotation.PARENTID;
+import com.rbac.jrapid.core.db.mybatis.annotation.PK;
+
 import java.io.Serializable;
 
 /**
@@ -21,6 +28,7 @@ public class ${className} implements Serializable {
     <#if field.pk>
     @PK
     </#if>
+    @JsonSerialize(using=ToStringSerializer.class)
     private ${field.type} ${field.fieldName};
 
     </#list>
