@@ -27,20 +27,23 @@ jQuery(function($) {
 
     });
 
-    $("#openType").combobox({
+    //打开方式
+    $('#openType').combobox({
         editable : false,
-        panelHeight:80,
-        width:155,
+        panelHeight:'auto',
+        // width:155,
         valueField:'value',
         textField:'text',
-        data:[
-            {
-                value:1,
-                text:'本窗口'
-            },{
-                value:2,
-                text:'新窗口'
-            }]
+        data:dictUtils.queryChildrenByCode("MENU_OPEN_TYPE"),
+    });
+
+    //模板类型
+    $('#modelType').combobox({
+        editable:false,
+        data:dictUtils.queryChildrenByCode("SYS_TEMPLATE"),
+        valueField:'dictCode',
+        textField:'dictName',
+        panelHeight:'auto'
     });
 
 });
@@ -69,12 +72,10 @@ function addMenu() {
 //删除
 function deleteMenu() {
     var select = $("#menuTreeGrid").treegrid('getSelected');
-    var requestData = {};
-    requestData.sysMenu = select;
     if (select) {
         $.messager.confirm('提示', '确认删除么?', function(data) {
             if(data){
-                jrapid_ajax_util.delete('/platform/sysMenu/deleteMenu',requestData,function(data){
+                jrapid_ajax_util.delete('/platform/sysMenu/deleteMenu/'+select.id,function(data){
                     if (data.status) {
                         parent.$.messager.show({
                             title:'提示',
@@ -99,17 +100,52 @@ function editMenu() {
     var select = $("#menuTreeGrid").treegrid('getSelected');
     if (select) {
         $('#add').window('open');
-        $('#addForm').form('load',select);
+
+        initButtonGrid();
+        initGridConfigGrid();
+
+        $('#add').mask({maskMsg:'数据加载中！'});
+        jrapid_ajax_util.get("/platform/sysMenu/getMenuConfigInfo/"+select.id,function (data) {
+            if (data.status){
+                $('#addForm').form('load',data.sysMenu);
+                if (data.sysButtons!=undefined && $.isArray(data.sysButtons) && data.sysButtons.length>0){
+                    $('#sysButtonGrid').datagrid("loadData",data.sysButtons);
+                }
+                if (data.sysGridConfigs!=undefined && $.isArray(data.sysGridConfigs) && data.sysGridConfigs.length>0){
+                    $('#sysGridConfigGrid').datagrid("loadData",data.sysGridConfigs)
+                }
+            }else {
+                $.messager.alert('温馨提示', data.errorMsg, 'info');
+            }
+        });
+        $('#add').mask("hide");
     } else {
         $.messager.alert('warning', '请选择一行数据', 'warning');
     }
 }
 
 //保存
-function saveCondoPrice() {
-    var sysMenu = $('#addForm').form('getData',true);
+function saveConfig() {
+    var sysMenuData = $('#addForm').form('getData',true);
+
+    if(!$('#sysButtonGrid').datagrid("validateRow",buttonIndex)){
+        $.messager.alert("系统提示","按钮设置还有未编辑完!","warning");
+        return false;
+    }
+
+    if(!$('#sysGridConfigGrid').datagrid("validateRow",gridConfigIndex)){
+        $.messager.alert("系统提示","表格配置信息还有未编辑完!","warning");
+        return false;
+    }
+
+    var sysButtonData = $('#sysButtonGrid').datagrid('getRows');
+    var gridConfigData = $('#sysGridConfigGrid').datagrid('getRows');
+
     var requestData = {};
-    requestData.sysMenu = sysMenu;
+    requestData.sysMenu = sysMenuData;
+    requestData.sysButtons = sysButtonData;
+    requestData.sysGridConfigs = gridConfigData;
+
     jrapid_ajax_util.post('/platform/sysMenu/saveMenu',requestData,function(data){
         if (data.status) {
             $('#add').window('close');
@@ -386,4 +422,12 @@ function loadClomun() {
         }
     });
     $('#sysGridConfigGrid').datagrid('loaded');
+}
+
+function collapseAll() {
+    $('#menuTreeGrid').treegrid('collapseAll');
+}
+
+function expandAll() {
+    $('#menuTreeGrid').treegrid('expandAll');
 }

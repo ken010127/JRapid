@@ -18,6 +18,8 @@ public interface SysGridConfigService {
 
     Integer update(SysGridConfig sysGridConfig) throws Exception;
 
+    Integer saveOrUpdate(SysGridConfig sysGridConfig) throws Exception;
+
     Integer updateSelected(SysGridConfig sysGridConfig, java.util.List<String> list) throws Exception;
 
     Integer delete(Long id) throws Exception;
@@ -32,4 +34,12 @@ public interface SysGridConfigService {
      * @return 字段信息
      */
     SysGridConfigResponse queryColumnInfo(String tableName);
+
+    /**
+     * 查询菜单下列表的配置信息
+     * @param menuId 菜单ID
+     * @return 配置信息
+     * @throws Exception
+     */
+    List<SysGridConfig> queryGridConfigByMenuId(Long menuId) throws Exception;
 }

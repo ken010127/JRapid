@@ -36,4 +36,17 @@
           p:prefix="/view/content/" p:suffix=".jsp"/>
 
     <mvc:resources mapping="/resources/**" location="/resource/" />
+
+    <!-- 处理json格式
+    <bean id="jRapidObjectMapper" class="com.rbac.jrapid.web.common.json.JRapidObjectMapper"/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean
+                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="jRapidObjectMapper"></property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    -->
 </beans>

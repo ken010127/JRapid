@@ -4,8 +4,13 @@ import com.rbac.jrapid.core.common.converter.TreeConverter;
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.dao.platform.SysMenuMapper;
 import com.rbac.jrapid.dao.platform.SysMenuExtMapper;
+import com.rbac.jrapid.dto.request.platform.SysMenuRequest;
 import com.rbac.jrapid.dto.response.platform.SysMenuResponse;
+import com.rbac.jrapid.entity.platform.SysButton;
+import com.rbac.jrapid.entity.platform.SysGridConfig;
 import com.rbac.jrapid.entity.platform.SysMenu;
+import com.rbac.jrapid.service.platform.SysButtonService;
+import com.rbac.jrapid.service.platform.SysGridConfigService;
 import com.rbac.jrapid.service.platform.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,18 +33,20 @@ public class SysMenuServiceImpl implements SysMenuService{
     @Autowired
     public SysMenuExtMapper sysMenuExtMapper;
 
+    @Autowired
+    public SysButtonService sysButtonService;
+
+    @Autowired
+    public SysGridConfigService sysGridConfigService;
+
     public SysMenu findOne(Long id) throws Exception {
         return sysMenuMapper.findOne(id);
     }
 
     public SysMenuResponse save(SysMenu sysMenu) throws Exception {
         SysMenuResponse response = new SysMenuResponse();
-        int result;
-        if (sysMenu.getId()==null){
-            result = sysMenuMapper.save(sysMenu);
-        }else {
-            result = sysMenuMapper.update(sysMenu);
-        }
+
+        int result = sysMenuMapper.save(sysMenu);
 
         if (result<0){
             response.setStatus(false);
@@ -88,11 +95,65 @@ public class SysMenuServiceImpl implements SysMenuService{
     public List<SysMenu> getMenuTree() {
         TreeConverter<SysMenu> treeConverter = new TreeConverter<>();
         try {
-            return treeConverter.converToTreeModel(sysMenuExtMapper.getRoots(),sysMenuMapper.findAll());
+            List<SysMenu> sysMenus = treeConverter.converToTreeModel(sysMenuExtMapper.getRoots(),sysMenuMapper.findAll());
+            return sysMenus;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public SysMenuResponse saveMenuConfig(SysMenuRequest request) throws Exception{
+        SysMenuResponse response = new SysMenuResponse();
+        SysMenu sysMenu = request.getSysMenu();
+        StringBuffer buttonError = new StringBuffer();
+        StringBuffer gridConfigError = new StringBuffer();
+        //保存菜单信息
+        if (sysMenu.getId()==null){
+            sysMenuMapper.save(sysMenu);
+        }else {
+            sysMenuMapper.update(sysMenu);
+        }
+
+        //保存按钮信息
+        List<SysButton> sysButtons = request.getSysButtons();
+        for (SysButton button : sysButtons){
+            button.setMenuId(sysMenu.getId());
+            if (sysButtonService.saveOrUpdate(button)<0){
+                buttonError.append(button.getButtonName()).append("保存失败！/n");
+            }
+        }
+
+        //保存表格配置信息
+        List<SysGridConfig> sysGridConfigs = request.getSysGridConfigs();
+        for (SysGridConfig gridConfig : sysGridConfigs){
+            gridConfig.setMenuId(sysMenu.getId());
+            if (sysGridConfigService.saveOrUpdate(gridConfig)<0){
+                gridConfigError.append(gridConfig.getDictionary()).append("保存失败！/n");
+            }
+        }
+
+        if (buttonError.length()>0 || gridConfigError.length()>0){
+            response.setStatus(false);
+            response.setErrorMsg(buttonError.toString()+"/n"+gridConfigError.toString());
+        }
+
+        return response;
+    }
+
+    @Override
+    public SysMenuResponse getMenuConfigInfo(Long menuId) throws Exception {
+        SysMenuResponse response = new SysMenuResponse();
+        SysMenu sysMenu = sysMenuMapper.findOne(menuId);
+        List<SysButton> sysButtons = sysButtonService.queryButtonByMenuId(menuId);
+        List<SysGridConfig> sysGridConfigs = sysGridConfigService.queryGridConfigByMenuId(menuId);
+
+        response.setSysMenu(sysMenu);
+        response.setSysButtons(sysButtons);
+        response.setSysGridConfigs(sysGridConfigs);
+
+        return response;
     }
 
 }

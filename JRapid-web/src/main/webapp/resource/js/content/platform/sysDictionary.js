@@ -48,7 +48,7 @@ function addNode(){
     editState = "add";
 
     var select = $("#treeGrid").treegrid('getSelected');
-    if(select){debugger;
+    if(select){
         $('#editWindow').window('open');
         $('#nodeForm').form('clear');
         $('#parentId').val(select.id);
@@ -61,12 +61,10 @@ function addNode(){
 
 function deleteNode(){
     var select = $("#treeGrid").treegrid('getSelected');
-    var requestData = {};
-    requestData.id = select.id;
     if(select){
-        $.messager.confirm('confirm','确认删除么?',function(id){
+        $.messager.confirm('confirm','确认删除?同时删除该节点的子节点？',function(id){
             if(id){
-                jrapid_ajax_util.delete('/platform/sysDictionary/deleteSysDictionary',requestData,function(data){
+                jrapid_ajax_util.delete('/platform/sysDictionary/deleteSysDictionary/'+select.id,function(data){
                     if (data.status) {
                         parent.$.messager.show({
                             title:'提示',
@@ -93,8 +91,8 @@ function editNode(){
     $('#editWindow').window('open');
     $('#id').val(select.id);
     $('#parentId').val(select.attribute.parentId);
-    $('#parentCode').val(select.attribute.parentCode);
-    $('#parentName').val(select.attribute.parentName);
+    $('#parentCode').val(select.attribute.parentId);
+    $('#parentName').val(select.attribute.parentCode);
     $('#name').val(select.text);
     $('#code').val(select.attribute.dictCode);
     $('#remark').val(select.attribute.direction);
@@ -116,15 +114,13 @@ function saveNode(el) {
     }
 
     requestData.sysDictionary = sysDictionary;
-    var select = $("#treeGrid").treegrid('getSelected');
+
     jrapid_ajax_util.post('/platform/sysDictionary/saveSysDictionary',requestData,function(data){
         if (data.status) {
             $('#editWindow').window('close');
             $('#addForm').form('clear');
-            $.messager.show({
-                title:'提示',
-                msg:'保存成功'
-            });
+
+            var select = $("#treeGrid").treegrid('getSelected');
             //刷新数据
             if(editState == "add"){
                 if(select.children==null ||select.children.length==null || select.children.length==0){
@@ -141,6 +137,10 @@ function saveNode(el) {
                 var p = $("#treeGrid").treegrid('getParent',select.id);
                 $("#treeGrid").treegrid('reload',p.id);
             }
+            $.messager.show({
+                title:'提示',
+                msg:'保存成功'
+            });
         } else {
             $.messager.alert('温馨提示', '保存失败！'+data.errorMsg, 'info');
         }

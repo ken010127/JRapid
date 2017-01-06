@@ -48,7 +48,7 @@
     <div id="editWindow" class="easyui-window" title="新增" modal="true" closed="true" style="padding:10px;" iconCls="icon-add" closed="true" maximizable="false" minimizable="false" collapsible="false">
         <div id="addNode">
             <form id="addForm" method="post" class="jrapid_form">
-                <input type="hidden" id="id" value="">
+                <input type="hidden" id="id" name="id" value="">
                 <input type="hidden" id="parentId" name="parentId" value="">
                 <input type="hidden" id="parentCode" name="parentCode" value="">
                 <input type="hidden" id="parentName" name="parentName" value="">

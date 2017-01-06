@@ -21,14 +21,12 @@
     <div id="tb" style="padding: 3px">
         <table class="input">
             <tr>
-                <td><a href="#" class="easyui-linkbutton" plain="true"
-                       onclick="refreshTreeGrid()" iconcls="icon-refresh">刷新</a></td>
-                <td><a href="#" class="easyui-linkbutton" plain="true"
-                       onclick="addMenu()" iconcls="icon-add">新增</a></td>
-                <td><a href="#" class="easyui-linkbutton" plain="true"
-                       onclick="deleteMenu()" iconcls="icon-remove">删除</a></td>
-                <td><a href="#" class="easyui-linkbutton" plain="true"
-                       onclick="editMenu()" iconcls="icon-edit">修改</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="refreshTreeGrid()" iconcls="icon-refresh">刷新</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="addMenu()" iconcls="icon-add">新增</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="deleteMenu()" iconcls="icon-remove">删除</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="editMenu()" iconcls="icon-edit">修改</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="collapseAll()" iconcls="icon-collapse">折叠</a></td>
+                <td><a href="#" class="easyui-linkbutton" plain="true" onclick="expandAll()" iconcls="icon-expand">展开</a></td>
             </tr>
         </table>
     </div>
@@ -39,7 +37,7 @@
         <div class="easyui-layout" data-options="fit:true">
             <div class="edit_head" data-options="region:'north',border:false">
                 <div style="text-align: right;">
-                    <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" onclick="saveCondoPrice('#add');">保存</a>
+                    <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" onclick="saveConfig('#add');">保存</a>
                     <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'" onclick="closeWin('#add')">取消</a>
                 </div>
                 <form id="addForm" class="jrapid_form">
@@ -53,7 +51,7 @@
                             </td>
                             <td>
                                 <label class="title">模板类型：</label>
-                                <input id="modelType" name="modelType" type="text" value="" class="easyui-validatebox" />
+                                <input id="modelType" name="modelType"/>
                             </td>
                         </tr>
                         <tr>
@@ -98,11 +96,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <label class="title">主表表名：</label>
+                                <label class="title">从表表名：</label>
                                 <input id="slaveTable" name="slaveTable" />
                             </td>
                             <td>
-                                <label class="title">主表主键字段：</label>
+                                <label class="title">从表外键字段：</label>
                                 <input id="slaveFk" name="slaveFk" />
                             </td>
                         </tr>

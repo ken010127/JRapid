@@ -9,4 +9,11 @@
         <include refid="com.rbac.jrapid.dao.platform.SysButtonMapper.baseColumnList" />
     </sql>
 
+    <select id="queryButtonByMenuId" resultMap="baseResultExtMap">
+        SELECT
+        <include refid="baseExtColumnList"/>
+        FROM
+        sys_button WHERE menu_id=#{menuId}
+    </select>
+
 </mapper>

@@ -3,6 +3,7 @@ package com.rbac.jrapid.service.impl.platform;
 import com.rbac.jrapid.core.common.converter.ObjectConverter;
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.core.dto.vo.EasyUITreeNodeVO;
+import com.rbac.jrapid.core.exception.BaseException;
 import com.rbac.jrapid.dao.platform.SysDictionaryExtMapper;
 import com.rbac.jrapid.dao.platform.SysDictionaryMapper;
 import com.rbac.jrapid.dto.response.platform.SysDictionaryResponse;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import java.util.Map;
 * 数据字典逻辑处理实现类
 * Created by JRapid on 2016-11-30 16:29:53
 */
+@Transactional
 @Service("SysDictionaryService")
 public class SysDictionaryServiceImpl implements SysDictionaryService{
     protected static Logger logger = LoggerFactory.getLogger(SysDictionaryServiceImpl.class);
@@ -38,13 +41,7 @@ public class SysDictionaryServiceImpl implements SysDictionaryService{
 
     public SysDictionaryResponse save(SysDictionary sysDictionary) throws Exception {
         SysDictionaryResponse response = new SysDictionaryResponse();
-        int result;
-        if (sysDictionary.getId()==null){
-            result = sysDictionaryMapper.save(sysDictionary);
-        }else {
-            result = sysDictionaryMapper.update(sysDictionary);
-        }
-
+        int result = sysDictionaryMapper.save(sysDictionary);
         if (result<0){
             response.setStatus(false);
         }
@@ -55,12 +52,25 @@ public class SysDictionaryServiceImpl implements SysDictionaryService{
     public SysDictionaryResponse update(SysDictionary sysDictionary) throws Exception {
         SysDictionaryResponse response = new SysDictionaryResponse();
         int result = sysDictionaryMapper.update(sysDictionary);
-
         if (result<0){
             response.setStatus(false);
         }
         response.setSysDictionary(sysDictionary);
         return response;
+    }
+
+    @Override
+    public SysDictionaryResponse saveOrUpdate(SysDictionary sysDictionary) throws Exception {
+        if (sysDictionary.getId() == null){
+            return this.save(sysDictionary);
+        }else {
+            SysDictionaryResponse response = this.update(sysDictionary);
+            int result = sysDictionaryExtMapper.updateChildren(sysDictionary);
+            if (result<0){
+                throw new BaseException("","更新子节点失败！");
+            }
+            return response;
+        }
     }
 
     public SysDictionaryResponse updateSelected(SysDictionary SysDictionaryResponse, List<String> list) throws Exception {
@@ -77,7 +87,11 @@ public class SysDictionaryServiceImpl implements SysDictionaryService{
         SysDictionaryResponse response = new SysDictionaryResponse();
         int result = sysDictionaryMapper.delete(id);
         if (result<0){
-            response.setStatus(false);
+            throw new BaseException("","删除节点失败！");
+        }
+        result = sysDictionaryExtMapper.deleteChildren(id);
+        if (result<0){
+            throw new BaseException("","删除子节点失败！");
         }
         return response;
     }
@@ -119,6 +133,8 @@ public class SysDictionaryServiceImpl implements SysDictionaryService{
         attributes.put("dictCode", ObjectConverter.parseToString(map.get(SysDictionary.DICT_CODE)));
         attributes.put("direction", ObjectConverter.parseToString(map.get(SysDictionary.DIRECTION)));
         attributes.put("parentId", ObjectConverter.parseToString(map.get(SysDictionary.PARENT_ID)));
+        attributes.put("parentCode", ObjectConverter.parseToString(map.get(SysDictionary.PARENT_CODE)));
+        attributes.put("parentName", ObjectConverter.parseToString(map.get(SysDictionary.PARENT_NAME)));
         easyUITreeNodeVO.setAttribute(attributes);
 
         if(ObjectConverter.parseToInteger(map.get(SysDictionary.DICT_CHILDREN))>0){

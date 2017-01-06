@@ -39,6 +39,14 @@ public class SysGridConfigServiceImpl implements SysGridConfigService{
         return sysGridConfigMapper.update(sysGridConfig);
     }
 
+    public Integer saveOrUpdate(SysGridConfig sysGridConfig) throws Exception {
+        if (sysGridConfig.getId() == null ){
+            return this.save(sysGridConfig);
+        }else {
+            return this.update(sysGridConfig);
+        }
+    }
+
     public Integer updateSelected(SysGridConfig sysGridConfig, List<String> list) throws Exception {
         return sysGridConfigMapper.updateSelected(sysGridConfig,list);
     }
@@ -61,6 +69,13 @@ public class SysGridConfigServiceImpl implements SysGridConfigService{
         List<SysGridConfig> sysGridConfigs = sysGridConfigExtMapper.queryColumnInfo(tableName);
         response.setRows(sysGridConfigs);
         return response;
+    }
+
+    @Override
+    public List<SysGridConfig> queryGridConfigByMenuId(Long menuId) throws Exception {
+        CommonExample example = new CommonExample();
+        example.andEqNum(SysGridConfig.MENU_ID,menuId);
+        return this.listByCondition(example);
     }
 
 }

@@ -7,13 +7,13 @@ if (!window.ajax) {
 }
 
 /**
- * 基础ajax请求方法
+ * 基础ajax post请求方法
  * @param type 请求类型
  * @param url 地址
  * @param requestData 请求数据
  * @param callback 回调函数
  */
-jrapid_ajax_util.baseAjax=function (type,url,requestData,callback) {
+jrapid_ajax_util.basePostAjax=function (type,url,requestData,callback) {
     $.ajax({
         url : ctx+url,
         type : type,
@@ -22,27 +22,43 @@ jrapid_ajax_util.baseAjax=function (type,url,requestData,callback) {
         async : false,
         success: function(data) {
             callback(data);
+        },
+        error:function (jqXHR, textStatus, errorThrown) {
+            $.messager.alert('错误提示', jqXHR.status + ' ' + jqXHR.responseText, 'info');
+        }
+    });
+};
+
+jrapid_ajax_util.baseGetAjax=function (type,url,callback) {
+    $.ajax({
+        url : ctx+url,
+        type : type,
+        contentType:"application/json",
+        async : false,
+        success: callback,
+        error:function (jqXHR, textStatus, errorThrown) {
+            $.messager.alert('错误提示', jqXHR.status + ' ' + jqXHR.responseText, 'info');
         }
     });
 };
 
 //post请求
 jrapid_ajax_util.post=function (url, requestData, callback) {
-    jrapid_ajax_util.baseAjax('POST',url,requestData,callback);
+    jrapid_ajax_util.basePostAjax('POST',url,requestData,callback);
 };
 
 //get请求
-jrapid_ajax_util.get=function (url, requestData, callback) {
-    jrapid_ajax_util.baseAjax('GET',url,requestData,callback);
+jrapid_ajax_util.get=function (url, callback) {
+    jrapid_ajax_util.baseGetAjax('GET',url,callback);
 };
 
 //put请求
 jrapid_ajax_util.put=function (url, requestData, callback) {
-    jrapid_ajax_util.baseAjax('PUT',url,requestData,callback);
+    jrapid_ajax_util.basePostAjax('PUT',url,requestData,callback);
 };
 
-jrapid_ajax_util.delete=function (url, requestData, callback) {
-    jrapid_ajax_util.baseAjax('DELETE',url,requestData,callback);
+jrapid_ajax_util.delete=function (url, callback) {
+    jrapid_ajax_util.baseGetAjax('DELETE',url,callback);
 };
 
 // jrapid_ajax_util.asyncGet=function (pUrl,pParam,callback,pNoMaskFlag) {

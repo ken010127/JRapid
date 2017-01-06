@@ -33,12 +33,12 @@ public class SysDictionaryController extends BaseController{
 
     @RequestMapping(value = "/saveSysDictionary", method = RequestMethod.POST)
     public Object saveSysDictionary(@RequestBody SysDictionaryRequest request) throws Exception {
-        return sysDictionaryService.save(request.getSysDictionary());
+        return sysDictionaryService.saveOrUpdate(request.getSysDictionary());
     }
 
-    @RequestMapping(value = "/deleteSysDictionary", method = RequestMethod.DELETE)
-    public Object deleteSysDictionary(@RequestBody SysDictionaryRequest request) throws Exception {
-        return sysDictionaryService.delete(request.getSysDictionary().getId());
+    @RequestMapping(value = "/deleteSysDictionary/{id}", method = RequestMethod.DELETE)
+    public Object deleteSysDictionary(@PathVariable Long id) throws Exception {
+        return sysDictionaryService.delete(id);
     }
 
     @RequestMapping(value = "/queryChildrenByCode/{parentCode}", method = RequestMethod.GET)

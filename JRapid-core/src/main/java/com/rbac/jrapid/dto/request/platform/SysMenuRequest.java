@@ -14,11 +14,21 @@ import java.util.List;
 */
 public class SysMenuRequest extends BaseRequest {
 
+    private Long menuId;
+
     private SysMenu sysMenu;
 
     private List<SysButton> sysButtons;
 
     private List<SysGridConfig> sysGridConfigs;
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
+    }
 
     public SysMenu getSysMenu() {
         return sysMenu;

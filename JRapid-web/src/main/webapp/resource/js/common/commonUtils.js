@@ -162,8 +162,7 @@ var dictUtils = function () {
        */
       queryChildrenByCode:function (parentCode) {
           var url = "/platform/sysDictionary/queryChildrenByCode/"+parentCode;
-          var dictData = {"parentCode":parentCode};
-          jrapid_ajax_util.get(url,{},function (data) {
+          jrapid_ajax_util.get(url,function (data) {
               dictData = data;
           });
           return dictData;

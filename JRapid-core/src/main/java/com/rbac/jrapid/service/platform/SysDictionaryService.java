@@ -2,6 +2,7 @@ package com.rbac.jrapid.service.platform;
 
 import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.core.dto.vo.EasyUITreeNodeVO;
+import com.rbac.jrapid.dto.request.platform.SysDictionaryRequest;
 import com.rbac.jrapid.dto.response.platform.SysDictionaryResponse;
 import com.rbac.jrapid.entity.platform.SysDictionary;
 
@@ -18,6 +19,8 @@ public interface SysDictionaryService {
     SysDictionaryResponse save(SysDictionary sysDictionary) throws Exception;
 
     SysDictionaryResponse update(SysDictionary sysDictionary) throws Exception;
+
+    SysDictionaryResponse saveOrUpdate(SysDictionary sysDictionary) throws Exception;
 
     SysDictionaryResponse updateSelected(SysDictionary sysDictionary, java.util.List<String> list) throws Exception;
 

@@ -38,6 +38,15 @@ public class SysButtonServiceImpl implements SysButtonService{
         return sysButtonMapper.update(sysButton);
     }
 
+    @Override
+    public Integer saveOrUpdate(SysButton sysButton) throws Exception {
+        if (sysButton.getId() == null){
+            return this.update(sysButton);
+        }else {
+            return this.save(sysButton);
+        }
+    }
+
     public Integer updateSelected(SysButton sysButton, List<String> list) throws Exception {
         return sysButtonMapper.updateSelected(sysButton,list);
     }
@@ -54,4 +63,9 @@ public class SysButtonServiceImpl implements SysButtonService{
         return sysButtonMapper.countByCondition(commonExample);
     }
 
+    public List<SysButton> queryButtonByMenuId(Long menuId) throws Exception {
+        CommonExample example = new CommonExample();
+        example.andEqNum(SysButton.MENU_ID,menuId);
+        return this.listByCondition(example);
+    }
 }

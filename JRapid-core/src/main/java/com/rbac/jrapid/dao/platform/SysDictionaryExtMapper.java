@@ -27,4 +27,18 @@ public interface SysDictionaryExtMapper{
      * @return 子节点
      */
     List<Map<String,Object>> getEasyUITreeChildren(@Param("nodeId") String nodeId);
+
+    /**
+     * 更新子节点
+     * @param sysDictionary 父节点字典
+     * @return
+     */
+    int updateChildren(@Param("parent") SysDictionary sysDictionary);
+
+    /**
+     * 删除子节点
+     * @param parentId 父节点ID
+     * @return
+     */
+    int deleteChildren(@Param("parentId") Long parentId);
 }

@@ -10,6 +10,9 @@ import java.util.Date;
  * Created by FWJ on 2015/11/18.
  */
 public class DateUtil {
+
+    public static String YYYY_MM_DD = "yyyy_MM_dd";
+
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**

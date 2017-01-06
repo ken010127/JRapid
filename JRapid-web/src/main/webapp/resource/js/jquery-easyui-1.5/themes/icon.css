@@ -71,6 +71,8 @@
 .icon-up{background:url('icons/up.png') no-repeat center center;}
 .icon-down{background:url('icons/down.png') no-repeat center center;}
 .icon-load{background:url('icons/load_24.png') no-repeat center center;}
+.icon-collapse{background:url('icons/collapse_24.png') no-repeat center center;}
+.icon-expand{background:url('icons/expand_24.png') no-repeat center center;}
 
 .icon-red{
 	background:url('icons/red_24.png') no-repeat center center;

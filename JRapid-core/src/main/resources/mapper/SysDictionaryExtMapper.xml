@@ -18,7 +18,7 @@
     <!-- 按树格式获取子节点 -->
     <select id="getEasyUITreeChildren" parameterType="java.lang.Long" resultType="java.util.HashMap">
         select
-        t.id,t.dict_name,t.dict_code,t.direction,t.parent_id,
+        t.id,t.dict_name,t.dict_code,t.direction,t.parent_id,t.parent_code,t.parent_name,
         (select count(*) from sys_dictionary t2 where t2.parent_id=t.ID) as dict_children
         from sys_dictionary t where
         <choose>
@@ -30,5 +30,21 @@
             </otherwise>
         </choose>
     </select>
+
+    <!-- 更新子节点 -->
+    <update id="updateChildren">
+        UPDATE
+          sys_dictionary
+        SET
+          parent_code=#{parent.dictCode},parent_name=#{parent.dictName}
+        WHERE
+          parent_id=#{parent.id}
+
+    </update>
+
+    <!-- 删除子节点 -->
+    <delete id="deleteChildren">
+        DELETE FROM sys_dictionary WHERE parent_id=#{parentId}
+    </delete>
 
 </mapper>
