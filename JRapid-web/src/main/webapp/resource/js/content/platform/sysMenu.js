@@ -27,24 +27,7 @@ jQuery(function($) {
 
     });
 
-    //打开方式
-    $('#openType').combobox({
-        editable : false,
-        panelHeight:'auto',
-        // width:155,
-        valueField:'value',
-        textField:'text',
-        data:dictUtils.queryChildrenByCode("MENU_OPEN_TYPE"),
-    });
 
-    //模板类型
-    $('#modelType').combobox({
-        editable:false,
-        data:dictUtils.queryChildrenByCode("SYS_TEMPLATE"),
-        valueField:'dictCode',
-        textField:'dictName',
-        panelHeight:'auto'
-    });
 
 });
 //刷新
@@ -104,6 +87,26 @@ function editMenu() {
         initButtonGrid();
         initGridConfigGrid();
 
+        //打开方式
+        $('#openType').combobox({
+            editable : false,
+            panelHeight:'auto',
+            width:155,
+            valueField:'dictCode',
+            textField:'dictName',
+            data:dictUtils.queryChildrenByCode("MENU_OPEN_TYPE"),
+        });
+
+        //模板类型
+        $('#modelType').combobox({
+            editable:false,
+            width:155,
+            data:dictUtils.queryChildrenByCode("SYS_TEMPLATE"),
+            valueField:'dictCode',
+            textField:'dictName',
+            panelHeight:'auto'
+        });
+
         $('#add').mask({maskMsg:'数据加载中！'});
         jrapid_ajax_util.get("/platform/sysMenu/getMenuConfigInfo/"+select.id,function (data) {
             if (data.status){
@@ -128,14 +131,24 @@ function editMenu() {
 function saveConfig() {
     var sysMenuData = $('#addForm').form('getData',true);
 
-    if(!$('#sysButtonGrid').datagrid("validateRow",buttonIndex)){
-        $.messager.alert("系统提示","按钮设置还有未编辑完!","warning");
-        return false;
+    //结束表格编辑
+    if(buttonIndex!=undefined){//有编辑行的时候检验
+        if(!$('#sysButtonGrid').datagrid("validateRow",buttonIndex)){
+            $.messager.alert("系统提示","按钮设置还有未编辑完!","warning");
+            return false;
+        }else{
+            $("#sysButtonGrid").datagrid("endEdit", buttonIndex);
+            buttonIndex = undefined;
+        }
     }
-
-    if(!$('#sysGridConfigGrid').datagrid("validateRow",gridConfigIndex)){
-        $.messager.alert("系统提示","表格配置信息还有未编辑完!","warning");
-        return false;
+    if(gridConfigIndex!=undefined){
+        if(!$('#sysGridConfigGrid').datagrid("validateRow",gridConfigIndex)){
+            $.messager.alert("系统提示","表格配置信息还有未编辑完!","warning");
+            return false;
+        }else{
+            $("#sysGridConfigGrid").datagrid("endEdit", gridConfigIndex);
+            gridConfigIndex = undefined;
+        }
     }
 
     var sysButtonData = $('#sysButtonGrid').datagrid('getRows');
@@ -297,7 +310,7 @@ function initGridConfigGrid(){
             {field:'isSearch',title:'是否查询条件',width:120,
                 editor:{type:'checkbox',options:{on:'Y',off:'N'}}
             },
-            {field:'searchType',title:'查询控件类型',width:120,
+            {field:'searchTypeName',title:'查询控件类型',width:120,
                 editor:{
                     type:'combobox',
                     options:{
@@ -312,7 +325,7 @@ function initGridConfigGrid(){
             {field:'isModify',title:'是否编辑项',width:120,
                 editor:{type:'checkbox',options:{on:'Y',off:'N'}}
             },
-            {field:'modifyType',title:'编辑控件类型',width:120,
+            {field:'modifyTypeName',title:'编辑控件类型',width:120,
                 editor:{
                     type:'combobox',
                     options:{
@@ -341,6 +354,40 @@ function initGridConfigGrid(){
         },
         onSelect:function (index,row) {
             endEditing('#sysGridConfigGrid',gridConfigIndex);
+        },
+        onEndEdit:function(index,row) {
+            //把combobox设置为显示中文
+            var ed = $(this).datagrid('getEditor', {
+                index: index,
+                field: 'searchTypeName'
+            });
+            if(row.searchTypeName==null || row.searchTypeName!=$(ed.target).combobox('getText')){
+                row.searchTypeName = $(ed.target).combobox('getText');
+                row.searchType = $(ed.target).combobox('getValue');
+            }
+
+            ed = $(this).datagrid('getEditor', {
+                index: index,
+                field: 'modifyTypeName'
+            });
+            if(row.modifyTypeName==null || row.modifyTypeName!=$(ed.target).combobox('getText')) {
+                row.modifyTypeName = $(ed.target).combobox('getText');
+                row.modifyType = $(ed.target).combobox('getValue');
+            }
+        },
+        onLoadSuccess:function(data){
+            if (data.rows.length > 0){
+                for (var i=0;i<data.rows.length;i++){
+                    var detailData = data.rows[i];
+                    $(this).datagrid('selectRow',i);
+                    $(this).datagrid('beginEdit',i);
+                    var searchTypeName = $(this).datagrid('getEditor', {index:i,field:'searchTypeName'});
+                    $(searchTypeName.target).combobox('setValue',detailData.searchType);
+                    var modifyTypeName = $(this).datagrid('getEditor', {index:i,field:'modifyTypeName'});
+                    $(modifyTypeName.target).combobox('setValue',detailData.modifyType);
+                    $(this).datagrid('endEdit', i);
+                }
+            }
         }
 
     });

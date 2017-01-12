@@ -35,4 +35,6 @@ public interface SysButtonService {
      */
     List<SysButton> queryButtonByMenuId(Long menuId) throws Exception;
 
+    Integer deleteByMenuId(Long menuId) throws Exception;
+
 }

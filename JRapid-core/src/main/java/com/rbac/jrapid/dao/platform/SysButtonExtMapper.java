@@ -1,5 +1,6 @@
 package com.rbac.jrapid.dao.platform;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,5 +9,7 @@ import org.springframework.stereotype.Component;
 */
 @Component("SysButtonExtMapper")
 public interface SysButtonExtMapper{
+
+    int deleteByMenuId(@Param("menuId") Long menuId);
 
 }

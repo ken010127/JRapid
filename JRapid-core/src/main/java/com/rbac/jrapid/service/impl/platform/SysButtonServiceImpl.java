@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 * 按钮管理逻辑处理实现类
 * Created by JRapid on 2016-11-30 16:29:53
 */
+@Transactional
 @Service("SysButtonService")
 public class SysButtonServiceImpl implements SysButtonService{
     protected static Logger logger = LoggerFactory.getLogger(SysButtonServiceImpl.class);
@@ -41,9 +43,9 @@ public class SysButtonServiceImpl implements SysButtonService{
     @Override
     public Integer saveOrUpdate(SysButton sysButton) throws Exception {
         if (sysButton.getId() == null){
-            return this.update(sysButton);
-        }else {
             return this.save(sysButton);
+        }else {
+            return this.update(sysButton);
         }
     }
 
@@ -67,5 +69,10 @@ public class SysButtonServiceImpl implements SysButtonService{
         CommonExample example = new CommonExample();
         example.andEqNum(SysButton.MENU_ID,menuId);
         return this.listByCondition(example);
+    }
+
+    @Override
+    public Integer deleteByMenuId(Long menuId) throws Exception {
+        return sysButtonExtMapper.deleteByMenuId(menuId);
     }
 }

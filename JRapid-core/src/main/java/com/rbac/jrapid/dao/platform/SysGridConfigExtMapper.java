@@ -20,4 +20,6 @@ public interface SysGridConfigExtMapper{
      */
     List<SysGridConfig> queryColumnInfo(@Param("tableName") String tableName);
 
+    int deleteByMenuId(@Param("menuId") Long menuId);
+
 }

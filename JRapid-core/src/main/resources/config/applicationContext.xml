@@ -24,7 +24,7 @@
         <property name="locations">
             <list>
                 <value>classpath:config/db.properties</value>
-                <!--<value>classpath:properties/db.properties</value>-->
+                <!--<value>classpath:reader/db.reader</value>-->
             </list>
         </property>
     </bean>

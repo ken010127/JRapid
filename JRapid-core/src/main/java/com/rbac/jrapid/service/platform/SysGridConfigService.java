@@ -42,4 +42,6 @@ public interface SysGridConfigService {
      * @throws Exception
      */
     List<SysGridConfig> queryGridConfigByMenuId(Long menuId) throws Exception;
+
+    Integer deleteByMenuId(Long menuId) throws Exception;
 }

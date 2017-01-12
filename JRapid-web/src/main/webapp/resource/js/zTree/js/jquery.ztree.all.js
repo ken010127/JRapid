@@ -1414,7 +1414,7 @@
 							area.bottom - parent.clientHeight, area.top,
 							parent.clientHeight);
 
-						// Determine actual scroll amount by reading back scroll properties.
+						// Determine actual scroll amount by reading back scroll reader.
 						area = area.translate(clientLeft - parent.scrollLeft,
 							clientTop - parent.scrollTop);
 						elem = parent;

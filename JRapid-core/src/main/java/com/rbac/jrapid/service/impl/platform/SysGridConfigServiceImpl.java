@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 * 页面表格配置信息逻辑处理实现类
 * Created by JRapid on 2016-11-30 16:29:53
 */
+@Transactional
 @Service("SysGridConfigService")
 public class SysGridConfigServiceImpl implements SysGridConfigService{
     protected static Logger logger = LoggerFactory.getLogger(SysGridConfigServiceImpl.class);
@@ -78,4 +80,8 @@ public class SysGridConfigServiceImpl implements SysGridConfigService{
         return this.listByCondition(example);
     }
 
+    @Override
+    public Integer deleteByMenuId(Long menuId) throws Exception {
+        return sysGridConfigExtMapper.deleteByMenuId(menuId);
+    }
 }

@@ -61,7 +61,7 @@
                             </td>
                             <td>
                                 <label class="title">打开方式：</label>
-                                <input id="openType" name="openTypes" />
+                                <input id="openType" name="openType"/>
                             </td>
                         </tr>
                         <tr>

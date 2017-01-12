@@ -2,6 +2,7 @@ package com.rbac.jrapid.service.impl.platform;
 
 import com.rbac.jrapid.core.common.converter.TreeConverter;
 import com.rbac.jrapid.core.common.dao.CommonExample;
+import com.rbac.jrapid.core.exception.BaseException;
 import com.rbac.jrapid.dao.platform.SysMenuMapper;
 import com.rbac.jrapid.dao.platform.SysMenuExtMapper;
 import com.rbac.jrapid.dto.request.platform.SysMenuRequest;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import java.util.List;
 * 逻辑处理实现类
 * Created by JRapid on 2016-9-4 18:23:09
 */
+@Transactional
 @Service("SysMenuService")
 public class SysMenuServiceImpl implements SysMenuService{
     protected static Logger logger = LoggerFactory.getLogger(SysMenuServiceImpl.class);
@@ -81,6 +84,13 @@ public class SysMenuServiceImpl implements SysMenuService{
         if (result<0){
             response.setStatus(false);
         }
+        if (sysButtonService.deleteByMenuId(id)<0){
+            throw new BaseException("","删除按钮失败！");
+        }
+        if(sysGridConfigService.deleteByMenuId(id)<0){
+            throw new BaseException("","删除表格配置失败！");
+        }
+
         return response;
     }
 
