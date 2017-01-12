@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 * ${comments}逻辑处理实现类
 * Created by JRapid on ${.now?datetime}
 */
+@Transactional
 @Service("${className}Service")
 public class ${className}ServiceImpl implements ${className}Service{
     protected static Logger logger = LoggerFactory.getLogger(${className}ServiceImpl.class);
