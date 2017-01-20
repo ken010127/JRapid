@@ -127,7 +127,7 @@ public class FileUtil {
     public static List<File> readFiles(String path){
     	List<File> files = new ArrayList<File>();
     	File root = new File(path);
-    	if(!root.isDirectory()){
+    	if(root.isDirectory()){
     		String[] fileList = root.list();
     		if(fileList.length>0){
     			for(int i=0;i<fileList.length;i++){
@@ -140,13 +140,12 @@ public class FileUtil {
     	}
     	return files;
     }
-    
+
     /**读文件
      * @param path
      * @return
      * @throws IOException
      */
-
     public static String readByBufferedReader(String path) throws IOException{
         File file=new File(path);
         if(!file.exists()||file.isDirectory())
@@ -403,7 +402,7 @@ public class FileUtil {
     }
     
     public static void main(String[] args) {
-    	String path = "F:\\cache";
+    	/*String path = "F:\\cache";
     	File sourceFile = new File("F:\\www.zhuoku.com_桌酷精选壁纸.jpg");
     	String success = null;
 		try {
@@ -411,6 +410,6 @@ public class FileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	System.out.println(success);
+    	System.out.println(success);*/
 	}
 }

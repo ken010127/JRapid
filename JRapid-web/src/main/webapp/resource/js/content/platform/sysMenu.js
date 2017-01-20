@@ -2,6 +2,11 @@
  * 系统菜单
  * Created by fwj on 2016/11/18.
  */
+
+//常量，先加载，防止多次向后台提交请求
+var buttonIconData;
+
+
 jQuery(function($) {
 
     $('#menuTreeGrid').treegrid({
@@ -28,6 +33,12 @@ jQuery(function($) {
     });
 
 
+    //初始化按钮图标
+    jrapid_ajax_util.get("/platform/sysMenu/getIconNames/default",function (data) {
+        if ($.isArray(data)) {
+            buttonIconData = data;
+        }
+    });
 
 });
 //刷新
@@ -50,6 +61,29 @@ function addMenu() {
     } else {
         $.messager.alert('warning', '请选择一行数据', 'warning');
     }
+}
+
+function selectMenuIcon() {
+    $('#iconSelectWin').window('open');
+    $('#selectPanel').empty();
+    jrapid_ajax_util.get("/platform/sysMenu/getIconNames/custom",function (data) {
+        if ($.isArray(data)){
+            for (var i in data){
+                var src = customIconPath + data[i];
+                $("#selectPanel").append("<div class='select_icon'><img src='" + src + "' title='"+data[i]+"' width='20px' height='20px' /></div>");
+            }
+
+            $("#selectPanel .select_icon").click(function () {
+                var src = $(this).find("img").attr("src");
+                var title = $(this).find("img").attr("title").split('.');
+                $("#icon").textbox('setValue',title[0]);
+                $("#icon_image").attr("src", src);
+                $('#iconSelectWin').window('close');
+            });
+        }else {
+            $.messager.alert('warning', '获取图标失败', 'warning');
+        }
+    });
 }
 
 //删除
@@ -111,6 +145,7 @@ function editMenu() {
         jrapid_ajax_util.get("/platform/sysMenu/getMenuConfigInfo/"+select.id,function (data) {
             if (data.status){
                 $('#addForm').form('load',data.sysMenu);
+                $("#icon_image").attr("src", customIconPath + data.sysMenu.icon+".png");
                 if (data.sysButtons!=undefined && $.isArray(data.sysButtons) && data.sysButtons.length>0){
                     $('#sysButtonGrid').datagrid("loadData",data.sysButtons);
                 }
@@ -202,15 +237,25 @@ function initButtonGrid() {
             },
             {field:'icon',title:'图标',width:100,
                 editor:{
-                    type:'textbox',
+                    type:'combobox',
                     options:{
                         editable:false,
-                        icons:[{
-                            iconCls:'icon-search',
-                            handler:function(){
-                                //selectIcon();//选择图标
+                        //panelWidth:200,
+                        onShowPanel:function () {
+                            var iconCombo = $('#sysButtonGrid').datagrid('getEditor', {index: buttonIndex,field: 'icon'}).target;
+                            iconCombo.combobox('panel').empty();
+                            for (var i in buttonIconData) {
+                                var src = defaultIconPath + buttonIconData[i];
+                                iconCombo.combobox('panel').append("<div class='select_icon'><img class='buttonIcon' src='" + src + "' title='" + buttonIconData[i] + "' width='16px' height='16px' /></div>");
                             }
-                        }]
+
+                            $(".select_icon .buttonIcon").click(function () {
+                                var title = $(this).attr("title").split('.');
+                                iconCombo.combobox('setValue',title[0]);
+                                iconCombo.combobox('setText',title[0]);
+                                iconCombo.combobox('hidePanel');
+                            });
+                        }
                     }
                 }
             },

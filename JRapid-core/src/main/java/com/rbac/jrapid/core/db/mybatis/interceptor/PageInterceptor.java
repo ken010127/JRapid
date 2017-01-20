@@ -24,7 +24,7 @@ import java.util.Properties;
  * @Created on 2016/8/20 15:27
  */
 @Intercepts({
-        @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class}) })
+        @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class,Integer.class})})
 public class PageInterceptor implements Interceptor {
 
     /**

@@ -73,6 +73,11 @@
 .icon-load{background:url('icons/load_24.png') no-repeat center center;}
 .icon-collapse{background:url('icons/collapse_24.png') no-repeat center center;}
 .icon-expand{background:url('icons/expand_24.png') no-repeat center center;}
+.icon-ico17{background:url('icons/ico17.gif') no-repeat center center;}
+.icon-ico3{background:url('icons/ico3.gif') no-repeat center center;}
+.icon-ico34{background:url('icons/ico34.gif') no-repeat center center;}
+.icon-ico4{background:url('icons/ico4.png') no-repeat center center;}
+.icon-ico7{background:url('icons/ico7.gif') no-repeat center center;}
 
 .icon-red{
 	background:url('icons/red_24.png') no-repeat center center;
@@ -110,3 +115,67 @@
 	background:url('icons/large_chart.png') no-repeat center center;
 }
 .icon-download{background:url('icons/download.png') no-repeat center center;}
+
+/******************自定义菜单图标*******************/
+.icon-activity{background:url('customIcon/activity.png') no-repeat center center;}
+.icon-address_book{background:url('customIcon/address_book.png') no-repeat center center;}
+.icon-ai{background:url('customIcon/ai.png') no-repeat center center;}
+.icon-attachment{background:url('customIcon/attachment.png') no-repeat center center;}
+.icon-audio{background:url('customIcon/file_audio.png') no-repeat center center;}
+.icon-book{background:url('customIcon/book.png') no-repeat center center;}
+.icon-box{background:url('customIcon/box.png') no-repeat center center;}
+.icon-box_notes{background:url('customIcon/box_notes.png') no-repeat center center;}
+.icon-calendar{background:url('customIcon/calendar.png') no-repeat center center;}
+.icon-calendar2{background:url('customIcon/calendar2.png') no-repeat center center;}
+.icon-chart{background:url('customIcon/chart.png') no-repeat center center;}
+.icon-chat{background:url('customIcon/chat.png') no-repeat center center;}
+.icon-client1{background:url('customIcon/client1.png') no-repeat center center;}
+.icon-client2{background:url('customIcon/client2.png') no-repeat center center;}
+.icon-clock{background:url('customIcon/clock.png') no-repeat center center;}
+.icon-csv{background:url('customIcon/file_csv.png') no-repeat center center;}
+.icon-document{background:url('customIcon/document.png') no-repeat center center;}
+.icon-document2{background:url('customIcon/document2.png') no-repeat center center;}
+.icon-document3{background:url('customIcon/document3.png') no-repeat center center;}
+.icon-email{background:url('customIcon/email.png') no-repeat center center;}
+.icon-excel{background:url('customIcon/file_excel.png') no-repeat center center;}
+.icon-exe{background:url('customIcon/file_exe.png') no-repeat center center;}
+.icon-file1{background:url('customIcon/file1.png') no-repeat center center;}
+.icon-file2{background:url('customIcon/file2.png') no-repeat center center;}
+.icon-file3{background:url('customIcon/file3.png') no-repeat center center;}
+.icon-file4{background:url('customIcon/file4.png') no-repeat center center;}
+.icon-file5{background:url('customIcon/file5.png') no-repeat center center;}
+.icon-file6{background:url('customIcon/file6.png') no-repeat center center;}
+.icon-find1{background:url('customIcon/find1.png') no-repeat center center;}
+.icon-find2{background:url('customIcon/find2.png') no-repeat center center;}
+.icon-fist{background:url('customIcon/fist.png') no-repeat center center;}
+.icon-html{background:url('customIcon/file_html.png') no-repeat center center;}
+.icon-image{background:url('customIcon/file_image.png') no-repeat center center;}
+.icon-linkman{background:url('customIcon/linkman.png') no-repeat center center;}
+.icon-list{background:url('customIcon/list.png') no-repeat center center;}
+.icon-message{background:url('customIcon/message.png') no-repeat center center;}
+.icon-pc{background:url('customIcon/pc.png') no-repeat center center;}
+.icon-pdf{background:url('customIcon/file_pdf.png') no-repeat center center;}
+.icon-people{background:url('customIcon/people.png  ') no-repeat center center;}
+.icon-plane{background:url('customIcon/plane.png  ') no-repeat center center;}
+.icon-ppt{background:url('customIcon/file_ppt.png  ') no-repeat center center;}
+.icon-price_list{background:url('customIcon/price_list.png  ') no-repeat center center;}
+.icon-product{background:url('customIcon/product.png  ') no-repeat center center;}
+.icon-sell1{background:url('customIcon/sell1.png  ') no-repeat center center;}
+.icon-sell2{background:url('customIcon/sell2.png  ') no-repeat center center;}
+.icon-sell3{background:url('customIcon/sell3.png  ') no-repeat center center;}
+.icon-sell4{background:url('customIcon/sell4.png  ') no-repeat center center;}
+.icon-sell5{background:url('customIcon/sell5.png  ') no-repeat center center;}
+.icon-sell6{background:url('customIcon/sell6.png  ') no-repeat center center;}
+.icon-sell7{background:url('customIcon/sell7.png  ') no-repeat center center;}
+.icon-setting{background:url('customIcon/setting.png  ') no-repeat center center;}
+.icon-time{background:url('customIcon/time.png  ') no-repeat center center;}
+.icon-tools{background:url('customIcon/tools.png  ') no-repeat center center;}
+.icon-txt{background:url('customIcon/file_txt.png  ') no-repeat center center;}
+.icon-video{background:url('customIcon/file_video.png  ') no-repeat center center;}
+.icon-volume{background:url('customIcon/volume.png  ') no-repeat center center;}
+.icon-volume2{background:url('customIcon/volume2.png  ') no-repeat center center;}
+.icon-word{background:url('customIcon/file_word.png  ') no-repeat center center;}
+.icon-work_card{background:url('customIcon/work_card.png  ') no-repeat center center;}
+.icon-xml{background:url('customIcon/file_word.png  ') no-repeat center center;}
+.icon-zip{background:url('customIcon/file_zip.png  ') no-repeat center center;}
+/******************自定义菜单图标*******************/

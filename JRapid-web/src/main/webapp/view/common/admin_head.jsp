@@ -8,6 +8,7 @@
 <% String ctx = request.getContextPath(); %>
 <link rel="stylesheet" type="text/css" href="<%=ctx%>/resource/js/jquery-easyui-1.5/themes/metro/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=ctx%>/resource/js/jquery-easyui-1.5/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="<%=ctx%>/resource/css/main.css">
 <link rel="stylesheet" type="text/css" href="<%=ctx%>/resource/css/form_main.css">
 <script type="text/javascript" src="<%=ctx%>/resource/js/jquery-easyui-1.5/jquery.min.js"></script>
 <script type="text/javascript" src="<%=ctx%>/resource/js/jquery-easyui-1.5/jquery.easyui.min.js"></script>
@@ -18,4 +19,6 @@
 <script type="text/javascript" src="<%=ctx%>/resource/js/common/commonUtils.js"></script>
 <script type="text/javascript">
     var ctx = '<%=request.getContextPath() %>';
+    var defaultIconPath = ctx + '/resource/js/jquery-easyui-1.5/themes/icons/';
+    var customIconPath = ctx + '/resource/js/jquery-easyui-1.5/themes/customIcon/';
 </script>

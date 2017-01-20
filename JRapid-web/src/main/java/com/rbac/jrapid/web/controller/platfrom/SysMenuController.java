@@ -2,6 +2,7 @@ package com.rbac.jrapid.web.controller.platfrom;
 
 import com.rbac.jrapid.dto.request.platform.SysMenuRequest;
 import com.rbac.jrapid.entity.platform.SysMenu;
+import com.rbac.jrapid.service.platform.SysIconService;
 import com.rbac.jrapid.service.platform.SysMenuService;
 import com.rbac.jrapid.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class SysMenuController extends BaseController{
 
     @Autowired
     private SysMenuService sysMenuService;
+
+    @Autowired
+    private SysIconService sysIconService;
 
     @RequestMapping(value = "/openPage", method = RequestMethod.GET)
     public ModelAndView openPage(){
@@ -46,5 +50,10 @@ public class SysMenuController extends BaseController{
     @RequestMapping(value = "/getMenuConfigInfo/{id}", method = RequestMethod.GET)
     public Object getMenuConfigInfo(@PathVariable("id") Long menuId) throws Exception{
         return sysMenuService.getMenuConfigInfo(menuId);
+    }
+
+    @RequestMapping(value = "/getIconNames/{type}", method = RequestMethod.GET)
+    public List<String> getIconNames(@PathVariable("type") String type) throws Exception{
+        return sysIconService.getIcons(type);
     }
 }

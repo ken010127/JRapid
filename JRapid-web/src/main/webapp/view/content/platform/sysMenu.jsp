@@ -11,7 +11,29 @@
     <title>系统模块管理</title>
     <script type="text/javascript" src="<%=ctx %>/resource/js/content/platform/sysMenu.js"></script>
 
-
+    <style type="text/css">
+        .select_icon{
+            float: left;
+            margin: 5px 5px;
+            height: 30px;
+            width: 30px;
+        }
+        .select_icon img {
+            padding: 5px 5px;
+            opacity:0.8;filter(alpha=80)
+        }
+        .select_icon img:hover {
+            cursor: pointer;
+            position: relative;
+            border: #999 solid 1px;
+            margin:-5px -6px -6px -5px;
+            opacity:1;filter(alpha=120)
+        }
+        .buttonIconSelectPanel {
+            display: none;
+            padding: 5px 5px;
+        }
+    </style>
 
 </head>
 <body>
@@ -67,7 +89,15 @@
                         <tr>
                             <td>
                                 <label class="title">图标：</label>
-                                <input id="icon" name="icon" />
+                                <input class="easyui-textbox" id="icon" name="icon" data-options="
+                                                prompt: '请选择图标',
+                                                editable:false,
+                                                icons:[{
+                                                    iconCls:'icon-search',
+                                                    handler: selectMenuIcon
+                                                }]
+                                                "/>
+                                <img src="" id="icon_image" height="20" width="20">
                             </td>
                             <td>
                                 <label class="title">序号：</label>
@@ -131,6 +161,9 @@
         </div>
     </div>
 
+    <div id="iconSelectWin" class="easyui-window" title="图标选择" closed="true" modal="true" style="padding: 10px 10px;height: 250px;width: 450px;" >
+        <div id="selectPanel"></div>
+    </div>
 
 </div>
 </body>
