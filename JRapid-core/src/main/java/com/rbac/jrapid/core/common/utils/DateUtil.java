@@ -13,7 +13,8 @@ public class DateUtil {
 
     public static String YYYY_MM_DD = "yyyy_MM_dd";
 
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //SimpleDateFormat是非同步的，建议为每一个线程创建独立的格式化实例
+    //private static final SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 获取当前年

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="<%=ctx%>/resource/js/common/jrapid_ajax_util.js"></script>
 <script type="text/javascript" src="<%=ctx%>/resource/js/common/mask.js"></script>
 <script type="text/javascript" src="<%=ctx%>/resource/js/common/commonUtils.js"></script>
+<script type="text/javascript" src="<%=ctx%>/resource/js/common/totalConstant.js"></script>
 <script type="text/javascript">
     var ctx = '<%=request.getContextPath() %>';
     var defaultIconPath = ctx + '/resource/js/jquery-easyui-1.5/themes/icons/';

@@ -2,9 +2,7 @@ package com.rbac.jrapid.core.common.dao;
 
 import com.rbac.jrapid.core.constants.MainConstants;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 对分页的基本数据进行一个简单的封装
@@ -13,12 +11,12 @@ import java.util.Map;
  */
 public class Page<T> {
 
-    private int pageNo = MainConstants.DEFAUTL_PAGE_INDEX;;//页码，默认是第一页
+    private int pageNo = MainConstants.DEFAUTL_PAGE_INDEX;//页码，默认是第一页
     private int pageSize = MainConstants.DEFAUTL_PAGE_SIZE;//每页显示的记录数，默认是15
     private int totalRecord;//总记录数
     private int totalPage;//总页数
     private List<T> results;//对应的当前页记录
-    private Map<String, Object> params = new HashMap<String, Object>();//其他的参数我们把它分装成一个Map对象
+    private List<QueryCondition> conditions;//查询条件
 
     public int getPageNo() {
         return pageNo;
@@ -63,12 +61,12 @@ public class Page<T> {
         this.results = results;
     }
 
-    public Map<String, Object> getParams() {
-        return params;
+    public List<QueryCondition> getConditions() {
+        return conditions;
     }
 
-    public void setParams(Map<String, Object> params) {
-        this.params = params;
+    public void setConditions(List<QueryCondition> conditions) {
+        this.conditions = conditions;
     }
 
     @Override

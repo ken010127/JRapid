@@ -1,5 +1,6 @@
 package com.rbac.jrapid.dto.response.platform;
 
+import com.rbac.jrapid.core.dto.response.BasePageResponse;
 import com.rbac.jrapid.core.dto.response.BaseResponse;
 import com.rbac.jrapid.entity.platform.SysRole;
 
@@ -8,7 +9,7 @@ import com.rbac.jrapid.entity.platform.SysRole;
 * @author FWJ
 * @since 2016-11-30 16:29:53
 */
-public class SysRoleResponse extends BaseResponse {
+public class SysRoleResponse extends BasePageResponse<SysRole> {
 
     private SysRole sysRole;
 

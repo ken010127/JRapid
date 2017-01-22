@@ -1,5 +1,6 @@
 package com.rbac.jrapid.dto.request.platform;
 
+import com.rbac.jrapid.core.dto.request.BasePageRequest;
 import com.rbac.jrapid.core.dto.request.BaseRequest;
 import com.rbac.jrapid.entity.platform.SysRole;
 
@@ -8,7 +9,7 @@ import com.rbac.jrapid.entity.platform.SysRole;
 * @author FWJ
 * @since 2016-11-30 16:29:53
 */
-public class SysRoleRequest extends BaseRequest {
+public class SysRoleRequest extends BasePageRequest<SysRole> {
 
     private SysRole sysRole;
 

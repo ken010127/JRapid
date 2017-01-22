@@ -1,13 +1,7 @@
 package com.rbac.jrapid.core.dto.request;
 
 import com.rbac.jrapid.core.common.dao.Page;
-import com.rbac.jrapid.core.common.dao.QueryCondition;
-import com.rbac.jrapid.core.constants.MainConstants;
 import com.rbac.jrapid.core.dto.response.BaseResponse;
-
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 列表请求基础类
