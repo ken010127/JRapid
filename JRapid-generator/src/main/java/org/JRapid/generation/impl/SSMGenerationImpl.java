@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.JRapid.generation.bean.Entity;
+import org.JRapid.generation.bean.Model;
 import org.JRapid.generation.utils.FileUtils;
 import org.JRapid.generation.utils.PropertiesUtil;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by FWJ on 2016/8/19 10:10
  */
 public class SSMGenerationImpl extends Generation {
-    protected static Logger logger = LoggerFactory.getLogger(SSMGenerationImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(SSMGenerationImpl.class);
     @Override
     public void generateEntity(Configuration cfg,List<Entity> entities) throws IOException {
         Writer writer = null;
@@ -201,8 +202,50 @@ public class SSMGenerationImpl extends Generation {
     }
 
     @Override
-    public void generateView(Configuration cfg, List<Entity> entities) throws IOException {
+    public void generateView(Configuration cfg, List<Model> models) throws IOException {
+        Writer writer = null;
+        try {
+        /* 获取模板文件 */
+            Template jspTemplate = cfg.getTemplate("jspTemplate.ftl");
+            Template initJsTemplate = cfg.getTemplate("initJsTemplate.ftl");
+            Template operateJsTemplate = cfg.getTemplate("operateJsTemplate.ftl");
 
+            String jspPath = PropertiesUtil.getValue("outRoot") + File.separatorChar + "view" + File.separatorChar
+                    + "jsp" + PropertiesUtil.getValue("modulePackage");
+            FileUtils.createFolder(jspPath);
+
+
+            String jsPath = PropertiesUtil.getValue("outRoot") + File.separatorChar + "service" + File.separatorChar
+                    + "js" + File.separatorChar + PropertiesUtil.getValue("modulePackage");
+            FileUtils.createFolder(jsPath);
+
+            for (Model model : models) {
+                logger.info("生成 {}.jsp 开始", model.getClassName());
+                File jsp = new File(jspPath + File.separatorChar + model.getClassName() + ".jsp");
+                writer = new FileWriter(jsp);
+                jspTemplate.process(model, writer);
+                logger.info("生成 {}.jsp 结束！", model.getClassName());
+
+                logger.info("生成 {}_init.js 开始", model.getClassName());
+                File initJs = new File(jsPath + File.separatorChar + model.getClassName() + "_init.js");
+                writer = new FileWriter(initJs);
+                initJsTemplate.process(model, writer);
+                logger.info("生成 {}_init.js 结束！", model.getClassName());
+
+                logger.info("生成 {}_operate.js 开始", model.getClassName());
+                File operateJs = new File(jsPath + File.separatorChar + model.getClassName() + "_operate.js");
+                writer = new FileWriter(operateJs);
+                operateJsTemplate.process(model, writer);
+                logger.info("生成 {}_operate.js 结束！", model.getClassName());
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        } finally {
+            assert writer != null;
+            writer.close();
+        }
     }
 
     public void generateConfig(List<Entity> entities) throws IOException {

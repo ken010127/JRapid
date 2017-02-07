@@ -1,8 +1,13 @@
 package org.JRapid.generation.jdbc;
 
+import org.JRapid.generation.bean.Entity;
+import org.JRapid.generation.bean.Field;
+import org.JRapid.generation.bean.Model;
+import org.JRapid.generation.bean.TableConfig;
 import org.JRapid.generation.constants.ColumnConstants;
 import org.JRapid.generation.constants.TableConstants;
 import org.JRapid.generation.utils.PropertiesUtil;
+import org.JRapid.generation.utils.StringUtil;
 
 import java.sql.*;
 import java.util.*;
@@ -75,8 +80,8 @@ public class JdbcGenericDao {
      * @param tableName 数据库表名，tableName可以模糊查询如：abc%,如果全部查询则直接用 '%' 表示
      * @return 数据库表信息
      */
-    public List<Map<String,String>> queryTableInfo(String tableName){
-        List<Map<String,String>> tableInfos = new ArrayList<Map<String, String>>();
+    public List<Entity> queryTableInfo(String tableName){
+        List<Entity> entities = new ArrayList<Entity>();
         try {
             conn = getConnection();
             DatabaseMetaData metaData = conn.getMetaData();
@@ -84,13 +89,33 @@ public class JdbcGenericDao {
             rs = metaData.getTables(null, "%",tableName,new String[]{"TABLE"});
 
             while (rs.next()){
-                Map<String,String> table = new HashMap<String, String>();
+                Entity entity = new Entity();
+                entity.setDbType(PropertiesUtil.getValue("jdbc.dbType"));
+                entity.setBasePackage(PropertiesUtil.getValue("basePackage"));
+                entity.setModulePackage(PropertiesUtil.getValue("modulePackage"));
                 //rs.getString(),除此之外还有可以取得TableConstants的其他属性
-                table.put(TableConstants.TABLE_NAME,rs.getString(TableConstants.TABLE_NAME));//表名
-                table.put(TableConstants.TABLE_TYPE,rs.getString(TableConstants.TABLE_TYPE));//表类型
-                table.put(TableConstants.REMARKS,rs.getString(TableConstants.REMARKS));//表备注(注解为空，不知道为什么)
+                entity.setTableName(rs.getString(TableConstants.TABLE_NAME));//表名
+                entity.setClassName(StringUtil.underlineToCamel(rs.getString(TableConstants.TABLE_NAME)));
+                entity.setDbType(rs.getString(TableConstants.TABLE_TYPE));//表类型
+                entity.setComments(rs.getString(TableConstants.REMARKS));//表备注(注解为空，不知道为什么)
 
-                tableInfos.add(table);
+                List<Field> fields = this.queryColumnInfos(entity.getTableName());
+                List<String> pks = this.queryPrimaryKeys(entity.getTableName());
+
+                List<Field> pkColumns = new ArrayList<Field>();
+                for (Field field : fields){
+                    if(pks.contains(field.getColumnName())){
+                        field.setPk(true);
+                        pkColumns.add(field);
+                    }else{
+                        field.setPk(false);
+                    }
+                }
+
+                entity.setPkColumns(pkColumns);
+                entity.setFields(fields);
+
+                entities.add(entity);
             }
 
         } catch (Exception e) {
@@ -98,7 +123,7 @@ public class JdbcGenericDao {
         } finally {
             closeConn();
         }
-        return tableInfos;
+        return entities;
     }
 
     /**
@@ -106,30 +131,32 @@ public class JdbcGenericDao {
      * @param tableName 表名
      * @return
      */
-    public List<Map<String,String>> queryColumnInfos(String tableName){
-        List<Map<String,String>> fieldInfos = new ArrayList<Map<String, String>>();
+    public List<Field> queryColumnInfos(String tableName){
+        List<Field> fieldInfos = new ArrayList<Field>();
         try {
             conn = getConnection();
             DatabaseMetaData metaData = conn.getMetaData();
             rs = metaData.getColumns(null,"%", tableName,"%");
             while (rs.next()){
-                Map<String,String> column = new HashMap<String, String>();
+                Field field = new Field();
                 //字段名
-                column.put(ColumnConstants.COLUMN_NAME,rs.getString(ColumnConstants.COLUMN_NAME));
-                //字段类型
-                column.put(ColumnConstants.TYPE_NAME,rs.getString(ColumnConstants.TYPE_NAME));
-                column.put(ColumnConstants.DATA_TYPE,rs.getString(ColumnConstants.DATA_TYPE));
+                field.setColumnName(rs.getString(ColumnConstants.COLUMN_NAME));
+                field.setComments(rs.getString(ColumnConstants.REMARKS));
+                field.setFieldName(StringUtil.underlineToCamel1(rs.getString(ColumnConstants.COLUMN_NAME)));
+
+                Integer type = Integer.parseInt(rs.getString(ColumnConstants.DATA_TYPE));
+                field.setType(JdbcTypesUtils.jdbcTypeToJavaType(type).getName());
+
                 //字段长度
-                int datasize = rs.getInt("COLUMN_SIZE");
-                column.put(ColumnConstants.COLUMN_SIZE, Integer.toString(datasize));
+                //int datasize = rs.getInt("COLUMN_SIZE");
                 //是否为空，0非空，1为空
-                int nullable = rs.getInt("NULLABLE");
-                column.put(ColumnConstants.NULLABLE,Integer.toString(nullable));
-                column.put(ColumnConstants.REMARKS,rs.getString(ColumnConstants.REMARKS));
-                fieldInfos.add(column);
+                //int nullable = rs.getInt("NULLABLE");
+                fieldInfos.add(field);
             }
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            closeConn();
         }
         return fieldInfos;
     }
@@ -150,8 +177,84 @@ public class JdbcGenericDao {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            closeConn();
         }
         return primaryKeys;
     }
 
+    /**
+     * 查询模块配置信息
+     * @param tableName 表名
+     * @return 模块配置信息
+     */
+    public List<Model> queryModels(String tableName){
+        List<Model> models = new ArrayList<Model>();
+        PreparedStatement pstmt = null;
+        try{
+            String queryModel = "select * from sys_menu where master_table=?";
+            String queryTableConfig = "select * from sys_table_config where refer_id=? order by order_no";
+            conn = getConnection();
+            pstmt = conn.prepareStatement(queryModel);
+            pstmt.setString(1,tableName);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                Model model = new Model();
+                model.setId(rs.getLong("id"));
+                model.setClassName(StringUtil.underlineToCamel(rs.getString("menu_name")));
+                model.setTitle(rs.getString("menu_name"));
+                model.setModulePackage(PropertiesUtil.getValue("modulePackage"));
+                model.setModelType(rs.getString("model_type"));
+                model.setTreeId(rs.getLong("tree_id"));
+                model.setReferField(rs.getString("refer_field"));
+                model.setMasterTable(rs.getString("master_table"));
+                model.setMasterPk(rs.getString("master_pk"));
+                model.setSlaveTable(rs.getString("slave_table"));
+                model.setSlaveFk(rs.getString("slave_fk"));
+
+                PreparedStatement configStmt = conn.prepareCall(queryTableConfig);
+                configStmt.setLong(1,model.getId());
+                ResultSet configReslut = configStmt.executeQuery();
+                List<TableConfig> tableConfigs = new ArrayList<TableConfig>();
+                while (configReslut.next()){
+                    TableConfig tableConfig = new TableConfig();
+                    tableConfig.setGridType(configReslut.getString("grid_type"));
+                    tableConfig.setTitle(configReslut.getString("title"));
+                    tableConfig.setField(configReslut.getString("field"));
+                    tableConfig.setWidth(configReslut.getInt("width"));
+                    tableConfig.setDictionary(configReslut.getString("dictionary"));
+                    tableConfig.setIsDisplay(configReslut.getString("is_display"));
+                    tableConfig.setIsSearch(configReslut.getString("is_search"));
+                    tableConfig.setSearchType(configReslut.getString("search_type"));
+                    tableConfig.setIsModify(configReslut.getString("is_modify"));
+                    tableConfig.setModifyType(configReslut.getString("modify_type"));
+                    tableConfig.setAllowNull(configReslut.getString("allow_null"));
+                    tableConfigs.add(tableConfig);
+                }
+                model.setTableConfigs(tableConfigs);
+                models.add(model);
+            }
+
+        } catch (ClassNotFoundException e) {//捕获驱动加载失败异常
+            e.printStackTrace();
+        } catch (SQLException e) {//捕获SQL语句执行失败异常
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {//恢复变量初始值
+            try {
+                if(pstmt != null) {
+                    pstmt.close();
+                    pstmt = null;
+                }
+                if(conn != null) {
+                    conn.close();
+                    conn = null;
+                }
+            } catch (SQLException e) {//捕获SQL异常
+                e.printStackTrace();
+            }
+        }
+        return models;
+    }
 }

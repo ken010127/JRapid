@@ -4,6 +4,8 @@ package org.JRapid.generation.impl;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import org.JRapid.generation.bean.Entity;
+import org.JRapid.generation.bean.Model;
+import org.JRapid.generation.jdbc.JdbcGenericDao;
 import org.JRapid.generation.utils.ConverterUtil;
 import org.JRapid.generation.utils.PropertiesUtil;
 
@@ -21,14 +23,16 @@ public abstract class Generation {
 
     public final void generate(){
         try {
+            String tableNames = PropertiesUtil.getValue("tables");
+
             Configuration cfg = new Configuration();
             cfg.setEncoding(Locale.getDefault(), "UTF-8");
             cfg.setDirectoryForTemplateLoading(new File(this.getClass().getResource("/tmpl/").getFile()));
-
             cfg.setObjectWrapper(new DefaultObjectWrapper());
 
-            ConverterUtil converter = new ConverterUtil();
-            List<Entity> entities = converter.convert();
+            JdbcGenericDao dao = new JdbcGenericDao();
+
+            List<Entity> entities = dao.queryTableInfo(tableNames);
 
             //生成实体
             if("true".equals(PropertiesUtil.getValue("entity.isGenerate"))){
@@ -52,7 +56,8 @@ public abstract class Generation {
 
             //生成View
             if("true".equals(PropertiesUtil.getValue("view.isGenerate"))){
-                generateView(cfg,entities);
+                List<Model> models = dao.queryModels(tableNames);
+                generateView(cfg,models);
             }
 
             hook();//挂钩
@@ -69,7 +74,7 @@ public abstract class Generation {
 
     public abstract void generateController(Configuration cfg,List<Entity> entities) throws IOException;
 
-    public abstract void generateView(Configuration cfg,List<Entity> entities) throws IOException;
+    public abstract void generateView(Configuration cfg,List<Model> models) throws IOException;
 
     /**
      * 添加配置信息（spring的配置文件）

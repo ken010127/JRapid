@@ -1,8 +1,4 @@
-package com.rbac.jrapid.entity.platform;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.rbac.jrapid.core.db.mybatis.annotation.PK;
+package org.JRapid.generation.bean;
 
 import java.io.Serializable;
 
@@ -10,30 +6,7 @@ import java.io.Serializable;
 * 页面表格配置信息实体类
 * Created by JRapid on 2017-1-4 9:57:43.
 */
-public class SysGridConfig implements Serializable {
-
-    public final static String ID = "id";
-    public final static String GRID_TYPE = "grid_type";
-    public final static String TITLE = "title";
-    public final static String FIELD = "field";
-    public final static String WIDTH = "width";
-    public final static String DICTIONARY = "dictionary";
-    public final static String ORDER_NO = "order_no";
-    public final static String IS_DISPLAY = "is_display";
-    public final static String IS_SEARCH = "is_search";
-    public final static String SEARCH_TYPE = "search_type";
-    public final static String IS_MODIFY = "is_modify";
-    public final static String MODIFY_TYPE = "modify_type";
-    public final static String ALLOW_NULL = "allow_null";
-    public final static String REFER_ID = "refer_id";
-    public final static String MENU_ID = "menu_id";
-
-    /**
-    * 主键ID
-    **/
-    @PK
-    @JsonSerialize(using=ToStringSerializer.class)
-    private Long id;
+public class TableConfig implements Serializable {
 
     /**
     * 表格类型，DATAGRID、TREEGRID
@@ -99,20 +72,6 @@ public class SysGridConfig implements Serializable {
     * 关联ID，关联sys_menu或sys_tree_resource
     **/
     private Long referId;
-
-    /**
-    * 关联菜单ID
-    **/
-    private Long menuId;
-
-
-    public Long getId(){
-        return id;
-    }
-
-    public void setId(Long id){
-        this.id = id;
-    }
 
     public String getGridType(){
         return gridType;
@@ -216,14 +175,6 @@ public class SysGridConfig implements Serializable {
 
     public void setReferId(Long referId){
         this.referId = referId;
-    }
-
-    public Long getMenuId(){
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId){
-        this.menuId = menuId;
     }
 
 }

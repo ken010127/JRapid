@@ -21,11 +21,11 @@ public class ConverterUtil {
      * 将表结构转换成javabean
      * @return Entity
      */
-    public List<Entity> convert(){
+    /*public List<Entity> convert(String tableNames){
         JdbcGenericDao dao = new JdbcGenericDao();
         List<Entity> entities = new ArrayList<Entity>();
 
-        List<Map<String,String>> tables = dao.queryTableInfo(PropertiesUtil.getValue("tables"));
+        List<Map<String,String>> tables = dao.queryTableInfo(tableNames);
 
         for (Map<String,String> table:tables){
             Entity entity = new Entity();
@@ -65,9 +65,8 @@ public class ConverterUtil {
             entity.setFields(fields);
             entities.add(entity);
         }
-        dao.closeConn();
         return entities;
-    }
+    }*/
 
 
 

@@ -83,7 +83,7 @@ public class SysMenu implements Serializable {
     /**
     * 树关联字段
     **/
-    private Long referField;
+    private String referField;
 
     /**
     * 主表表名
@@ -183,11 +183,11 @@ public class SysMenu implements Serializable {
         this.treeId = treeId;
     }
 
-    public Long getReferField(){
+    public String getReferField() {
         return referField;
     }
 
-    public void setReferField(Long referField){
+    public void setReferField(String referField) {
         this.referField = referField;
     }
 

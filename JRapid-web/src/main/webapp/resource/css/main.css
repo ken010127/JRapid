@@ -1,3 +1,8 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
 img {
     vertical-align: middle;
 }
@@ -31,3 +36,44 @@ img:after {
     width: 100%;
     text-align: center;
 }*/
+
+/*datagrid页面*/
+.jrapid_head {
+    border-bottom: 2px #6c9cf5 solid;
+    height: 24px;
+    padding: 5px 0;
+}
+
+.jrapid_title .jrapid_title_name {
+    background-color: #6c9cf5;
+    float: left;
+    padding: 0 15px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: #FFF;
+}
+
+.jrapid_title_name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #504f4f;
+    height: 29px;
+    line-height: 29px;
+    padding-left: 32px;
+}
+
+.jrapid_form_container {
+    clear: both;
+    overflow: hidden;
+}
+
+.jrapid_form ul {
+    clear: both;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.jrapid_form ul, .m_form li {
+    list-style: none;
+}
+
