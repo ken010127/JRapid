@@ -9,6 +9,7 @@
 		<result column="grid_type" property="gridType"/>		<!-- 表格类型，DATAGRID、TREEGRID -->
 		<result column="title" property="title"/>		<!-- 列名称 -->
 		<result column="field" property="field"/>		<!-- 字段名 -->
+		<result column="type" property="type"/>		<!-- 字段类型 -->
 		<result column="width" property="width"/>		<!-- 列宽 -->
 		<result column="dictionary" property="dictionary"/>		<!-- 是否使用字典编码 -->
 		<result column="order_no" property="orderNo"/>		<!-- 序号 -->
@@ -17,14 +18,16 @@
 		<result column="search_type" property="searchType"/>		<!-- 查询控件类型 -->
 		<result column="is_modify" property="isModify"/>		<!-- 是否编辑项,Y/N -->
 		<result column="modify_type" property="modifyType"/>		<!-- 编辑控件类型 -->
+		<result column="allow_null" property="allowNull"/>		<!-- 能否为空 -->
 		<result column="refer_id" property="referId"/>		<!-- 关联ID，关联sys_menu或sys_tree_resource -->
 		<result column="menu_id" property="menuId"/>		<!-- 关联菜单ID -->
 	</resultMap>
 
 	<sql id="baseColumnList">
-        id,grid_type,title,field,width,
-		dictionary,order_no,is_display,is_search,search_type,
-		is_modify,modify_type,refer_id,menu_id
+        id,grid_type,title,field,type,
+		width,dictionary,order_no,is_display,is_search,
+		search_type,is_modify,modify_type,allow_null,refer_id,
+		menu_id
 	</sql>
 
     <!--根据主键获取记录-->
@@ -54,9 +57,10 @@
 		(<include refid="baseColumnList" />
 		)
 		values
-		(	#{id},#{gridType},#{title},#{field},#{width},
-			#{dictionary},#{orderNo},#{isDisplay},#{isSearch},#{searchType},
-			#{isModify},#{modifyType},#{referId},#{menuId}
+		(	#{id},#{gridType},#{title},#{field},#{type},
+			#{width},#{dictionary},#{orderNo},#{isDisplay},#{isSearch},
+			#{searchType},#{isModify},#{modifyType},#{allowNull},#{referId},
+			#{menuId}
 		)
 	</insert>
 
@@ -74,6 +78,9 @@
 					</when>
 					<when test="column=='field' || column=='field'">
 						field=#{record.field}
+					</when>
+					<when test="column=='type' || column=='type'">
+						type=#{record.type}
 					</when>
 					<when test="column=='width' || column=='width'">
 						width=#{record.width}
@@ -99,6 +106,9 @@
 					<when test="column=='modifyType' || column=='modify_type'">
 						modify_type=#{record.modifyType}
 					</when>
+					<when test="column=='allowNull' || column=='allow_null'">
+						allow_null=#{record.allowNull}
+					</when>
 					<when test="column=='referId' || column=='refer_id'">
 						refer_id=#{record.referId}
 					</when>
@@ -114,9 +124,10 @@
     <!--更新所有字段-->
 	<update id="update" parameterType="com.rbac.jrapid.entity.platform.SysGridConfig">
 		update sys_grid_config
-		set grid_type=#{gridType},title=#{title},field=#{field},width=#{width},
-			dictionary=#{dictionary},order_no=#{orderNo},is_display=#{isDisplay},is_search=#{isSearch},search_type=#{searchType},
-			is_modify=#{isModify},modify_type=#{modifyType},refer_id=#{referId},menu_id=#{menuId}
+		set grid_type=#{gridType},title=#{title},field=#{field},type=#{type},
+			width=#{width},dictionary=#{dictionary},order_no=#{orderNo},is_display=#{isDisplay},is_search=#{isSearch},
+			search_type=#{searchType},is_modify=#{isModify},modify_type=#{modifyType},allow_null=#{allowNull},refer_id=#{referId},
+			menu_id=#{menuId}
 		where id = #{id}
 	</update>
 	

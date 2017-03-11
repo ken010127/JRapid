@@ -19,9 +19,14 @@ public class TableConfig implements Serializable {
     private String title;
 
     /**
-    * 字段名
+    * 数据库字段名
     **/
     private String field;
+
+    /**
+     * 属性名
+     */
+    private String property;
 
     /**
     * 列宽
@@ -177,4 +182,11 @@ public class TableConfig implements Serializable {
         this.referId = referId;
     }
 
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
 }

@@ -11,6 +11,8 @@ public interface BaseMapper<T, P> {
 
     List<T> findAll() throws java.lang.Exception;
 
+    Page<T> pageQuery(Page<T> page,T t);
+
     T findOne(P p) throws java.lang.Exception;
 
     int save(T t) throws java.lang.Exception;

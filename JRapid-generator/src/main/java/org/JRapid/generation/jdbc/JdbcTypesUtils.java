@@ -77,6 +77,11 @@ public class JdbcTypesUtils {
         jdbcJavaTypes.put(new Integer(Types.NCLOB), Clob.class);    // 2011 大文本
     }
 
+    /**
+     * 转换成JDBC编码
+     * @param jdbcName 类型
+     * @return
+     */
     public static int getJdbcCode(String jdbcName) {
         return jdbcTypes.get(jdbcName);
     }
@@ -94,5 +99,8 @@ public class JdbcTypesUtils {
         return (type == null) ? false : (Number.class.isAssignableFrom(type))? true : false;
     }
 
+    public static void main(String[] args) {
+        System.out.println(getJdbcCode("bigint".toUpperCase()));
+    }
 
 }

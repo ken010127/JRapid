@@ -30,6 +30,11 @@ public class ${className}Controller extends BaseController{
         return modelAndView;
     }
 
+    @RequestMapping(value="/pageQuery", method = RequestMethod.POST)
+    public Object pageQuery(@RequestBody ${className}Request request){
+        return ${className?uncap_first}Service.pageQuery(request);
+    }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Object save${className}(@RequestBody ${className}Request request) throws Exception {
         return ${className?uncap_first}Service.save(request.get${className}());

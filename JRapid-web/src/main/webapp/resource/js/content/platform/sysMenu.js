@@ -347,6 +347,7 @@ function initGridConfigGrid(){
                     }
                 }
             },
+            {field:'type',title:'字段类型',width:120,editor:'textbox'},
             {field:'dictionary',title:'字典编码',width:120,editor:'textbox'},
             {field:'orderNo',title:'序号',width:120,editor:'textbox'},
             {field:'isDisplay',title:'是否显示列',width:120,

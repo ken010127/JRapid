@@ -8,10 +8,13 @@ import org.JRapid.generation.bean.Model;
 import org.JRapid.generation.jdbc.JdbcGenericDao;
 import org.JRapid.generation.utils.ConverterUtil;
 import org.JRapid.generation.utils.PropertiesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,6 +23,8 @@ import java.util.Locale;
  * Created by FWJ on 2015/5/7.
  */
 public abstract class Generation {
+
+    protected static Logger logger = LoggerFactory.getLogger(Generation.class);
 
     public final void generate(){
         try {
@@ -32,7 +37,13 @@ public abstract class Generation {
 
             JdbcGenericDao dao = new JdbcGenericDao();
 
-            List<Entity> entities = dao.queryTableInfo(tableNames);
+            List<Entity> entities = null;
+            try {
+                entities = dao.queryTableInfo(tableNames);
+            } catch (SQLException e) {
+                logger.error("查询"+tableNames+"失败！");
+                e.printStackTrace();
+            }
 
             //生成实体
             if("true".equals(PropertiesUtil.getValue("entity.isGenerate"))){

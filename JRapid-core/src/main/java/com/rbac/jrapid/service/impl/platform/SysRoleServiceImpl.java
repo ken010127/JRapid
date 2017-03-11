@@ -1,8 +1,11 @@
 package com.rbac.jrapid.service.impl.platform;
 
 import com.rbac.jrapid.core.common.dao.CommonExample;
+import com.rbac.jrapid.core.common.dao.Page;
 import com.rbac.jrapid.dao.platform.SysRoleExtMapper;
 import com.rbac.jrapid.dao.platform.SysRoleMapper;
+import com.rbac.jrapid.dto.request.platform.SysRoleRequest;
+import com.rbac.jrapid.dto.response.platform.SysRoleResponse;
 import com.rbac.jrapid.entity.platform.SysRole;
 import com.rbac.jrapid.service.platform.SysRoleService;
 import org.slf4j.Logger;
@@ -25,6 +28,13 @@ public class SysRoleServiceImpl implements SysRoleService{
 
     @Autowired
     public SysRoleExtMapper sysRoleExtMapper;
+
+    public SysRoleResponse pageQuery(SysRoleRequest request){
+        SysRoleResponse response = new SysRoleResponse();
+        Page<SysRole> page = sysRoleMapper.pageQuery(request.getPage(),request.getSysRole());
+        response.setPage(page);
+        return response;
+    }
 
     public SysRole findOne(Long id) throws Exception {
         return sysRoleMapper.findOne(id);

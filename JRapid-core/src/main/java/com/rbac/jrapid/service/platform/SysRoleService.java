@@ -1,6 +1,8 @@
 package com.rbac.jrapid.service.platform;
 
 import com.rbac.jrapid.core.common.dao.CommonExample;
+import com.rbac.jrapid.dto.request.platform.SysRoleRequest;
+import com.rbac.jrapid.dto.response.platform.SysRoleResponse;
 import com.rbac.jrapid.entity.platform.SysRole;
 
 /**
@@ -8,6 +10,8 @@ import com.rbac.jrapid.entity.platform.SysRole;
 * Created by JRapid on 2016-11-30 16:29:53
 */
 public interface SysRoleService {
+
+    SysRoleResponse pageQuery(SysRoleRequest request);
 
     SysRole findOne(Long id) throws Exception;
 

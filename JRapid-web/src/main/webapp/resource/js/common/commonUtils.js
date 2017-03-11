@@ -154,8 +154,7 @@ function loadjs(file){
  * 字典JS工具类
  * @returns {{queryChildrenByCode: queryChildrenByCode}}
  */
-var dictUtils = function () {
-  return{
+var dictUtils = {
       /**
        * 根据父节点编码查询子节点
        * @param parentCode  父节点编码
@@ -167,5 +166,53 @@ var dictUtils = function () {
           });
           return dictData;
       }
-  }
-}(jQuery);
+};
+
+/**
+ * datagrid工具类
+ * @type {{}}
+ */
+var dataGridUtils = {
+    /**
+     * 分页查询
+     * @param object = {datagrid:数据列表对象,pagination:分页控件,queryData:查询条件,url:请求路径}
+     */
+    doPageQuery:function (object) {
+        var datagrid = object.datagrid;
+        var page = object.pagination;
+        var url = object.url;
+        datagrid.datagrid('loading');
+        jrapid_ajax_util.post(url,object.queryData,function(data){
+            if (data.status) {
+                var total = data.page.totalRecord;
+                var rows = data.page.results;
+                var pageSize = data.page.pageSize;
+                var pageNumber = data.page.pageNumber;
+                if($.isArray(rows)){
+                    datagrid.datagrid({data:rows});
+                }
+                else{
+                    $.log("获取结果出错", rows);
+                }
+                $(page).pagination({
+                    total: total,
+                    pageSize: pageSize,
+                    pageNumber: pageNumber,
+                    onChangePageSize: function(pageSize){
+                        object.queryData.page.pageSize = pageSize;
+                        dataGridUtils.doPageQuery(pageNumber, pageSize);
+                    },
+                    onSelectPage: function(pageNumber, pageSize){
+                        object.queryData.page.pageSize = pageSize;
+                        object.queryData.page.pageNumber = pageNumber;
+                        dataGridUtils.doPageQuery(pageNumber, pageSize);
+                    }
+                });
+
+            } else {
+                $.messager.alert('温馨提示', '加载数据失败！'+data.errorMsg, 'info');
+            }
+            datagrid.datagrid('loaded');
+        });
+    }
+};

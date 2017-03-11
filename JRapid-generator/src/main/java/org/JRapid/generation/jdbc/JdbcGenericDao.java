@@ -19,8 +19,6 @@ import java.util.*;
 public class JdbcGenericDao {
 
     Connection conn = null;
-    Statement stmt = null;
-    ResultSet rs = null;
 
     /**
      * 获取jdbc connection
@@ -49,7 +47,7 @@ public class JdbcGenericDao {
     /**
      * 关闭数据库链接
      */
-    public void closeConn(){
+    public void closeConn(Statement stmt,ResultSet rs){
         try{
             if(rs != null) rs.close();
             if(stmt != null) stmt.close();
@@ -65,6 +63,8 @@ public class JdbcGenericDao {
      * @return
      */
     public ResultSet executeSql(String sql){
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             conn = getConnection();
             stmt = conn.createStatement();
@@ -80,8 +80,9 @@ public class JdbcGenericDao {
      * @param tableName 数据库表名，tableName可以模糊查询如：abc%,如果全部查询则直接用 '%' 表示
      * @return 数据库表信息
      */
-    public List<Entity> queryTableInfo(String tableName){
+    public List<Entity> queryTableInfo(String tableName) throws SQLException {
         List<Entity> entities = new ArrayList<Entity>();
+        ResultSet rs = null;
         try {
             conn = getConnection();
             DatabaseMetaData metaData = conn.getMetaData();
@@ -121,7 +122,7 @@ public class JdbcGenericDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            closeConn();
+            rs.close();
         }
         return entities;
     }
@@ -131,8 +132,9 @@ public class JdbcGenericDao {
      * @param tableName 表名
      * @return
      */
-    public List<Field> queryColumnInfos(String tableName){
+    public List<Field> queryColumnInfos(String tableName) throws SQLException {
         List<Field> fieldInfos = new ArrayList<Field>();
+        ResultSet rs = null;
         try {
             conn = getConnection();
             DatabaseMetaData metaData = conn.getMetaData();
@@ -156,7 +158,7 @@ public class JdbcGenericDao {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            closeConn();
+            rs.close();
         }
         return fieldInfos;
     }
@@ -166,8 +168,9 @@ public class JdbcGenericDao {
      * @param talbeName 数据表
      * @return 主键
      */
-    public List<String> queryPrimaryKeys(String talbeName){
+    public List<String> queryPrimaryKeys(String talbeName) throws SQLException {
         List<String> primaryKeys = new ArrayList<String>();
+        ResultSet rs = null;
         try {
             conn = getConnection();
             DatabaseMetaData metaData = conn.getMetaData();
@@ -178,7 +181,7 @@ public class JdbcGenericDao {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            closeConn();
+            rs.close();
         }
         return primaryKeys;
     }
@@ -191,9 +194,10 @@ public class JdbcGenericDao {
     public List<Model> queryModels(String tableName){
         List<Model> models = new ArrayList<Model>();
         PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try{
             String queryModel = "select * from sys_menu where master_table=?";
-            String queryTableConfig = "select * from sys_table_config where refer_id=? order by order_no";
+            String queryTableConfig = "select * from sys_grid_config where refer_id=? order by order_no";
             conn = getConnection();
             pstmt = conn.prepareStatement(queryModel);
             pstmt.setString(1,tableName);
@@ -201,7 +205,7 @@ public class JdbcGenericDao {
             while (rs.next()){
                 Model model = new Model();
                 model.setId(rs.getLong("id"));
-                model.setClassName(StringUtil.underlineToCamel(rs.getString("menu_name")));
+                model.setClassName(StringUtil.underlineToCamel(tableName));
                 model.setTitle(rs.getString("menu_name"));
                 model.setModulePackage(PropertiesUtil.getValue("modulePackage"));
                 model.setModelType(rs.getString("model_type"));
@@ -212,7 +216,8 @@ public class JdbcGenericDao {
                 model.setSlaveTable(rs.getString("slave_table"));
                 model.setSlaveFk(rs.getString("slave_fk"));
 
-                PreparedStatement configStmt = conn.prepareCall(queryTableConfig);
+                Connection configConn = getConnection();
+                PreparedStatement configStmt = configConn.prepareCall(queryTableConfig);
                 configStmt.setLong(1,model.getId());
                 ResultSet configReslut = configStmt.executeQuery();
                 List<TableConfig> tableConfigs = new ArrayList<TableConfig>();
@@ -221,6 +226,7 @@ public class JdbcGenericDao {
                     tableConfig.setGridType(configReslut.getString("grid_type"));
                     tableConfig.setTitle(configReslut.getString("title"));
                     tableConfig.setField(configReslut.getString("field"));
+                    tableConfig.setProperty(tableConfig.getField());
                     tableConfig.setWidth(configReslut.getInt("width"));
                     tableConfig.setDictionary(configReslut.getString("dictionary"));
                     tableConfig.setIsDisplay(configReslut.getString("is_display"));
@@ -233,6 +239,8 @@ public class JdbcGenericDao {
                 }
                 model.setTableConfigs(tableConfigs);
                 models.add(model);
+                configStmt.close();
+                configConn.close();
             }
 
         } catch (ClassNotFoundException e) {//捕获驱动加载失败异常
@@ -245,7 +253,6 @@ public class JdbcGenericDao {
             try {
                 if(pstmt != null) {
                     pstmt.close();
-                    pstmt = null;
                 }
                 if(conn != null) {
                     conn.close();

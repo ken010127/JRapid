@@ -20,12 +20,12 @@ pageEncoding="UTF-8"%>
             <div name="jrapid_query_condition" class="jrapid_query_condition">
                 <form id="query_form" class="query_form">
                     <div name="jrapid_form_container" class="jrapid_form_container">
-                        <ul><#list tableConfigs as config>
-  <#if config.isSearch=="Y"><li>
+                        <ul><#list tableConfigs as config><#if config.isSearch=="Y">
+                            <li>
                                 <label class="title">${config.title}:</label>
-                                <input class="${config.searchType}" id="query_${config.field}" name="${config.field}"/>
-                            </li></#if>
-                </#list></ul>
+                                <input class="${config.searchType}" id="query_${config.field}" name="${config.property}"/>
+                            </li></#if></#list>
+                        </ul>
                     </div>
                 </form>
             </div>
@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
                 <table>
                     <tr><#list tableConfigs as config><#if config.isModify=="Y">
                         <td>${config.title}:</td>
-                        <td><input class="${config.modifyType}" type="text" name="${config.field}" <#if config.allowNull=="Y">data-options="required:true"</#if></input></td>
+                        <td><input class="${config.modifyType}" type="text" name="${config.field}" <#if config.allowNull=="Y">data-options="required:true"</#if>/></td>
                     </tr></#if></#list>
                 </table>
             </form>

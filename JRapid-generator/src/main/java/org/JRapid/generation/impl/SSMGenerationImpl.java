@@ -211,11 +211,11 @@ public class SSMGenerationImpl extends Generation {
             Template operateJsTemplate = cfg.getTemplate("operateJsTemplate.ftl");
 
             String jspPath = PropertiesUtil.getValue("outRoot") + File.separatorChar + "view" + File.separatorChar
-                    + "jsp" + PropertiesUtil.getValue("modulePackage");
+                    + "jsp" + File.separatorChar  + PropertiesUtil.getValue("modulePackage");
             FileUtils.createFolder(jspPath);
 
 
-            String jsPath = PropertiesUtil.getValue("outRoot") + File.separatorChar + "service" + File.separatorChar
+            String jsPath = PropertiesUtil.getValue("outRoot") + File.separatorChar + "js" + File.separatorChar
                     + "js" + File.separatorChar + PropertiesUtil.getValue("modulePackage");
             FileUtils.createFolder(jsPath);
 

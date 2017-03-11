@@ -1,14 +1,19 @@
 package com.rbac.jrapid.entity.platform;
 
+import com.rbac.jrapid.core.db.mybatis.annotation.PK;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.rbac.jrapid.core.common.annotation.CHILDREN;
+import com.rbac.jrapid.core.common.annotation.ORDERID;
+import com.rbac.jrapid.core.common.annotation.PARENTID;
 import com.rbac.jrapid.core.db.mybatis.annotation.PK;
 
 import java.io.Serializable;
 
 /**
 * 页面表格配置信息实体类
-* Created by JRapid on 2017-1-4 9:57:43.
+* Created by JRapid on 2017-3-10 15:50:25.
 */
 public class SysGridConfig implements Serializable {
 
@@ -16,6 +21,7 @@ public class SysGridConfig implements Serializable {
     public final static String GRID_TYPE = "grid_type";
     public final static String TITLE = "title";
     public final static String FIELD = "field";
+    public final static String TYPE = "type";
     public final static String WIDTH = "width";
     public final static String DICTIONARY = "dictionary";
     public final static String ORDER_NO = "order_no";
@@ -38,71 +44,91 @@ public class SysGridConfig implements Serializable {
     /**
     * 表格类型，DATAGRID、TREEGRID
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String gridType;
 
     /**
     * 列名称
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String title;
 
     /**
     * 字段名
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String field;
+
+    /**
+    * 字段类型
+    **/
+    @JsonSerialize(using=ToStringSerializer.class)
+    private String type;
 
     /**
     * 列宽
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private Integer width;
 
     /**
     * 是否使用字典编码
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String dictionary;
 
     /**
     * 序号
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private Integer orderNo;
 
     /**
     * 是否显示列,Y/N
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String isDisplay;
 
     /**
     * 是否查询条件,Y/N
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String isSearch;
 
     /**
     * 查询控件类型
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String searchType;
 
     /**
     * 是否编辑项,Y/N
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String isModify;
 
     /**
     * 编辑控件类型
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String modifyType;
 
     /**
-     * 能否为空
-     */
+    * 能否为空
+    **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private String allowNull;
 
     /**
     * 关联ID，关联sys_menu或sys_tree_resource
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private Long referId;
 
     /**
     * 关联菜单ID
     **/
+    @JsonSerialize(using=ToStringSerializer.class)
     private Long menuId;
 
 
@@ -136,6 +162,14 @@ public class SysGridConfig implements Serializable {
 
     public void setField(String field){
         this.field = field;
+    }
+
+    public String getType(){
+        return type;
+    }
+
+    public void setType(String type){
+        this.type = type;
     }
 
     public Integer getWidth(){
@@ -202,11 +236,11 @@ public class SysGridConfig implements Serializable {
         this.modifyType = modifyType;
     }
 
-    public String getAllowNull() {
+    public String getAllowNull(){
         return allowNull;
     }
 
-    public void setAllowNull(String allowNull) {
+    public void setAllowNull(String allowNull){
         this.allowNull = allowNull;
     }
 

@@ -12,7 +12,7 @@
     <!--查询表字段信息-->
     <select id="queryColumnInfo" parameterType="String" resultMap="baseResultExtMap">
         <!--SELECT <include refid="baseExtColumnList"/> FROM sys_grid_config WHERE title=#{tableName}-->
-        select column_comment as title,column_name as field,120 width from `information_schema`.columns where table_name=#{tableName}
+        select column_comment as title,column_name as field,data_type as type,120 width from `information_schema`.columns where table_name=#{tableName}
     </select>
 
     <!-- 判断是否有存在表 -->

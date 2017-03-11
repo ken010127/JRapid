@@ -15,6 +15,8 @@ public class SysGridConfigResponse extends BasePageResponse<SysGridConfig> {
 
     private SysGridConfig sysGridConfig;
 
+    private List<SysGridConfig> rows;
+
     public SysGridConfig getSysGridConfig() {
         return sysGridConfig;
     }
@@ -23,4 +25,11 @@ public class SysGridConfigResponse extends BasePageResponse<SysGridConfig> {
         this.sysGridConfig = sysGridConfig;
     }
 
+    public List<SysGridConfig> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<SysGridConfig> rows) {
+        this.rows = rows;
+    }
 }

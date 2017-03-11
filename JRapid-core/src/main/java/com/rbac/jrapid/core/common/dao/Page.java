@@ -11,19 +11,19 @@ import java.util.List;
  */
 public class Page<T> {
 
-    private int pageNo = MainConstants.DEFAUTL_PAGE_INDEX;//页码，默认是第一页
+    private int pageNumber = MainConstants.DEFAUTL_PAGE_INDEX;//页码，默认是第一页
     private int pageSize = MainConstants.DEFAUTL_PAGE_SIZE;//每页显示的记录数，默认是15
     private int totalRecord;//总记录数
     private int totalPage;//总页数
     private List<T> results;//对应的当前页记录
     private List<QueryCondition> conditions;//查询条件
 
-    public int getPageNo() {
-        return pageNo;
+    public int getPageNumber() {
+        return pageNumber;
     }
 
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     public int getPageSize() {
@@ -72,7 +72,7 @@ public class Page<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Page [pageNo=").append(pageNo).append(", pageSize=")
+        builder.append("Page [pageNo=").append(pageNumber).append(", pageSize=")
                 .append(pageSize).append(", results=").append(results).append(
                 ", totalPage=").append(totalPage).append(
                 ", totalRecord=").append(totalRecord).append("]");
