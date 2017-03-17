@@ -2,6 +2,7 @@ package com.rbac.jrapid.dto.request.platform;
 
 import com.rbac.jrapid.core.dto.request.BasePageRequest;
 import com.rbac.jrapid.core.dto.request.BaseRequest;
+import com.rbac.jrapid.dto.codition.platform.SysRoleCondition;
 import com.rbac.jrapid.entity.platform.SysRole;
 
 /**
@@ -11,13 +12,13 @@ import com.rbac.jrapid.entity.platform.SysRole;
 */
 public class SysRoleRequest extends BasePageRequest<SysRole> {
 
-    private SysRole sysRole;
+    private SysRoleCondition condition;
 
-    public SysRole getSysRole() {
-        return sysRole;
+    public SysRoleCondition getCondition() {
+        return condition;
     }
 
-    public void setSysRole(SysRole sysRole) {
-        this.sysRole = sysRole;
+    public void setCondition(SysRoleCondition condition) {
+        this.condition = condition;
     }
 }

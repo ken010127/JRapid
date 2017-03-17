@@ -12,21 +12,11 @@ import java.util.List;
 * @author FWJ
 * @since 2016-11-30 16:29:53
 */
-public class SysMenuResponse extends BaseResponse {
-
-    private SysMenu sysMenu;
+public class SysMenuResponse extends BaseResponse<SysMenu> {
 
     private List<SysButton> sysButtons;
 
     private List<SysGridConfig> sysGridConfigs;
-
-    public SysMenu getSysMenu() {
-        return sysMenu;
-    }
-
-    public void setSysMenu(SysMenu sysMenu) {
-        this.sysMenu = sysMenu;
-    }
 
     public List<SysButton> getSysButtons() {
         return sysButtons;

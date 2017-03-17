@@ -13,19 +13,19 @@
     <entry key="modulePackage">platform</entry>
 
     <!--要生成的table，可以用%表示全部-->
-    <entry key="tables">sys_grid_config</entry>
+    <entry key="tables">sys_role</entry>
 
     <!--模板根目录-->
-    <entry key="templateRoot">/Users/ken/code/JRapid/JRapid-generator/src/main/resources/tmpl</entry>
+    <entry key="templateRoot">/Users/ken/code/JRapid/JRapid-generator/src/main/resources/tmpl/</entry>
 
     <!--是否生成实体-->
-    <entry key="entity.isGenerate">true</entry>
+    <entry key="entity.isGenerate">false</entry>
     <!--是否生成Dao-->
-    <entry key="dao.isGenerate">true</entry>
+    <entry key="dao.isGenerate">false</entry>
     <!--是否生成Service-->
     <entry key="service.isGenerate">false</entry>
     <!--是否生成Controller-->
-    <entry key="controller.isGenerate">false</entry>
+    <entry key="controller.isGenerate">true</entry>
     <!--是否生成View-->
     <entry key="view.isGenerate">false</entry>
     <!--视图位置-->

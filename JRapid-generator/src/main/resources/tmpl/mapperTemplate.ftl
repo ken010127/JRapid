@@ -141,6 +141,19 @@
 		</if>
 	</select>
 
+    <!-- 分页查询 -->
+    <select id="pageQuery" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList" />
+        FROM ${tableName}
+        <if test="page.condition.size()>0">
+            <where>
+                <foreach collection="page.condition" item="condition" separator="and">
+                    ${r'${condition}'}
+                </foreach>
+            </where>
+        </if>
+    </select>
 	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
 
 </mapper>

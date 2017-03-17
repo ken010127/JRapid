@@ -1,13 +1,11 @@
 package com.rbac.jrapid.service.impl.platform;
 
 import com.rbac.jrapid.core.common.converter.ObjectConverter;
-import com.rbac.jrapid.core.common.dao.CommonExample;
 import com.rbac.jrapid.core.dto.vo.EasyUITreeNodeVO;
-import com.rbac.jrapid.core.exception.BaseException;
 import com.rbac.jrapid.dao.platform.SysDictionaryExtMapper;
 import com.rbac.jrapid.dao.platform.SysDictionaryMapper;
-import com.rbac.jrapid.dto.response.platform.SysDictionaryResponse;
 import com.rbac.jrapid.entity.platform.SysDictionary;
+import com.rbac.jrapid.service.impl.BaseServiceImpl;
 import com.rbac.jrapid.service.platform.SysDictionaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,83 +24,11 @@ import java.util.Map;
 */
 @Transactional
 @Service("SysDictionaryService")
-public class SysDictionaryServiceImpl implements SysDictionaryService{
+public class SysDictionaryServiceImpl extends BaseServiceImpl<SysDictionaryMapper,SysDictionary> implements SysDictionaryService{
     protected static Logger logger = LoggerFactory.getLogger(SysDictionaryServiceImpl.class);
 
     @Autowired
-    private SysDictionaryMapper sysDictionaryMapper;
-
-    @Autowired
     private SysDictionaryExtMapper sysDictionaryExtMapper;
-
-    public SysDictionary findOne(Long id) throws Exception {
-        return sysDictionaryMapper.findOne(id);
-    }
-
-    public SysDictionaryResponse save(SysDictionary sysDictionary) throws Exception {
-        SysDictionaryResponse response = new SysDictionaryResponse();
-        int result = sysDictionaryMapper.save(sysDictionary);
-        if (result<0){
-            response.setStatus(false);
-        }
-        response.setSysDictionary(sysDictionary);
-        return response;
-    }
-
-    public SysDictionaryResponse update(SysDictionary sysDictionary) throws Exception {
-        SysDictionaryResponse response = new SysDictionaryResponse();
-        int result = sysDictionaryMapper.update(sysDictionary);
-        if (result<0){
-            response.setStatus(false);
-        }
-        response.setSysDictionary(sysDictionary);
-        return response;
-    }
-
-    @Override
-    public SysDictionaryResponse saveOrUpdate(SysDictionary sysDictionary) throws Exception {
-        if (sysDictionary.getId() == null){
-            return this.save(sysDictionary);
-        }else {
-            SysDictionaryResponse response = this.update(sysDictionary);
-            int result = sysDictionaryExtMapper.updateChildren(sysDictionary);
-            if (result<0){
-                throw new BaseException("","更新子节点失败！");
-            }
-            return response;
-        }
-    }
-
-    public SysDictionaryResponse updateSelected(SysDictionary SysDictionaryResponse, List<String> list) throws Exception {
-        SysDictionaryResponse response = new SysDictionaryResponse();
-        int result = sysDictionaryMapper.updateSelected(SysDictionaryResponse,list);
-        if (result<0){
-            response.setStatus(false);
-        }
-        response.setSysDictionary(SysDictionaryResponse);
-        return response;
-    }
-
-    public SysDictionaryResponse delete(Long id) throws Exception {
-        SysDictionaryResponse response = new SysDictionaryResponse();
-        int result = sysDictionaryMapper.delete(id);
-        if (result<0){
-            throw new BaseException("","删除节点失败！");
-        }
-        result = sysDictionaryExtMapper.deleteChildren(id);
-        if (result<0){
-            throw new BaseException("","删除子节点失败！");
-        }
-        return response;
-    }
-
-    public List<SysDictionary> listByCondition(CommonExample commonExample) throws Exception {
-        return sysDictionaryMapper.listByCondition(commonExample);
-    }
-
-    public Integer countByCondition(CommonExample commonExample) throws Exception {
-        return sysDictionaryMapper.countByCondition(commonExample);
-    }
 
     @Override
     public List<SysDictionary> queryChildrenByCode(String parentCode) {

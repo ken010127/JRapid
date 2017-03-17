@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on 2016-11-30 16:40:54.
 */
 @Component("SysUserMapper")
-public interface SysUserMapper extends BaseMapper<SysUser,Long> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }

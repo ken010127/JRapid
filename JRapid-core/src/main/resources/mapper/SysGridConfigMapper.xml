@@ -16,6 +16,7 @@
 		<result column="is_display" property="isDisplay"/>		<!-- 是否显示列,Y/N -->
 		<result column="is_search" property="isSearch"/>		<!-- 是否查询条件,Y/N -->
 		<result column="search_type" property="searchType"/>		<!-- 查询控件类型 -->
+		<result column="condition_type" property="conditionType"/>		<!-- 查询条件类型 -->
 		<result column="is_modify" property="isModify"/>		<!-- 是否编辑项,Y/N -->
 		<result column="modify_type" property="modifyType"/>		<!-- 编辑控件类型 -->
 		<result column="allow_null" property="allowNull"/>		<!-- 能否为空 -->
@@ -26,8 +27,8 @@
 	<sql id="baseColumnList">
         id,grid_type,title,field,type,
 		width,dictionary,order_no,is_display,is_search,
-		search_type,is_modify,modify_type,allow_null,refer_id,
-		menu_id
+		search_type,condition_type,is_modify,modify_type,allow_null,
+		refer_id,menu_id
 	</sql>
 
     <!--根据主键获取记录-->
@@ -59,8 +60,8 @@
 		values
 		(	#{id},#{gridType},#{title},#{field},#{type},
 			#{width},#{dictionary},#{orderNo},#{isDisplay},#{isSearch},
-			#{searchType},#{isModify},#{modifyType},#{allowNull},#{referId},
-			#{menuId}
+			#{searchType},#{conditionType},#{isModify},#{modifyType},#{allowNull},
+			#{referId},#{menuId}
 		)
 	</insert>
 
@@ -100,6 +101,9 @@
 					<when test="column=='searchType' || column=='search_type'">
 						search_type=#{record.searchType}
 					</when>
+					<when test="column=='conditionType' || column=='condition_type'">
+						condition_type=#{record.conditionType}
+					</when>
 					<when test="column=='isModify' || column=='is_modify'">
 						is_modify=#{record.isModify}
 					</when>
@@ -126,8 +130,8 @@
 		update sys_grid_config
 		set grid_type=#{gridType},title=#{title},field=#{field},type=#{type},
 			width=#{width},dictionary=#{dictionary},order_no=#{orderNo},is_display=#{isDisplay},is_search=#{isSearch},
-			search_type=#{searchType},is_modify=#{isModify},modify_type=#{modifyType},allow_null=#{allowNull},refer_id=#{referId},
-			menu_id=#{menuId}
+			search_type=#{searchType},condition_type=#{conditionType},is_modify=#{isModify},modify_type=#{modifyType},allow_null=#{allowNull},
+			refer_id=#{referId},menu_id=#{menuId}
 		where id = #{id}
 	</update>
 	
@@ -175,6 +179,19 @@
 		</if>
 	</select>
 
+    <!-- 分页查询 -->
+    <select id="pageQuery" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseColumnList" />
+        FROM sys_grid_config
+        <if test="page.condition.size()>0">
+            <where>
+                <foreach collection="page.condition" item="condition" separator="and">
+                    ${condition}
+                </foreach>
+            </where>
+        </if>
+    </select>
 	<!-- ********************** 以上部分为代码自动生成，不能修改！！！ ********************************** -->
 
 </mapper>

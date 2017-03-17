@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on 2016-11-30 16:40:54.
 */
 @Component("SysTreeResourceMapper")
-public interface SysTreeResourceMapper extends BaseMapper<SysTreeResource,Long> {
+public interface SysTreeResourceMapper extends BaseMapper<SysTreeResource> {
 
 }

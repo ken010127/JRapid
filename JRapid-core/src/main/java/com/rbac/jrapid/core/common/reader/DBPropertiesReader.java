@@ -9,13 +9,26 @@ import java.util.Properties;
  * @author: FWJ
  * @date 2016/8/17  17:41
  */
-public class DBPropertiesReader extends BasePropertiesReader{
-    public DBPropertiesReader() {
-        InputStream in = Object.class.getResourceAsStream( "/config/db.properties" );
+public class DBPropertiesReader{
+
+    private static Properties prop = new Properties();
+
+    static  {
+        InputStream in = DBPropertiesReader.class.getResourceAsStream( "/config/db.properties" );
         try  {
-            properties.loadFromXML(in);
+            prop.load(in);
         }  catch  (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static String getValue(String key){
+        return prop.getProperty(key).trim();
+    }
+
+    public static void main(String[] args) {
+        String db = DBPropertiesReader.getValue("db.dbType");
+        System.out.println(db);
+    }
+
 }

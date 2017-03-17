@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
 * 页面表格配置信息实体类
-* Created by JRapid on 2017-3-10 15:50:25.
+* Created by JRapid on 2017-3-14 17:06:06.
 */
 public class SysGridConfig implements Serializable {
 
@@ -28,6 +28,7 @@ public class SysGridConfig implements Serializable {
     public final static String IS_DISPLAY = "is_display";
     public final static String IS_SEARCH = "is_search";
     public final static String SEARCH_TYPE = "search_type";
+    public final static String CONDITION_TYPE = "condition_type";
     public final static String IS_MODIFY = "is_modify";
     public final static String MODIFY_TYPE = "modify_type";
     public final static String ALLOW_NULL = "allow_null";
@@ -100,6 +101,12 @@ public class SysGridConfig implements Serializable {
     **/
     @JsonSerialize(using=ToStringSerializer.class)
     private String searchType;
+
+    /**
+    * 查询条件类型
+    **/
+    @JsonSerialize(using=ToStringSerializer.class)
+    private String conditionType;
 
     /**
     * 是否编辑项,Y/N
@@ -218,6 +225,14 @@ public class SysGridConfig implements Serializable {
 
     public void setSearchType(String searchType){
         this.searchType = searchType;
+    }
+
+    public String getConditionType(){
+        return conditionType;
+    }
+
+    public void setConditionType(String conditionType){
+        this.conditionType = conditionType;
     }
 
     public String getIsModify(){

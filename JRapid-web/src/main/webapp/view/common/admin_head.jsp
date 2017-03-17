@@ -20,6 +20,7 @@
 <script type="text/javascript" src="<%=ctx%>/resource/js/common/totalConstant.js"></script>
 <script type="text/javascript">
     var ctx = '<%=request.getContextPath() %>';
+    var basePath = '<%=request.getScheme() %>://<%=request.getServerName()%>:<%=request.getServerPort()%>' + ctx;//完整路径带http
     var defaultIconPath = ctx + '/resource/js/jquery-easyui-1.5/themes/icons/';
     var customIconPath = ctx + '/resource/js/jquery-easyui-1.5/themes/customIcon/';
 </script>

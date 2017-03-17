@@ -28,11 +28,13 @@ public abstract class Generation {
 
     public final void generate(){
         try {
-            String tableNames = PropertiesUtil.getValue("tables");
+            //配置文件修改每次都要重新打包，直接写在java里编译直接可以运行
+            //要生成的table，可以用%表示全部
+            String tableNames = "sys_role";
 
             Configuration cfg = new Configuration();
             cfg.setEncoding(Locale.getDefault(), "UTF-8");
-            cfg.setDirectoryForTemplateLoading(new File(this.getClass().getResource("/tmpl/").getFile()));
+            cfg.setDirectoryForTemplateLoading(new File(PropertiesUtil.getValue("templateRoot")));
             cfg.setObjectWrapper(new DefaultObjectWrapper());
 
             JdbcGenericDao dao = new JdbcGenericDao();
@@ -45,31 +47,22 @@ public abstract class Generation {
                 e.printStackTrace();
             }
 
+//            PropertiesUtil.getValue("entity.isGenerate")
             //生成实体
-            if("true".equals(PropertiesUtil.getValue("entity.isGenerate"))){
-                generateEntity(cfg,entities);
-            }
+//            generateEntity(cfg,entities);
 
             //生成Dao
-            if("true".equals(PropertiesUtil.getValue("dao.isGenerate"))){
-                generateDao(cfg,entities);
-            }
+//            generateDao(cfg,entities);
 
             //生成Service
-            if("true".equals(PropertiesUtil.getValue("service.isGenerate"))){
-                generateService(cfg,entities);
-            }
+//            generateService(cfg,entities);
 
             //生成Controller
-            if("true".equals(PropertiesUtil.getValue("controller.isGenerate"))){
-                generateController(cfg,entities);
-            }
+            generateController(cfg,entities);
 
             //生成View
-            if("true".equals(PropertiesUtil.getValue("view.isGenerate"))){
-                List<Model> models = dao.queryModels(tableNames);
-                generateView(cfg,models);
-            }
+//            List<Model> models = dao.queryModels(tableNames);
+//            generateView(cfg,models);
 
             hook();//挂钩
         } catch (IOException e) {

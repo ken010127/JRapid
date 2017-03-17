@@ -1,7 +1,6 @@
 package com.rbac.jrapid.core.db.mybatis.interceptor;
 
 import com.rbac.jrapid.core.common.dao.Page;
-import com.rbac.jrapid.core.common.reader.BasePropertiesReader;
 import com.rbac.jrapid.core.common.reader.DBPropertiesReader;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -36,14 +35,16 @@ public class PageInterceptor implements Interceptor {
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         String id = mappedStatement.getId();
+        BoundSql boundSql = statementHandler.getBoundSql();
+        Object obj = boundSql.getParameterObject();
 
-        if(id.matches(".+PageQuery$")){
+        if(obj instanceof Page<?>){//拦截pageQuery方法
             //获取到当前StatementHandler的 boundSql
-            BoundSql boundSql = statementHandler.getBoundSql();
+
             Map<String,Object> params = (Map<String,Object>)boundSql.getParameterObject();
             Page<?> page = (Page<?>) params.get("page");
             String sql = boundSql.getSql();
-            String countSql = "select count(*)from ("+sql+")a";
+            String countSql = "select count(*)from ("+sql+") a";
             Connection connection = (Connection) invocation.getArgs()[0];
             PreparedStatement countStatement = connection.prepareStatement(countSql);
             ParameterHandler parameterHandler = (ParameterHandler) metaObject.getValue("delegate.parameterHandler");
@@ -73,8 +74,7 @@ public class PageInterceptor implements Interceptor {
      * 设置注册拦截器时设定的属性
      */
     public String getProperties() {
-        BasePropertiesReader reader = new DBPropertiesReader();
-        return reader.getProperties("db.dbType");
+        return DBPropertiesReader.getValue("db.dbType");
     }
 
     @Override
@@ -88,7 +88,7 @@ public class PageInterceptor implements Interceptor {
      *
      * @param page 分页对象
      * @param sql 原sql语句
-     * @return
+     * @return sql
      */
     private String getPageSql(Page<?> page, String sql) {
         StringBuffer sqlBuffer = new StringBuffer(sql);

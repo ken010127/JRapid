@@ -38,10 +38,16 @@ img:after {
 }*/
 
 /*datagrid页面*/
-.jrapid_head {
+.jrapid_title {
     border-bottom: 2px #6c9cf5 solid;
     height: 24px;
-    padding: 5px 0;
+    padding: 5px 10px 5px 0px;
+}
+
+.jrapid_title span a {
+    text-align:center;
+    margin-left:5px;
+    margin-right: 5px;
 }
 
 .jrapid_title .jrapid_title_name {
@@ -62,18 +68,25 @@ img:after {
     padding-left: 32px;
 }
 
+.jrapid_query_condition{
+    padding:5px 5px;
+}
+
 .jrapid_form_container {
     clear: both;
     overflow: hidden;
 }
 
-.jrapid_form ul {
+.jrapid_form_container ul {
     clear: both;
     margin-top: 2px;
     margin-bottom: 2px;
 }
 
-.jrapid_form ul, .m_form li {
+.jrapid_query_condition li {
     list-style: none;
+    float:left;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 

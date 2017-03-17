@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on 2016-9-4 18:17:01.
 */
 @Component("SysMenuMapper")
-public interface SysMenuMapper extends BaseMapper<SysMenu,Long> {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 }

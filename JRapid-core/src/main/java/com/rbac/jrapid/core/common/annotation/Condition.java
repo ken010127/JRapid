@@ -20,4 +20,5 @@ public @interface Condition {
 
     String queryProperty() default "";
 
+    String existSql() default "";
 }

@@ -16,7 +16,10 @@ public class SysRoleCondition {
     private String roleName;
 
     @Condition(queryType = QueryCondition.TIME_GREATER_TYPE,queryProperty = "create_time")
-    private Date startTime;
+    private String startTime;
+
+    @Condition(queryType = QueryCondition.TIME_LESS_TYPE,queryProperty = "create_time")
+    private String endTime;
 
     public String getRoleName() {
         return roleName;
@@ -26,11 +29,19 @@ public class SysRoleCondition {
         this.roleName = roleName;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

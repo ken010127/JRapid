@@ -23,6 +23,7 @@ public class BaseController {
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatus(false);
         baseResponse.setErrorMsg(ex.getMessage());
+        logger.error(new String(),ex);
         return baseResponse;
     }
 

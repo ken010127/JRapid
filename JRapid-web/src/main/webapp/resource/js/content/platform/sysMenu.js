@@ -311,6 +311,7 @@ function initButtonGrid() {
 function initGridConfigGrid(){
 
     var widgitType = dictUtils.queryChildrenByCode("FROM_WIDGIT");
+    var conditionType = dictUtils.queryChildrenByCode("CONDITION_TYPE");
     //头插入一条空数据
     widgitType.unshift({dictName:"--------",dictCode:""});
 
@@ -368,6 +369,18 @@ function initGridConfigGrid(){
                     }
                 }
             },
+            {field:'conditionTypeName',title:'查询条件类型',width:120,
+                editor:{
+                    type:'combobox',
+                    options:{
+                        data:conditionType,
+                        valueField:'dictCode',
+                        textField:'dictName',
+                        panelHeight:'auto',
+                        editable:false
+                    }
+                }
+            },
             {field:'isModify',title:'是否编辑项',width:120,
                 editor:{type:'checkbox',options:{on:'Y',off:'N'}}
             },
@@ -414,6 +427,15 @@ function initGridConfigGrid(){
 
             ed = $(this).datagrid('getEditor', {
                 index: index,
+                field: 'conditionTypeName'
+            });
+            if(row.conditionTypeName==null || row.conditionTypeName!=$(ed.target).combobox('getText')){
+                row.conditionTypeName = $(ed.target).combobox('getText');
+                row.conditionType = $(ed.target).combobox('getValue');
+            }
+
+            ed = $(this).datagrid('getEditor', {
+                index: index,
                 field: 'modifyTypeName'
             });
             if(row.modifyTypeName==null || row.modifyTypeName!=$(ed.target).combobox('getText')) {
@@ -429,6 +451,8 @@ function initGridConfigGrid(){
                     $(this).datagrid('beginEdit',i);
                     var searchTypeName = $(this).datagrid('getEditor', {index:i,field:'searchTypeName'});
                     $(searchTypeName.target).combobox('setValue',detailData.searchType);
+                    var conditionTypeName = $(this).datagrid('getEditor', {index:i,field:'conditionTypeName'});
+                    $(conditionTypeName.target).combobox('setValue',detailData.conditionType);
                     var modifyTypeName = $(this).datagrid('getEditor', {index:i,field:'modifyTypeName'});
                     $(modifyTypeName.target).combobox('setValue',detailData.modifyType);
                     $(this).datagrid('endEdit', i);

@@ -1,13 +1,14 @@
 package com.rbac.jrapid.core.dto.response;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * dto类，基础返回数据类
  * @author FWJ
  * @since 2016/11/14 下午3:35
  */
-public class BaseResponse implements Serializable {
+public class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = -4249165317136641764L;
 
@@ -27,9 +28,11 @@ public class BaseResponse implements Serializable {
     private String errorMsg;
 
     /**
-     * 返回内容
+     * 返回实体
      */
-    private Object content;
+    private T entity;
+
+    private List<T> list;
 
     public String getErrorCode() {
         return errorCode;
@@ -50,11 +53,19 @@ public class BaseResponse implements Serializable {
         this.status = status;
     }
 
-    public Object getContent() {
-        return content;
+    public T getEntity() {
+        return entity;
     }
 
-    public void setContent(Object content) {
-        this.content = content;
+    public void setEntity(T entity) {
+        this.entity = entity;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
     }
 }

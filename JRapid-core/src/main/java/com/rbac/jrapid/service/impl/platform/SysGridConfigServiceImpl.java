@@ -5,6 +5,7 @@ import com.rbac.jrapid.dao.platform.SysGridConfigExtMapper;
 import com.rbac.jrapid.dao.platform.SysGridConfigMapper;
 import com.rbac.jrapid.dto.response.platform.SysGridConfigResponse;
 import com.rbac.jrapid.entity.platform.SysGridConfig;
+import com.rbac.jrapid.service.impl.BaseServiceImpl;
 import com.rbac.jrapid.service.platform.SysGridConfigService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,50 +21,11 @@ import java.util.List;
 */
 @Transactional
 @Service("SysGridConfigService")
-public class SysGridConfigServiceImpl implements SysGridConfigService{
+public class SysGridConfigServiceImpl extends BaseServiceImpl<SysGridConfigMapper,SysGridConfig> implements SysGridConfigService{
     protected static Logger logger = LoggerFactory.getLogger(SysGridConfigServiceImpl.class);
 
     @Autowired
-    public SysGridConfigMapper sysGridConfigMapper;
-
-    @Autowired
     public SysGridConfigExtMapper sysGridConfigExtMapper;
-
-    public SysGridConfig findOne(Long id) throws Exception {
-        return sysGridConfigMapper.findOne(id);
-    }
-
-    public Integer save(SysGridConfig sysGridConfig) throws Exception {
-        return sysGridConfigMapper.save(sysGridConfig);
-    }
-
-    public Integer update(SysGridConfig sysGridConfig) throws Exception {
-        return sysGridConfigMapper.update(sysGridConfig);
-    }
-
-    public Integer saveOrUpdate(SysGridConfig sysGridConfig) throws Exception {
-        if (sysGridConfig.getId() == null ){
-            return this.save(sysGridConfig);
-        }else {
-            return this.update(sysGridConfig);
-        }
-    }
-
-    public Integer updateSelected(SysGridConfig sysGridConfig, List<String> list) throws Exception {
-        return sysGridConfigMapper.updateSelected(sysGridConfig,list);
-    }
-
-    public Integer delete(Long id) throws Exception {
-        return sysGridConfigMapper.delete(id);
-    }
-
-    public List<SysGridConfig> listByCondition(CommonExample commonExample) throws Exception {
-        return sysGridConfigMapper.listByCondition(commonExample);
-    }
-
-    public Integer countByCondition(CommonExample commonExample) throws Exception {
-        return sysGridConfigMapper.countByCondition(commonExample);
-    }
 
     @Override
     public SysGridConfigResponse queryColumnInfo(String tableName) {

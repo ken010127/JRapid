@@ -14,6 +14,9 @@ if (!window.ajax) {
  * @param callback 回调函数
  */
 jrapid_ajax_util.basePostAjax=function (type,url,requestData,callback) {
+    $.ajaxPrefilter(function( options, original_Options, jqXHR ) {
+        options.async = true;
+    });
     $.ajax({
         url : ctx+url,
         type : type,
@@ -30,6 +33,9 @@ jrapid_ajax_util.basePostAjax=function (type,url,requestData,callback) {
 };
 
 jrapid_ajax_util.baseGetAjax=function (type,url,callback) {
+    $.ajaxPrefilter(function( options, original_Options, jqXHR ) {
+        options.async = true;
+    });
     $.ajax({
         url : ctx+url,
         type : type,

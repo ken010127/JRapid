@@ -188,12 +188,15 @@ var dataGridUtils = {
                 var rows = data.page.results;
                 var pageSize = data.page.pageSize;
                 var pageNumber = data.page.pageNumber;
-                if($.isArray(rows)){
-                    datagrid.datagrid({data:rows});
+                if(rows != null){
+                    if($.isArray(rows)){
+                        datagrid.datagrid({data:rows});
+                    }
+                    else{
+                        $.log("获取结果出错", rows);
+                    }
                 }
-                else{
-                    $.log("获取结果出错", rows);
-                }
+
                 $(page).pagination({
                     total: total,
                     pageSize: pageSize,

@@ -12,7 +12,7 @@ public class ${className}Request extends BaseRequest {
 
     private Long id;
 
-    private ${className} ${className?uncap_first};
+    private ${className}Condition condition;
 
     public Long getId() {
         return id;
@@ -22,11 +22,11 @@ public class ${className}Request extends BaseRequest {
         this.id = id;
     }
 
-    public ${className} get${className}() {
-        return ${className?uncap_first};
+    public ${className}Condition getCondition() {
+        return condition;
     }
 
-    public void set${className}(${className} ${className?uncap_first}) {
-        this.${className?uncap_first} = ${className?uncap_first};
+    public void set${className}Condition(${className}Condition conditon) {
+        this.condition = condition;
     }
 }

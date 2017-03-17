@@ -1,5 +1,8 @@
 package com.rbac.jrapid.core.common.dao;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,19 +10,19 @@ import java.util.List;
  * @author FWJ
  * Created on 2016/8/23 20:27
  */
-public interface BaseMapper<T, P> {
+public interface BaseMapper<T> {
 
     List<T> findAll() throws java.lang.Exception;
 
-    Page<T> pageQuery(Page<T> page,T t);
+    List<T> pageQuery(@Param("page") Page<T> page);
 
-    T findOne(P p) throws java.lang.Exception;
+    T findOne(Serializable id) throws java.lang.Exception;
 
     int save(T t) throws java.lang.Exception;
 
     int update(T t) throws java.lang.Exception;
 
-    int delete(P p) throws java.lang.Exception;
+    int delete(Serializable id) throws java.lang.Exception;
 
     int updateSelected(@org.apache.ibatis.annotations.Param("record") T t, @org.apache.ibatis.annotations.Param("columns") java.util.List<java.lang.String> list) throws java.lang.Exception;
 

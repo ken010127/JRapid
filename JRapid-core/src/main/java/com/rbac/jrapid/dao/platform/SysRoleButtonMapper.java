@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 * Created by JRapid on 2016-11-30 16:40:54.
 */
 @Component("SysRoleButtonMapper")
-public interface SysRoleButtonMapper extends BaseMapper<SysRoleButton,Long> {
+public interface SysRoleButtonMapper extends BaseMapper<SysRoleButton> {
 
 }

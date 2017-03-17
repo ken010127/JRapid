@@ -7,7 +7,7 @@ import java.util.List;
  * @author FWJ
  * @since 2017/1/18 上午11:36
  */
-public interface SysIconService {
+public interface SysIconService{
 
     /**
      * 获取图标
